@@ -27,7 +27,7 @@ class RawMaterialController extends Controller
       //  dd($request->all());
 
 
-        $validate = Validator::make($request->all(), [
+        $valid = Validator::make($request->all(), [
             'material_image' => 'required|image|max:100000',
             'material_name' => 'required',
             'material_price' => 'required',
@@ -39,7 +39,7 @@ class RawMaterialController extends Controller
         $path = $request->file('material_image')->storeAs('material_images', $image, 'public');
 
 
-        $data = [
+        $mat = [
             'Material_Image' => '/storage/' . $path,
             'Material_Name' => $request->input('material_name'),
             'Price' => $request->input('material_price'),
@@ -48,13 +48,13 @@ class RawMaterialController extends Controller
 
         ];
 
-        try {
-            Material::create($data);
-
-
+        try
+        {
+            Material::create($mat);
             return redirect()->route('raw_material_list')->with('success', 'Account Created Successfully');
-        } catch (GlobalException $e) {
-
+        } 
+        catch (Exception $e) 
+        {
             session()->flash('message', $e->getMessage());
             session()->flash('type', 'danger');
 

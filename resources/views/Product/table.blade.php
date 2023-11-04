@@ -28,7 +28,7 @@
         width: 200px; 
 
         height: auto; 
-        border-radius: 0;
+        border-radius: 10%;
     }
 
     .rounded-button {

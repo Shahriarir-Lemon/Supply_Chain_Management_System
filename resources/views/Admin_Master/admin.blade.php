@@ -35,13 +35,13 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{ route('raw_material_list') }}">
                     <img src="{{ asset('Dashboard/img/raw.png') }}">
                     <span class="text">Raw Matrials</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('product_list') }}">
                     <img src="{{ asset('Dashboard/img/product.png') }}">
                     <span class="text">Products</span>
                 </a>

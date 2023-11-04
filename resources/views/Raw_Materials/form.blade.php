@@ -61,7 +61,7 @@
 
             <div class="form-group">
                 <label for="product:stock" style="color: black;"><b>Unit Type :</b> :</label>
-                <select class="form-control  col-md-12" name="materialt_unit" id="product:unit">
+                <select class="form-control  col-md-12" name="material_unit" id="product:unit">
                     <option value="" disabled="" selected="">--- Select Unit ---</option>
                     <option value="KG">KG</option>
                     <option value="PCS">PCS</option>
