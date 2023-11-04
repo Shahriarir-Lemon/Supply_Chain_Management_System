@@ -38,7 +38,7 @@ class ProductController extends Controller
             'product_price' => 'required',
             'product_unit' => 'required',
             'Category' => 'required',
-            'product_stock' => 'required',
+           
         ]);
 
         $photo = time().$request->file('product_image')->getClientOriginalName();
