@@ -11,79 +11,10 @@
 </head>
 
 <style>
-    .sub-menu-wrap {
-        position: absolute;
-        top: 100%;
-        margin-top: -1px;
-        right: 1%;
-        width: 250px;
-        max-height: 0px;
-        overflow: hidden;
-        transition: max-height 0.5s;
-    }
-
-    .sub-menu-wrap.open-menu {
-        max-height: 400px;
-    }
-
-    .sub-menu {
-        background: #fff;
-        padding: 20px;
-        margin: 10px;
-    }
-
-    .user-info {
-        display: flex;
-        align-items: center;
-    }
-
-    .user-info h3 {
-        font-weight: 500;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .sub-menu hr {
-        border: 0;
-        height: 1px;
-        width: 100%;
-        background: #ccc;
-        margin: 15px 0 10px;
-    }
-
-    .sub-menu-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #525252;
-        margin: 12px 0;
-    }
-
-    .sub-menu-link p {
-        width: 100%;
-    }
-
-    .sub-menu-link img {
-        width: 40px;
-        background: #e5e5e5;
-        border-radius: 50%;
-        padding: 8px;
-        margin-right: 15px;
-    }
-
-    .sub-menu-link span {
-        font-size: 22px;
-        transform: transform 0.5s;
-    }
-
-    .sub-menu-link:hover span {
-        transform: translateX(5px);
-    }
-
-    .sub-menu-link:hover p {
-        font-weight: 600;
-    }
-
+    
+.middle{
+           
+}
 
 </style>
 
@@ -91,48 +22,52 @@
     <!-- Sidebar -->
 
     <section id="sidebar">
+        
         <a href="#" class="side">
             <i class="bx bxs-smile"></i>
             <span class="text"><b>Admin Panel</b></span>
         </a>
         <ul class="side-menu top">
             <li class="active">
-                <a href="{{ route('land') }}">
+                <a href="{{ route('dash') }}">
                     <i class="bx bxs-dashboard"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="bx bx-store"></i>
-                    <span class="text">Product</span>
+                <a href="">
+                    <img src="{{ asset('Dashboard/img/raw.png') }}">
+                    <span class="text">Raw Matrials</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <i class="bx bxs-group"></i>
-                    <span class="text">Team</span>
+                    <img src="{{ asset('Dashboard/img/product.png') }}">
+                    <span class="text">Products</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <i class="bx bx-message-rounded-dots"></i>
-                    <span class="text">Message</span>
+                    <img src="{{ asset('Dashboard/img/manage.png') }}">
+                    <span class="text">Manage Category</span>
                 </a>
             </li>
+
+
+           
             <li>
                 <a href="#">
-                    <i class="bx bxs-report"></i>
-                    <span class="text">Report</span>
+                    <img src="{{ asset('Dashboard/img/manage.png') }}">
+                    <span class="text">Mamage Unit</span>
                 </a>
             </li>
         </ul>
-
+    
         <ul class="side-menu">
             <li>
                 <a href="#">
                     <i class='bx bxs-report'></i>
-                    <span class="text">Monthly Report</span>
+                    <span class="text">Invoice</span>
                 </a>
             </li>
             <li>
@@ -142,6 +77,8 @@
                 </a>
             </li>
         </ul>
+
+
     </section>
     <!--  end Sidebar -->
 
@@ -162,7 +99,7 @@
             </form>
             <a href="#" class="notification">
                 <i class="bx bxs-bell"></i>
-                <span class="num">3</span>
+                <span class="num">2</span>
             </a>
           
             <div class="dropdown">
@@ -174,10 +111,10 @@
                         <div class="sub-menu">
                             <div class="user-info">
                                 <img src="{{ asset('Dashboard/img/a.png') }}" />
-                                <h3>&nbsp;&nbsp;&nbsp;<b>{{ auth()->user()->name }}</b></h3>
+                                <h3>&nbsp;&nbsp;&nbsp;<b> </b></h3>
                             </div>
                             <hr />
-
+{{--  {{ auth()->user()->name }} --}}
                             <a href="#" class="sub-menu-link">
                                 <img src="{{ asset('Dashboard/img/profile.png') }}" />
                                 <p>Edit Profile</p>
@@ -204,36 +141,29 @@
             </div>
         </nav>
 
+
         <!--End Navbar-->
 
         <!--Main-->
         <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Dashboard</h1>
-                    <ul class="next">
-                        <li>
-                            <a href="#">Dashboard</a>
-                        </li>
-                        <li><i class="bx bx-chevron-right"></i></li>
-                        <li>
-                            <a href="#" class="active">Home</a>
-                        </li>
-                    </ul>
-                </div>
-                <a href="#" class="btn-download">
-                    <i class="bx bxs-cloud-download"></i>
-                    <span class="text">Download PDF</span>
-                </a>
-            </div>
+            
+ <!-- Button  -->
+               
+ 
+
+
+<!-- end Button  -->
+
+
+<!-- Table  -->
+  
+      
+<!-- end Table  -->
         </main>
+      
+       
     </section>
     <!--End content-->
-
-<div class="middle">
-
-
-</div>
 
 
 
@@ -259,13 +189,7 @@
 
     <script src="{{ asset('Dashboard/script.js') }}"></script>
 
-    <script>
-        let subMenu = document.getElementById("subMenu");
-
-        function toggleMenu() {
-            subMenu.classList.toggle("open-menu");
-        }
-    </script>
+   
 </body>
 
 </html>

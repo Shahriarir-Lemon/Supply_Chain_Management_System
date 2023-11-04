@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Authenticate;
 
 use App\Http\Controllers\Registration\Exception;
+use RealRashid\SweetAlert\Facades\Alert;
 
-use Alert;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -22,15 +22,18 @@ class RegController extends Controller
 
     public function register1(Request $request)
     {
+        //return $request->all();
         $this->validate($request, [
+            'user_type' =>'',
             'name' => 'alpha:ascii|min:6',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required||confirmed',
 
         ]);
 
 
         $data = [
+            'user_type' => $request->input('user_type'),
             'name' => $request->input('name'),
             'email' => strtolower($request->input('email')),
             'password' => bcrypt($request->input('password')),
@@ -39,15 +42,15 @@ class RegController extends Controller
 
         try {
             User::create($data);
-            Alert::success('Congrats', 'Account Created Successfully');
+            
 
             return redirect()->route('getlogin')->with('success', 'Account Created Successfully');
-        } catch (GlobatException $e) {
+        } catch (Exception $e) {
 
             session()->flash('message', $e->getMessage());
             session()->flash('type', 'danger');
 
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
     }
 }

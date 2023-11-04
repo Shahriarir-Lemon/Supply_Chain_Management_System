@@ -1,4 +1,4 @@
-const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+const allSideMenu = document.querySelectorAll('#sidebar .side-menu top li a');
 
 allSideMenu.forEach(item=> {
 	const li = item.parentElement;
@@ -20,5 +20,11 @@ menuBar.addEventListener('click', function () {
 	sidebar.classList.toggle('hide');
 })
 
+
+let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
 
 
