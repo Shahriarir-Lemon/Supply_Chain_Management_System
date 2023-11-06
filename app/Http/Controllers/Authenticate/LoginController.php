@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Authenticate;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +12,42 @@ class LoginController extends Controller
     public function adminlogin()
     {
 
-        return view('Authenticate.login');
+        return view('Authenticate.adminlogin');
     }
-    public function adminlogin1(Request $request)
+    public function admin_post_login(Request $request)
     {
+        
 
-        $request->validate(['email' => 'required|email', 'password' => 'required']);
+     /*   $val=Validator::make($request->all(),
+        [
+            'email' => 'required|email', 
+            'password' => 'required\min:6'
+        ]);
 
-        $validated = auth()->attempt([
+       if($val->fails())
+       {
+           return redirect()->back();
+       }   */
+
+      $validated = auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ], $request->password);
+
+           // $credentials=$request->except('_token');
+            // $credentials=$request->only('email','password');
+
+            if($validated)
+            {
+                return redirect()->route('dash')->with('success', 'Succesfully Loged in');
+            }
+
+            return redirect()->back()->with('error', 'Invalid email or Wrong pasword');
+
+
+
+
+        /* $validated = auth()->attempt([
             'email' => $request->email,
             'password' => $request->password,
         ], $request->password);
@@ -30,14 +58,14 @@ class LoginController extends Controller
 
 
             return redirect()->back()->with('error', 'Invalid email or Wrong pasword');
-        }
+        }  */
+
+
     }
 
-    public function logout(Request $request)
+    public function adminlogout()
     {
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('land');
+        auth()->logout();
+        return redirect()->route('admin_login');
     }
 }

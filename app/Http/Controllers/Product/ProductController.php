@@ -68,4 +68,18 @@ class ProductController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+
+    public function view_product($id)
+    {
+echo ($id);
+      //  return view('Product.edit_product');
+    }
+
+    public function delete_product($id)
+    {
+        
+    }
+
+    
 }

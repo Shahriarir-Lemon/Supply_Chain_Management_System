@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Raw Materials</title>
+    <title>Manage Category</title>
 </head>
 <style>
 
 .container {
         margin-left: 2px;
-        max-width: 980px;
+        max-width: 600px;
         /* Set your desired max width */
                /* Set your desired height */
             background-color: white; /* Optional: Change the background color */
@@ -61,8 +61,9 @@ margin-right: 20px;
 
 
 .action-buttons {
-  display: flex;
-  gap: 5px; 
+    
+  
+  align-items: center;
 }
 
 .action-button {
@@ -73,15 +74,7 @@ margin-right: 20px;
   border-radius: 6px;
 }
 
-.view-button {
-  background-color: #28a745;
-  color: #fff;
-}
 
-.edit-button {
-  background-color: #ffc107;
-  color: #000;
-}
 
 .delete-button {
   background-color: #dc3545;
@@ -100,23 +93,20 @@ margin-right: 20px;
 <div class="container">
     <div class="product_form">
         <a href="{{ route('add_product') }}">
-            <button class="rounded-button btn btn-success">Add Product</button>
+            <button class="rounded-button btn btn-success">Add Category</button>
         </a>
         
         
         <!-- Table to display product information -->
-        <h3 class="mt-0 text-center"><u>Product List</u></h3>
-        <table class="table table-bordered ">
+        <h3 class="mt-0 text-center"><u>Category List</u></h3>
+        
+            <table class="table table-bordered " style="width: 100%;">
             <thead>
                 <tr class="a bg-secondary text-white">
-                    <th scope="col">ID</th>
-                    <th>Product Image</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Unit Type</th>
-                    <th>Category</th>
-                    <th>Stock</th>
-                    <th>Action</th>
+                    <th scope="col"><center>ID</center></th>
+                    
+                    <th><center>Category</center></th>
+                    <th><center>Action</center></th>
                 </tr>
                 
             </thead>
@@ -124,25 +114,19 @@ margin-right: 20px;
                 @foreach ($products as $key => $product)
 
                 {{-- scope="row">{{$key+1}}</th> --}}
-                <tr class="s">
-                    <th scope="row">{{$product->id}}</th>
-                    <td><img src="{{ asset($product->Product_Image) }}" class="product-image"></td>
-                    <td>{{ $product->Product_Name }}</td>
-                    <td>{{ $product->Price }} TK</td>
-                    <td>{{ $product->Unit_Type }}</td>
-                    <td>{{ $product->Category }}</td>
-                    <td>{{ $product->Stock }}</td>
-                    <td>
+                <tr class="s" class="text-center">
+                    <th scope="row=" class="text-center">{{$product->id}}</th>
+                    
+                    <td class="text-center">{{ $product->Category }}</td>
+                    <td style="text-align: center;">
                         <div class="action-buttons">
-                          <a href="#" class="action-button view-button">View</a>
-                          <a href="#" class="action-button edit-button">Edit</a>
+                         
                           <a href="#" class="action-button delete-button">Delete</a>
 
                          {{-- <a href="#" class="action-button delete-button">Delete</a>
                            --}} 
                         </div>
-                      </td>
-                      
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

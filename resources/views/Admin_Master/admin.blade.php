@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('manage_category') }}">
                     <img src="{{ asset('Dashboard/img/manage.png') }}">
                     <span class="text">Manage Category</span>
                 </a>
@@ -130,7 +130,7 @@
                                 <p>Help & Support</p>
                                 <span>></span>
                             </a>
-                            <a href="{{ route('land') }}" class="sub-menu-link">
+                            <a href="{{ route('admin_logout') }}" class="sub-menu-link">
                                 <img src="{{ asset('Dashboard/img/logout.png') }}" />
                                 <p>Log out</p>
                                 <span>></span>

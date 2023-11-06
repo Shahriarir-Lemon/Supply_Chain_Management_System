@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('Dashboard/style.css') }}" />
     
-    <title>Document</title>
+    <title>Manage</title>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -26,7 +26,7 @@ margin-left: 270px;
 
 
     @include('sweetalert::alert')
-    @include('Product.table')
+   @include('Manage.manage_category');
 </div>
 
 

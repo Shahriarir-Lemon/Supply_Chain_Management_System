@@ -198,7 +198,7 @@
             </form>
 
 
-            <a href="{{ route('getlogin') }}" class="login login-sign-in">
+            <a href="{{ route('admin_login') }}" class="login login-sign-in">
                 <span><b>Sign in</b></span>
             </a>
 

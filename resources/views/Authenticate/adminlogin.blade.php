@@ -56,7 +56,7 @@
         @endif
 
 
-        <form action="{{route('postlogin')}}" method="post">
+        <form action="{{route('admin_post_login')}}" method="post">
           @csrf
           <div class="input-group mb-3">
             <input name="email" type="email" class="form-control" placeholder="Email">

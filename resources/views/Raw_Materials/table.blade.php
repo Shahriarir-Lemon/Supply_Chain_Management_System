@@ -42,7 +42,12 @@ tr .s{
     text-align: center;
     vertical-align: middle;
 }
+.material-image {
+        width: 200px; 
 
+        height: auto; 
+        border-radius: 10%;
+    }
 
 
 </style>
