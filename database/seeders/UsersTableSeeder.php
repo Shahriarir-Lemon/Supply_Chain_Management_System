@@ -1,7 +1,9 @@
 <?php
 
 namespace Database\Seeders;
+use Database\Factories;
 use App\Models\User;
+use Carbon\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

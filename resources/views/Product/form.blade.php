@@ -45,10 +45,16 @@
         <form action="{{ route('product_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
-                <div class="form-group col-md-12">
+                
+                <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Product Image:</b> :</label>
                     <input type="file" class="form-control" name="product_image" placeholder="Upload Image" required>
                 </div>
+               {{--   <div class="form-group col-md-6">
+                    <label for="product:stock" style="color: black;"><b>Category ID:</b> :</label>
+                    <input type="number" class="form-control" name="category_id" placeholder="category_id" required>
+                </div>
+                --}}
                 <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Product Name :</b> :</label>
                     <input type="text" class="form-control" id="product:name" name="product_name" placeholder="Product Name" required>
@@ -63,9 +69,10 @@
                 <label for="product:stock" style="color: black;"><b>Unit Type :</b> :</label>
                 <select class="form-control  col-md-12" name="product_unit" id="product:unit">
                     <option value="" disabled="" selected="">--- Select Unit ---</option>
-                    <option value="KG">KG</option>
-                    <option value="PCS">PCS</option>
-                    <option value="LTR">LTR</option>
+
+                     @foreach($units as $key => $unit)
+            <option value="{{ $unit->Unit_Name}}">{{ $unit->Unit_Name }}</option>
+        @endforeach
                 </select>
             </div>
 
@@ -73,9 +80,11 @@
                 <label for="product:stock" style="color: black;"><b>Category :</b> :</label>
                 <select class="form-control  col-md-12" name="product_category" id="product:category">
                     <option value="" disabled="" selected="">--- Select Category ---</option>
-                    <option value="Fast Food">Fast Food</option>
-                    <option value="Bread Buns">Bread Buns</option>
-                    <!-- Add more options here -->
+
+            @foreach($categories as $key => $category)
+             <option value="{{ $category->Category_Name}}">{{ $category->Category_Name }}</option>
+            @endforeach
+                   
                 </select>
             </div>
 

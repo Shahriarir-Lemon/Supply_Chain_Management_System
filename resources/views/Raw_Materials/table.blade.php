@@ -48,7 +48,33 @@ tr .s{
         height: auto; 
         border-radius: 10%;
     }
+    .action-buttons {
+  display: flex;
+  gap: 5px; 
+}
 
+.action-button {
+  padding: 5px 10px; 
+  font-size: 12px; 
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.view-button {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.edit-button {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
 
 </style>
 
@@ -75,8 +101,8 @@ tr .s{
                     <th>Material Name</th>
                     <th> Price</th>
                     <th>Unit Type</th>
-                    
                     <th>Stock</th>
+                    <th>Action</th>
                 
                 </tr>
             </thead>
@@ -91,6 +117,16 @@ tr .s{
                     <td>{{ $material->Price }} TK</td>
                     <td>{{ $material->Unit_Type }}</td>
                     <td>{{ $material->Stock }}</td>
+                    <td>
+                        <div class="action-buttons">
+                          <a href="#" class="action-button view-button">View</a>
+                          <a href="#" class="action-button edit-button">Edit</a>
+                          <a href="#" class="action-button delete-button">Delete</a>
+
+                         {{-- <a href="#" class="action-button delete-button">Delete</a>
+                           --}} 
+                        </div>
+                      </td>
                 </tr>
                 @endforeach
             </tbody>

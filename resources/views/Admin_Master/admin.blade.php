@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('manage_category') }}">
+                <a href="{{ route('category_list') }}">
                     <img src="{{ asset('Dashboard/img/manage.png') }}">
                     <span class="text">Manage Category</span>
                 </a>
@@ -56,26 +56,35 @@
 
            
             <li>
-                <a href="#">
+                <a href="{{ route('unit_list') }}">
                     <img src="{{ asset('Dashboard/img/manage.png') }}">
-                    <span class="text">Mamage Unit</span>
+                    <span class="text">Manage Unit</span>
                 </a>
             </li>
+
+            
         </ul>
     
         <ul class="side-menu">
             <li>
                 <a href="#">
+                    <img src="{{ asset('Dashboard/img/order.png') }}">
+                    <span class="text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="logout">
                     <i class='bx bxs-report'></i>
                     <span class="text">Invoice</span>
                 </a>
             </li>
             <li>
                 <a href="#" class="logout">
-                    <i class='bx bxs-bar-chart-alt-2'></i>
-                    <span class="text">Status</span>
+                    <img src="{{ asset('Dashboard/img/user.png') }}">
+                    <span class="text">Users</span>
                 </a>
             </li>
+            
         </ul>
 
 
