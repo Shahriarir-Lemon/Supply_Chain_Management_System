@@ -13,6 +13,6 @@ class LandController extends Controller
 
         $products = Product::all();
 
-        return view('Landing.land', compact('products'));
+        return view('Backend.Landing.land', compact('products'));
     }
 }

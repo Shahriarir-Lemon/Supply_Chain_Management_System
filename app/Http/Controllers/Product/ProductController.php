@@ -26,7 +26,7 @@ class ProductController extends Controller
         $products = Product::paginate(3);
         $units = Unit::get();
         $categories = Category::get();
-        return view('Product.product_list', compact('products','units' ,'categories'));
+        return view('Backend.Product.product_list', compact('products','units' ,'categories'));
     }
 
     public function add_product()
@@ -34,7 +34,7 @@ class ProductController extends Controller
         $categories = Category::get();
         $units = Unit::get();
         
-        return view('Product.product_form', compact('categories','units'));
+        return view('Backend.Product.product_form', compact('categories','units'));
     }
     
     public function product_store(Request $request)

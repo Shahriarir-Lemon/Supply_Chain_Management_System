@@ -17,14 +17,14 @@ class RegController extends Controller
     public function register()
     {
 
-        return view('Authenticate.register');
+        return view('Backend.Authenticate.register');
     }
 
     public function register1(Request $request)
     {
         //return $request->all();
         $this->validate($request, [
-            'user_type' =>'',
+           
             'name' => 'alpha:ascii|min:6',
             'email' => 'required|email|unique:users,email',
             'password' => 'required||confirmed',
@@ -33,7 +33,8 @@ class RegController extends Controller
 
 
         $data = [
-            'user_type' => $request->input('user_type'),
+            
+
             'name' => $request->input('name'),
             'email' => strtolower($request->input('email')),
             'password' => bcrypt($request->input('password')),

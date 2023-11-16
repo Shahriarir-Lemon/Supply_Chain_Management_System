@@ -10,12 +10,12 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('Dashboard.dashboard');
+        return view('Backend.Dashboard.dashboard');
     }
     public function master()
     {
 
-        return view('Master.sidebar');
+        return view('Backend.Master.sidebar');
     }
     public function store(Request $request)
 

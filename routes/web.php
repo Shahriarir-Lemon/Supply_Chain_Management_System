@@ -13,6 +13,9 @@ use App\Http\Controllers\Authenticate\RegController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Authenticate\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Customer\CustomerRegController;
+
 use App\Http\Controllers\Raw_Material\RawMaterialController;
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +28,32 @@ use App\Http\Controllers\Raw_Material\RawMaterialController;
 |
 */
 
-Route::get('/', [LandController::class, 'land'])->name('land');
+//Route::get('/', [LandController::class, 'land'])->name('land');
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/admin/login', [LoginController::class, 'adminlogin'])->name('admin_login');
 Route::post('/admin/post/login', [LoginController::class, 'admin_post_login'])->name('admin_post_login');
+
+Route::get('/registration', [RegController::class, 'register'])->name('reg');
+
+Route::post('/registration', [RegController::class, 'register1'])->name('reg1');
+
+
+// Customer Registration and Logg in
+
+Route::get('/customer_registration_form', [CustomerRegController::class, 'customer_registration_form'])->name('customer_registration_form');
+
+Route::post('/customer_registration', [CustomerRegController::class, 'customer_registration'])->name('customer_registration');
+
+Route::get('/customer_login_page', [CustomerRegController::class, 'customer_login_page'])->name('customer_login_page');
+
+Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])->name('customer_login');
+
+Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
+
+
+
 
 // Middleware
 Route::group(['middleware' => 'auth'], function () {
@@ -38,9 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/logout', [LoginController::class, 'adminlogout'])->name('admin_logout');
 
 
-    Route::get('/registration', [RegController::class, 'register'])->name('reg');
-
-    Route::post('/registration', [RegController::class, 'register1'])->name('reg1');
+   
 
     Route::group(['middleware' => 'auth'], function () {
     });
@@ -59,7 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
 
-    Route::post('/product_store', [ProductController::class, 'product_store'])->name('product_store');
+    Route::post("/product_store", [ProductController::class, 'product_store'])->name('product_store');
 
     Route::get('/view-product/{id}', [ProductController::class, 'view_product'])->name('view_product');
 

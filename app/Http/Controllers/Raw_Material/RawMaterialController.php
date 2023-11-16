@@ -13,13 +13,13 @@ class RawMaterialController extends Controller
     public function raw_material_list()
     {
 
-        $materials = Material::paginate(5);
-        return view('Raw_Materials.raw_materials_list', compact('materials'));
+        $materials = Material::paginate(3);
+        return view('Backend.Raw_Materials.raw_materials_list', compact('materials'));
     }
 
     public function add_raw_material()
     {
-        return view('Raw_Materials.raw_materials_form');
+        return view('Backend.Raw_Materials.raw_materials_form');
     }
     public function material_store(Request $request)
 

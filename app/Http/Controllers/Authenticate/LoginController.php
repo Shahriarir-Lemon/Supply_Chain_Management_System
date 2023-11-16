@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function adminlogin()
     {
 
-        return view('Authenticate.adminlogin');
+        return view('Backend.Authenticate.adminlogin');
     }
     public function admin_post_login(Request $request)
     {

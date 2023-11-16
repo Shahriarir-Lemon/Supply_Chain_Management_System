@@ -18,11 +18,11 @@ class CategoryController extends Controller
   public function category_list()
   {
     $categories = Category::paginate(4);
-    return view('Category.category_list', compact('categories'));
+    return view('Backend.Category.category_list', compact('categories'));
   }
   public function add_category()
   {
-    return view('Category.category_form');
+    return view('Backend.Category.category_form');
   }
 
   public function store_category(Request $request)

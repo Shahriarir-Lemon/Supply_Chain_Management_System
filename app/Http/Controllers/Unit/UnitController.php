@@ -12,11 +12,11 @@ class UnitController extends Controller
     public function unit_list()
   {
     $units = Unit::paginate(4);
-    return view('Unit.unit_list', compact('units'));
+    return view('Backend.Unit.unit_list', compact('units'));
   }
   public function add_unit()
   {
-    return view('Unit.unit_form');
+    return view('Backend.Unit.unit_form');
   }
 
   public function store_unit(Request $request)
