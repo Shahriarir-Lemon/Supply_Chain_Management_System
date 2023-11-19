@@ -17,6 +17,8 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Customer\CustomerRegController;
 
 use App\Http\Controllers\Raw_Material\RawMaterialController;
+use App\Http\Controllers\Role\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +40,21 @@ Route::post('/admin/post/login', [LoginController::class, 'admin_post_login'])->
 Route::get('/registration', [RegController::class, 'register'])->name('reg');
 
 Route::post('/registration', [RegController::class, 'register1'])->name('reg1');
+
+
+
+
+// Role and permission
+
+Route::get('/role_list', [RoleController::class, 'role_list'])->name('role_list');
+Route::get('/role_form', [RoleController::class, 'role_form'])->name('role_form');
+
+Route::post('/role_create', [RoleController::class, 'role_create'])->name('role_create');
+
+
+
+
+
 
 
 // Customer Registration and Logg in

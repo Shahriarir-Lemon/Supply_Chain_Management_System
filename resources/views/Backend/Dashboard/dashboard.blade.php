@@ -77,7 +77,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="logout">
+                <a href="{{ route('role_list') }}" class="logout">
                     <img src="{{ asset('Dashboard/img/user.png') }}">
                     <span class="text">Users</span>
                 </a>

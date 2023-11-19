@@ -22,7 +22,7 @@ class CustomerRegController extends Controller
         
        
             User::create([
-                'role' =>'customer',
+                
                  'name'=>$request->name,
                  'email'=>$request->email,
                  'password' => bcrypt($request->password),

@@ -108,7 +108,7 @@
                 <div id="profile-container">
                     <div id="profile-icon" class="fas fa-user"></div>
                     <div id="dropdown-content">
-                        <a href="">Edit Profile</a>
+                        <a href="#">Edit Profile</a>
                         <a href="{{ ('customer_logout') }}">Log Out</a>
                     </div>
                 </div>&nbsp;&nbsp;
