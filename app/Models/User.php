@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -21,12 +22,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role',
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password', 'user_name', 
+        'Adress', 'City', 'Role', 
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *

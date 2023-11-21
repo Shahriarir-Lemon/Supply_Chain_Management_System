@@ -104,59 +104,58 @@ tr .s{
 
 <div class="container">
     <div class="product_form">
-        <a href="{{ route('role_form') }}">
-            <button class="rounded-button btn btn-success">Add Role</button>
+        <div style="text-align: right;">
+        <a href="{{ route('user_form') }}">
+            <button class="rounded-button btn btn-success">
+                <i class="fas fa-plus"></i> Add User
+            </button>
         </a>
-        
+        </div>
         
         <!-- Table to display product information -->
-        <h3 class="mt-0 text-center"><u>Role List</u></h3>
+        <h3 class="mt-0 text-center"><u>User List</u></h3>
+        
         <table class="table table-bordered ">
             <thead class="head1 text-white">
                 <tr class="text-white text-center">
                     <th class="bg-secondary text-white" scope="col">SL</th>
-                    <th class="bg-secondary text-white">Role Name </th>
-                    <th class="bg-secondary text-white">Permissions</th>
+                    <th class="bg-secondary text-white">User Name </th>
+                    <th class="bg-secondary text-white">Email</th>
+                    <th class="bg-secondary text-white">Role</th>
                     <th class="bg-secondary text-white">Action</th>
-                    
                 
                 </tr>
             </thead>
             <tbody>
-               @foreach ($roles as $role)
-
+               @foreach ($users as $key=>$user)
                 {{-- scope="row">{{$key+1}}</th> --}}
                 <tr class="s text-center">
-                    <th scope="row">{{ $loop->index+1 }}</th>
-                    <td>{{ $role->name }}</td>
-
+                    <th scope="row">{{$user->id}}</th>
+                    <td>{{ $user->user_name }}</td>
+                    <td>{{ $user->email }}</td>
                     <td>
-                     
-                         @foreach ($role->permissions as $permission)
-                             <span class="badge badge-info mr-1">
-                                 {{ $permission->name }}
-                             </span>
-                        
-                     @endforeach
+                        @foreach ($user->roles as $role)
+                    {{ $role->name }}
+                    @endforeach
                  </td>
-                 
+                
                     
-                  <td class="text-center">
-                     <div>
-                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editrole{{$role->id}}">
+                  <td>
+                    
+                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editrole">
                         <i class="fas fa-edit"></i>
                     </button> 
-                  </div>
-                  <br>
-                  <div>
-                    <form action="{{ route('role_delete',$role->id) }}" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
+            
+                  
+                 
+                    <form action="" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
                      @csrf
                      @method('DELETE')
                      <button type="submit" class="btn btn-warning btn-sm" >
                          <i class="fas fa-trash"></i>
                      </button>
                  </form>
-               </div>
+            
                  </td>
                  
                 </tr>
@@ -171,28 +170,27 @@ tr .s{
 </div>
 
 
-@foreach ($roles as $role)
 
-<div class="modal fade" id="editrole{{$role->id}}" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel{{$role->id}}" aria-hidden="true">
+
+<div class="modal fade" id="adduser{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel{{ $user->id }}" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
        <div class="modal-content">
            <div class="modal-header">
-               <h5 class="modal-title" id="createRoleModalLabel{{$role->id}}">Edit Role</h5>
+               <h5 class="modal-title" id="createRoleModalLabel{{ $user->id }}">Add user</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
            </div>
            <div class="modal-body">
                <!-- Your form goes here -->
-               <form action="{{ route('role_edit', $role->id) }}" method="POST">
-               
+               <form action="" method="POST">
                      @csrf
-                     @method('PUT')
-                 
+                     
+            
                      <div class="form-group row">
-                         <label for="inputEmail3" class="col-sm-3 col-form-label"><b>Enter Role Name: </b></label>
+                         <label for="inputEmail3" class="col-sm-3 col-form-label"><b>Enter User Name: </b></label>
                          <div class="col-sm-7">
-                             <input required type="text" value="{{ $role->name }}" name="name" class="form-control" id="inputEmail3" placeholder="Role Name">
+                             <input required type="text" value="" name="user-name" class="form-control" id="inputEmail3" placeholder="user name">
                          </div>
                      </div>
                      <br>
@@ -200,14 +198,14 @@ tr .s{
                          <div class="row">
                              <legend class="col-form-label col-sm-3 pt-0"><b>Permissions :</b></legend>
                              <div class="col-sm-9">
-                                 @foreach ($permissions as $permission)
+                                
                                      <div class="form-check">
-                                         <input class="form-check-input" type="checkbox" name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->name }}" {{ in_array($permission->name, $role->permissions->pluck('name')->toArray()) ? 'checked' : '' }}>
-                                         <label class="form-check-label" for="permission{{ $permission->id }}">
-                                             {{ $permission->name }}
+                                         <input class="form-check-input" type="checkbox" name="permissions[]" id="permission" value="" >
+                                         <label class="form-check-label" for="permission">
+                                          
                                          </label>
                                      </div>
-                                 @endforeach
+                               
                              </div>
                          </div>
                      </fieldset>
@@ -224,7 +222,7 @@ tr .s{
        </div>
    </div>
 </div>
-@endforeach
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

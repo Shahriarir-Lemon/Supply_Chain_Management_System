@@ -25,7 +25,7 @@ class RegController extends Controller
         //return $request->all();
         $this->validate($request, [
            
-            'name' => 'alpha:ascii|min:6',
+            'user_name' => 'alpha:ascii|min:6',
             'email' => 'required|email|unique:users,email',
             'password' => 'required||confirmed',
 
@@ -35,7 +35,7 @@ class RegController extends Controller
         $data = [
             
 
-            'name' => $request->input('name'),
+            'name' => $request->input('user_name'),
             'email' => strtolower($request->input('email')),
             'password' => bcrypt($request->input('password')),
 

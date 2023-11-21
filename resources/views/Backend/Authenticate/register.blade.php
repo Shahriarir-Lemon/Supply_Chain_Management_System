@@ -84,20 +84,13 @@
 
 
 
-                    <span style="color:  #0f0a01; font-size: 25px;"><b>User Type :</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                    
-                    <select name="user_type">
-                        <option value="" disabled selected>-- Select Type --</option>
-                        <option value="Supplier">Supplier</option>
-                        <option value="Manufacturer">Manufacturer</option>
-                        <option value="Retailer">Retailer</option>
-                        
-                    </select><br><br>
+                  
 
                     <div class="input-group mb-3">
                        
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control"
-                            placeholder="Name">
+                        <input type="text" name="user_name" value="{{ old('name') }}" class="form-control"
+                            placeholder="user name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>

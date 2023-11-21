@@ -6,18 +6,19 @@ use GuzzleHttp\Middleware;
 use App\Http\Middleware\LogIn;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\Landing\LandController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Authenticate\RegController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Authenticate\LoginController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Customer\CustomerRegController;
+use App\Http\Controllers\User_List\UserListController;
 
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Customer\CustomerRegController;
 use App\Http\Controllers\Raw_Material\RawMaterialController;
-use App\Http\Controllers\Role\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,18 @@ Route::get('/role_form', [RoleController::class, 'role_form'])->name('role_form'
 
 Route::post('/role_create', [RoleController::class, 'role_create'])->name('role_create');
 
+Route::put('/role_edit/{id}', [RoleController::class, 'role_edit'])->name('role_edit');
+Route::delete('/role_delete/{id}', [RoleController::class, 'role_delete'])->name('role_delete');
+
+
+// User List
+Route::get('/user_list', [UserListController::class, 'user_list'])->name('user_list');
+Route::get('/user_form', [UserListController::class, 'user_form'])->name('user_form');
+
+Route::post('/user_create', [UserListController::class, 'user_create'])->name('user_create');
+
+Route::put('/user_edit/{id}', [UserListController::class, 'user_edit'])->name('user_edit');
+Route::delete('/user_delete/{id}', [UserListController::class, 'user_delete'])->name('user_delete');
 
 
 

@@ -15,6 +15,26 @@
 .middle{
            
 }
+.dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
 
 </style>
 
@@ -61,6 +81,16 @@
                     <span class="text">Manage Unit</span>
                 </a>
             </li>
+            <li class="dropdown">
+                <a href="#" class="logout">
+                    <img src="{{ asset('Dashboard/img/user.png') }}" alt="User Icon">
+                    <span class="text">Users</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="{{ route('role_list') }}">All Roles</a>
+                    <a href="{{ route('user_list') }}">All Users</a>
+                </div>
+            </li>
         </ul>
     
         <ul class="side-menu">
@@ -76,12 +106,7 @@
                     <span class="text">Invoice</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('role_list') }}" class="logout">
-                    <img src="{{ asset('Dashboard/img/user.png') }}">
-                    <span class="text">Users</span>
-                </a>
-            </li>
+          
         </ul>
 
 
@@ -196,6 +221,25 @@
 
     <script src="{{ asset('Dashboard/script.js') }}"></script>
 
+
+    <script src="{{ asset('Dashboard/script.js') }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dropdown = document.querySelector('.dropdown');
+            var dropdownContent = dropdown.querySelector('.dropdown-content');
+    
+            dropdown.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevents the click event from reaching the document
+    
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            });
+    
+            document.addEventListener('click', function () {
+                dropdownContent.style.display = 'none';
+            });
+        });
+    </script>
    
 </body>
 

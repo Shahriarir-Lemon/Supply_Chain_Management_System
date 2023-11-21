@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('Dashboard/style.css') }}" />
-   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyTG62sB9SB6j6p8qpv+tnL0b9IHcuuBfN" crossorigin="anonymous">
+
     <title>System</title>
 </head>
 
@@ -15,6 +16,27 @@
 .middle{
            
 }
+
+.dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
 
 </style>
 
@@ -61,7 +83,16 @@
                     <span class="text">Manage Unit</span>
                 </a>
             </li>
-
+            <li class="dropdown">
+                <a href="#" class="logout">
+                    <img src="{{ asset('Dashboard/img/user.png') }}" alt="User Icon">
+                    <span class="text">Users</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="{{ route('role_list') }}">All Roles</a>
+                    <a href="{{ route('user_list') }}">All Users</a>
+                </div>
+            </li>
             
         </ul>
     
@@ -78,12 +109,7 @@
                     <span class="text">Invoice</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('role_list') }}" class="logout">
-                    <img src="{{ asset('Dashboard/img/user.png') }}">
-                    <span class="text">Users</span>
-                </a>
-            </li>
+          
             
         </ul>
 
@@ -95,7 +121,8 @@
 
     <section id="content">
         <!--Navbar-->
-        <nav>
+        <div class="">
+        <nav class="fixed-top">
             <i class="bx bx-menu"></i>
             <a href="#" class="nav-link">Categories</a>
             <form action="#">
@@ -149,7 +176,7 @@
                 </div>
             </div>
         </nav>
-
+    </div>
 
         <!--End Navbar-->
 
@@ -198,7 +225,22 @@
 
     <script src="{{ asset('Dashboard/script.js') }}"></script>
 
-   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dropdown = document.querySelector('.dropdown');
+            var dropdownContent = dropdown.querySelector('.dropdown-content');
+    
+            dropdown.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevents the click event from reaching the document
+    
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            });
+    
+            document.addEventListener('click', function () {
+                dropdownContent.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -70,13 +70,13 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top text-white" style="background-color: teal;">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top text-white" style="background-color:  RGB(247, 202, 201);">
     <div class="container dd px-4 px-lg-5">
         <a class="navbar-brand text-black" href="#!">Bakery Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="drop collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="drop collapse navbar-collapse text-white" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active text-black" aria-current="page" href="#!">Home</a></li>
                 <li class="nav-item"><a class="nav-link text-black" href="#!">About</a></li>

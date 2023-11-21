@@ -55,26 +55,39 @@ class RoleController extends Controller
     }
 
   
-    public function show(string $id)
+   
+   
+    public function role_edit(Request $request, $id)
     {
-        //
+        
+
+        $role = Role::find($id);
+
+        $request->validate([
+            'name' => 'required|string|max:20|unique:roles,name,' . $id,
+            'permissions' => 'array',
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        $permissions = $request->input('permissions') ?? [];
+        $role->syncPermissions($permissions);
+
+        return redirect()->route('role_list');
+
     }
 
    
-    public function edit(string $id)
-    {
-        //
-    }
-
    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
   
-    public function destroy(string $id)
+    public function role_delete(string $id)
     {
-        //
+        $role = Role::find($id);
+        $role->delete();
+        return redirect()->route('role_list');
+
     }
 }
