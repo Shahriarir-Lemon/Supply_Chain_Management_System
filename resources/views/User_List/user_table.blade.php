@@ -142,13 +142,11 @@ tr .s{
                     
                   <td>
                     
-                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editrole">
+                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edituser{{$user->id}}">
                         <i class="fas fa-edit"></i>
                     </button> 
             
-                  
-                 
-                    <form action="" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
+                    <form action={{ route('user_delete', $user->id ) }}"" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
                      @csrf
                      @method('DELETE')
                      <button type="submit" class="btn btn-warning btn-sm" >
@@ -169,59 +167,86 @@ tr .s{
     </div>
 </div>
 
+{{-- Edit user --}}
 
+@foreach ($users as $user)
 
+<div class="modal fade" id="edituser{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel{{$user->id}}" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edituser{{$user->id}}">Edit User - {{ $user->user_name }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Edit User Form -->
+          <form action="{{ route('user_edit',$user->id) }}" method="POST">
+            @csrf
+            @method('PUT') <!-- Use 'PUT' method for updating -->
+  
+            <!-- Your form fields go here, use the values from the $user object to pre-fill the fields -->
+            <!-- For example: -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="editUserName">User Name</label>
+                <input type="text" name="user_name" class="form-control" id="editUserName" placeholder="user name" value="{{ $user->user_name }}">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" name="email" value="{{ $user->email }}" class="form-control" id="inputEmail4" placeholder="Email">
+              </div>
+              
+            </div>
+  
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Password</label>
+                  <input type="password" name="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Confirm Password</label>
+                  <input type="password" name="password_confirmation" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" name="address" value="{{ $user->Adress }}" class="form-control" id="inputAddress" placeholder="Uttara Sector 10">
+              </div>
+             
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="inputCity">City</label>
+                  <input type="text" name="city" value="{{ $user->City }}" class="form-control" placeholder="Dhaka" id="inputCity">
+                </div>
+              </div>
+              <div class="form-row">
+                 <div class="form-group col-md-12">
+                  <label for="roles">Assign Role</label>
+                  <select class="form-control col-md-12" name="roles" id="roles">
+                    <option value="" disabled="" selected="">--- Select Category ---</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
+                    @endforeach
+                </select>
+                 </div>
+    
+              </div>
+    
+  
+            <button type="submit" class="btn btn-primary">Update User</button>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
-<div class="modal fade" id="adduser{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel{{ $user->id }}" aria-hidden="true">
-   <div class="modal-dialog modal-lg" role="document">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h5 class="modal-title" id="createRoleModalLabel{{ $user->id }}">Add user</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-           </div>
-           <div class="modal-body">
-               <!-- Your form goes here -->
-               <form action="" method="POST">
-                     @csrf
-                     
-            
-                     <div class="form-group row">
-                         <label for="inputEmail3" class="col-sm-3 col-form-label"><b>Enter User Name: </b></label>
-                         <div class="col-sm-7">
-                             <input required type="text" value="" name="user-name" class="form-control" id="inputEmail3" placeholder="user name">
-                         </div>
-                     </div>
-                     <br>
-                     <fieldset class="form-group">
-                         <div class="row">
-                             <legend class="col-form-label col-sm-3 pt-0"><b>Permissions :</b></legend>
-                             <div class="col-sm-9">
-                                
-                                     <div class="form-check">
-                                         <input class="form-check-input" type="checkbox" name="permissions[]" id="permission" value="" >
-                                         <label class="form-check-label" for="permission">
-                                          
-                                         </label>
-                                     </div>
-                               
-                             </div>
-                         </div>
-                     </fieldset>
-                     <br>
-                     <div class="form-group row">
-                         <div class="col-sm-8 text-center">
-                             <button type="submit" class="btn btn-primary">Update Role</button>
-                         </div>
-                     </div>
-                 </form>
-                 
-           </div>
-           <!-- You can add a modal footer if needed -->
-       </div>
-   </div>
-</div>
+  @endforeach
+<!-- Edit User Modal -->
+
 
 
 

@@ -92,17 +92,17 @@ class ProductController extends Controller
 
 
     public function update_product($id, Request $request)
-{
-    $product = Product::find($id);
+     {
+            $product = Product::find($id);
 
-    $validate = Validator::make($request->all(), [
-        'product_name' => 'required|string|unique:products,Product_Name,'.$id,
-        'product_price' => 'required',
-        'product_unit' => 'required',
-        'product_category' => 'required',
-        'product_stock' => 'required',
-        'product_image' => 'sometimes|image|max:5000',
-    ]);
+            $validate = Validator::make($request->all(), [
+                'product_name' => 'required|string|unique:products,Product_Name,'.$id,
+                'product_price' => 'required',
+                'product_unit' => 'required',
+                'product_category' => 'required',
+                'product_stock' => 'required',
+                'product_image' => 'sometimes|image|max:5000',
+            ]);
 
     if ($validate->fails()) {
         return redirect()->back()->withErrors($validate)->withInput();

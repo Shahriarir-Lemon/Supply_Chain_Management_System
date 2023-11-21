@@ -83,7 +83,7 @@ class RoleController extends Controller
    
 
   
-    public function role_delete(string $id)
+    public function role_delete($id)
     {
         $role = Role::find($id);
         $role->delete();

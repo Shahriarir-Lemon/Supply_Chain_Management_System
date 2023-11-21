@@ -12,53 +12,92 @@ use App\Models\User;
 class UserListController extends Controller
 {
     public function user_list()
-    {
-        $users = User::with('roles')->latest()->get();
+            {
+                $users = User::with('roles')->latest()->get();
 
-       // return $users;
-        $roles = Role::all();
-        $permissions = Permission::all();
-        return view ('User_List.user_list', compact('roles','users','permissions'));
-    }
+            // return $users;
+                $roles = Role::all();
+                $permissions = Permission::all();
+                return view ('User_List.user_list', compact('roles','users','permissions'));
+            }
 
    public function user_form()
-   {
-    $roles = Role::all();
-    return view ('User_List.user_form', compact('roles'));
-    }
+        {
+            $roles = Role::all();
+            return view ('User_List.user_form', compact('roles'));
+            }
 
 
     public function user_create(Request $request)
 
 
-   {
-    $validator = Validator::make($request->all(), [
-        'user_name' => 'required|max:20',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|confirmed',
-        'roles' => 'required', 
-    ]);
+        {
+            $validator = Validator::make($request->all(), [
+                'user_name' => 'required|max:20',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|confirmed',
+                'roles' => 'required', 
+            ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
-    $data = [
-        'user_name' => $request->input('user_name'),
-        'email' => $request->input('email'),
-        'password' => bcrypt($request->input('password')),
-        'Adress' => $request->input('address'),
-        'City' => $request->input('city'),
-    ];
+            $data = [
+                'user_name' => $request->input('user_name'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+                'Adress' => $request->input('address'),
+                'City' => $request->input('city'),
+            ];
 
-    $user = User::create($data);
+            $user = User::create($data);
 
-    $user->assignRole($request->roles);
+            $user->assignRole($request->roles);
 
-    return redirect()->route('user_list')->with('success', 'User created successfully');
-}
+            return redirect()->route('user_list')->with('success', 'User created successfully');
+           }
 
-   
+            public function user_edit($id , Request $request)
+            {
+                $user = User::find($id);
 
+
+                $validator = Validator::make($request->all(), [
+                    'user_name' => 'required|required|max:20',
+                    'email' => 'required|email|unique:users,email,' .$id,
+                    'password' => 'nullable|confirmed',
+                ]);
+                  
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                $data = [
+                    'user_name' => $request->input('user_name'),
+                    'email' => $request->input('email'),
+                    'password' => bcrypt($request->input('password')),
+                    'Adress' => $request->input('address'),
+                    'City' => $request->input('city'),
+                ];
+
+                $user->update($data);
+
+              if($request->roles)
+              {
+                $user->assignRole($request->roles);
+              }
+             
+
+                return redirect()->route('user_list')->with('success', 'User created successfully');
+
+                
+            }
+        public function user_delete($id)
+        {
+            $user = User::find($id);
+            $user->delete();
+            return redirect()->route('user_list')->with('success', 'User created successfully');
+        }
    
 }
