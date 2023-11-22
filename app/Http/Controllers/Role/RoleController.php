@@ -11,6 +11,9 @@ use Spatie\Permission\Models\Permission;
 class RoleController extends Controller
 {
   
+
+
+
     public function role_list()
     {
         $roles = Role::all();
@@ -58,7 +61,7 @@ class RoleController extends Controller
    
    
     public function role_edit(Request $request, $id)
-    {
+       {
         
 
         $role = Role::find($id);
@@ -77,7 +80,7 @@ class RoleController extends Controller
 
         return redirect()->route('role_list');
 
-    }
+         }
 
    
    
@@ -89,5 +92,8 @@ class RoleController extends Controller
         $role->delete();
         return redirect()->route('role_list');
 
-    }
+     }
 }
+
+
+

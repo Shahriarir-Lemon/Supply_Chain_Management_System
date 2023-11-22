@@ -187,8 +187,10 @@ margin-right: 20px;
                     <td>
                         <div class="action-buttons">
                           <a href="#" class="action-button view-button" data-toggle="modal" data-target="#productview{{$product->id}}">View</a>
+
+                          @if (Auth()->user()->can('edit.product'))
                           <a href="#" class="action-button edit-button"  data-toggle="modal" data-target="#productedit{{$product->id}}">Edit</a>
-                          
+                          @endif
                           <form action="{{ route('delete_product',$product->id) }}" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')

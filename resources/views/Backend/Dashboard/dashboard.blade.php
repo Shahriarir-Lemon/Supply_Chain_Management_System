@@ -36,6 +36,26 @@
         display: block;
     }
 
+/*  profile */
+
+.dropdown1 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content1 {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown1:hover .dropdown-content1 {
+            display: block;
+        }
+
 </style>
 
 <body>
@@ -133,11 +153,11 @@
                 <span class="num">2</span>
             </a>
           
-            <div class="dropdown">
-                <a href="#" class="only-img" id="profile-dropdown">
+            <div class="dropdown1">
+                <a href="#" class="only-img" id="profile-dropdown1">
                     <img src="{{ asset('Dashboard/img/a.png') }}" onclick="toggleMenu()" />
                 </a>
-                <div class="dropdown-content" id="dropdown-content">
+                <div class="dropdown-content1" id="dropdown-content1">
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <div class="user-info">
@@ -219,11 +239,12 @@
 
 
 
-    <script src="{{ asset('Dashboard/script.js') }}"></script>
+   
 
 
     <script src="{{ asset('Dashboard/script.js') }}"></script>
 
+   
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var dropdown = document.querySelector('.dropdown');
@@ -240,7 +261,31 @@
             });
         });
     </script>
-   
+
+
+<script>
+    function toggleMenu() {
+        var dropdownContent = document.getElementById("dropdown-content1");
+        dropdownContent.style.display = (dropdownContent.style.display === "" || dropdownContent.style.display === "none") ? "block" : "none";
+    }
+
+    // Close the dropdown when clicking outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.only-img')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content1");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === "block") {
+                    openDropdown.style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+
+
+
 </body>
 
 </html>

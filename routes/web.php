@@ -86,17 +86,14 @@ Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout']
 
 
 // Middleware
-Route::group(['middleware' => 'auth'], function () {
-
+Route::group(['middleware' => 'auth'], function ()
+ {
 
 
     Route::get('/admin/logout', [LoginController::class, 'adminlogout'])->name('admin_logout');
 
 
    
-
-    Route::group(['middleware' => 'auth'], function () {
-    });
 
     Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('dash');
 

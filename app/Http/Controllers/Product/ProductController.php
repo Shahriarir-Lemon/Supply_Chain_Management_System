@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use Exception as GlobalException;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Exception;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,22 @@ use Ramsey\Uuid\Type\Integer;
 
 class ProductController extends Controller
 {
+    
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+           
+            $this->user = Auth()->user();
+            return $next($request);
+
+        });
+    }
+
+
+
+
     public function product_list()
     {
 
@@ -93,6 +110,14 @@ class ProductController extends Controller
 
     public function update_product($id, Request $request)
      {
+
+           if (is_null($this-> user) || !$this->user->can('edit.product'))
+                {
+                    abort(403, 'Unauthrorized Access');
+                }
+
+
+
             $product = Product::find($id);
 
             $validate = Validator::make($request->all(), [

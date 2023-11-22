@@ -33,6 +33,7 @@ class RolePermissionSeeder extends Seeder
             'view.material',
             'edit.material',
             'delete.material',
+           
 
             // Priducts 
             'add.product',
