@@ -1,176 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registration</title>
+@extends('Frontend.master')
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('admin_inf/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('admin_inf/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('admin_inf/dist/css/adminlte.min.css') }}">
-</head>
 
+@section('form')
 
 
 <style>
-    .bb 
-    {
-        background-image: url('{{ asset('Dashboard/img/bg') }}');
-        background-size: cover;
-    }
-    .custom-button {
 
-        width: 100%;
-        text-align: center;
-        align-content: right;
-    }
-
-    .register-box {
-        width: 400px;
-    }
-    .input-box select {
-	padding:5px 2px;
-	width:200px;
-	margin:auto;
+.form1
+{ 
+   
+   
+    border: 1px solid #282222; /* Add a 1px solid border with a light gray color */
+        padding: 50px 20%; /* Add padding as needed */
+  
 }
-
-.label-block label,
-.input-box select {
-  display: inline-block; /* or use 'inline' if you prefer */
-  vertical-align: middle; /* To align them vertically */
+.form1 {
+    background: #e8e7e7;
+   padding-top: 30px;
+   
 }
-
-
+.form1 h2
+{
+    padding-bottom: 70px;
+}
+label
+{
+    font-weight: 700;
+    font-size: 18px;
+}
 
 </style>
 
-<h1>Bakery Shop</h1>
 
 
+<div id="Sign Up">
+<div class="form1">
+<form action="{{ route('customer_registration') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <h2><center><u>Customer Registration</u></center></h2>
 
-<body class="bb hold-transition register-page">
-
-    
-    <div class="register-box">
-        <div class="register-logo">
-            <a href="#"><b>
-
-                </b></a>
-        </div>
-
-        <div class="card">
-            <div class="card-body register-card-body">
-
-                <h3 style="margin-top: -10px;"><b>
-                        <center style="color: green;">Register your account</center>
-                    </b>
-                </h3><br>
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-
-                <form action="{{ route('customer_registration') }}" method="post">
-                    @csrf
-
-                    <div class="input-group mb-3">
-                       
-                        <input required type="text" name="name" value="{{ old('name') }}" class="form-control"
-                            placeholder="Name">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="email" name="email" value="{{ old('email') }}" required class="form-control"
-                            placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" required name="password" value="{{ old('password') }}" class="form-control"
-                            placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" required name="password_confirmation" value="{{ old('password') }}"
-                            class="form-control" placeholder="Retype password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                  
-                
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="primary">
-
-                                <label for="a">
-                                    <a href="{{ route('customer_login') }}">Already Registered ?</a>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block custom-button">Register</button>
-                        </div>
-
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-
-
-
-
-            </div>
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+    @if(Session::has('message'))
+    <div class="alert alert-{{ Session::get('type') }}">
+        {!! Session::get('message') !!}
     </div>
-    <!-- /.register-box -->
-
-    <!-- jQuery -->
-    <script src="{{ asset('admin_inf//plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('admin_inf/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('admin_inf/dist/js/adminlte.min.js') }}"></script>
+@endif
 
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+
+
+
+         
+
+
+
+
+
+
+
+        </ul>
+    </div>
+@endif
+    <div class="form-row inline">
+        <div class="form-group col-md-12 inline">
+          <label for="inputEmail4">Profile Picture :</label>
+          <input required type="file" name="c_picture" class="form-control" id="inputEmail4" placeholder="Picture">
         </div>
-    @endif
+      
+      </div>
+    <div class="form-row inline">
+        <div class="form-group col-md-12 inline">
+          <label for="inputEmail4">Full Name :</label>
+          <input required type="text" name="c_fullname" class="form-control" id="inputEmail4" placeholder="full name">
+        </div>
+      
+      </div>
+    <div class="form-row inline">
+      <div class="form-group col-md-6 inline">
+        <label for="inputEmail4">User Name :</label>
+        <input required type="text" name="c_username" class="form-control" id="inputEmail4" placeholder="user name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Email :</label>
+        <input required type="email" name="c_email" class="form-control" id="inputPassword4" placeholder="email">
+      </div>
+    </div>
+    <div class="form-row inline">
+        <div class="form-group col-md-6 inline">
+          <label for="inputEmail4">Password :</label>
+          <input required type="password" name="password" class="form-control" id="inputEmail4" placeholder="password">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Retype Passwor :</label>
+          <input required type="password" name="password_confirmation" class="form-control" id="inputPassword4" placeholder="password">
+        </div>
+      </div>
+    <div class="form-group">
+      <label for="inputAddress">Address :</label>
+      <input required type="text" name="c_address" class="form-control" id="inputAddress" placeholder="Road 12/b and ...">
+    </div>
+   
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label for="inputCity">City :</label>
+        <input required type="text" name="c_city" class="form-control" id="inputCity" placeholder="Dhaka">
+      </div>
+     
+      <div class="form-group col-md-4">
+        <label for="inputZip">Zip :</label>
+        <input required type="number" name="c_zip" class="form-control" id="inputZip" placeholder="1230">
+      </div>
+    </div>
+    <div class="form-row">
+        
+            <label for="inputState">Occupation :</label>
+            <select id="inputState" required name="c_occupation" class="form-control">
+                <option value="" disabled="" selected="">--- Select Occcupation ---</option>
+
+                <option value="General People">General People</option>
+                <option value="Student">Student</option>
+                <option value="Businessman">Businessman</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+          </div>
+       
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-10">
+               <a href="{{ route('customer_login_page') }}"> <button type="button" data-toggle="modal" data-target="#login" class="btn btn-primary">Already Registered?</button></a>
+            </div>
+            
+            <div class="form-group col-md-1">
+                <a href=""><button type="submit" class="btn btn-primary">Register</button></a>
+            </div>
+          </div>
+    
+  </form>
+</div>
+</div>
 
 
 
-</body>
 
-</html>
+
+@endsection
+
+

@@ -62,7 +62,7 @@ class ProductController extends Controller
 
         $validate = Validator::make($request->all(), [
             
-            'product_image' => 'required|image|max:5000',
+            'product_image' => 'required|image',
             'product_name' => 'required',
             'product_price' => 'required',
             'product_unit' => 'required',

@@ -70,19 +70,6 @@ Route::delete('/user_delete/{id}', [UserListController::class, 'user_delete'])->
 
 
 
-// Customer Registration and Logg in
-
-Route::get('/customer_registration_form', [CustomerRegController::class, 'customer_registration_form'])->name('customer_registration_form');
-
-Route::post('/customer_registration', [CustomerRegController::class, 'customer_registration'])->name('customer_registration');
-
-Route::get('/customer_login_page', [CustomerRegController::class, 'customer_login_page'])->name('customer_login_page');
-
-Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])->name('customer_login');
-
-Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
-
-
 
 
 // Middleware
@@ -153,7 +140,23 @@ Route::group(['middleware' => 'auth'], function ()
     Route::DELETE('/delete/unit/{id}', [UnitController::class, 'delete_unit'])->name('delete_unit');
 
 
-
-
 });
+
+
+
+// Customer Registration and Logg in
+
+Route::get('/customer_registration_form', [CustomerRegController::class, 'customer_registration_form'])->name('customer_registration_form');
+
+Route::post('/customer_registration', [CustomerRegController::class, 'customer_registration'])->name('customer_registration');
+
+Route::get('/customer_login_page', [CustomerRegController::class, 'customer_login_page'])->name('customer_login_page');
+
+Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])->name('customer_login');
+
+Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
+
+Route::get('/customer_profile_edit', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
+
+
 

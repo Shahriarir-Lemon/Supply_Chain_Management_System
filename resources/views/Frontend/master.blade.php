@@ -1,142 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Bakery Product Shop</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Product Shop</title>
+    <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
+    <link href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+ 
+     <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ asset('frontend/assets/favicon.ico') }}" />
         <!-- Bootstrap icons-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet" />
+        
+       <!--sweet alart notify -->
+
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- Bootstrap registration form-->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+       
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('frontend/style.css') }}" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+       
         {{-- sider --}}
-
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+     
+   
     </head>
 
     <style>
+      /* Styles remain the same as in the previous example */
 
+      .profile-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
 
-.button-container {
-            text-align: center;
-        }
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      background-color: #e8e7e7;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      right: 0;
+    }
 
-        .sign-in-button, .sign-up-button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
-            
-            text-decoration: none;
-            color: #fff;
-            font-size: 13px;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
+    .profile-container img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
 
-        .sign-in-button {
-            background-color: #7691a3;
-            font
-            
-        }
+    .profile-container:hover .profile-dropdown {
+      display: block;
+    }
 
-        .sign-up-button {
-            background-color: #87a292;
-        }
+    .dropdown-item {
+      padding: 20px 30px;
+      text-decoration: none;
+      display: block;
+      font-weight: 500;
+      color: #333;
+      height: 60px; 
+      width: 150px; 
+    }
 
-        .sign-in-button:hover, .sign-up-button:hover {
-            background-color: #0b93ee;
-        }
-.body
-{
-    background: gray;
-}
-       
-    </style>
-    <body>
-        <!-- Navigation--><div class="dody">
-
-        </div>
-       @include('Frontend.partials.navbar')
-
-<br>
-<br>
-        <!-- Header-->
-      
-@include('Frontend.partials.header')
-
-
-
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                
-
-            @yield('content')
-
-
-            </div>
-        </section>
+    .dropdown-item:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
 
 
 
 
 
-        <!-- Footer-->
-       @include('Frontend.partials.footer')
+<body>
+    
+    <!--   header  -->
+   
+  @include('Frontend.partials.header')
 
-
- </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-        <script src="js/scripts.js"></script>
+<!--   End header  -->
 
 
 
-        {{-- slider --}}
+      <!--First move picture start  Section-->
 
-        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    
+@include('Frontend.partials.header1')
+     
+<!--End move picture First Section-->
 
-<script type="text/javascript">
 
-var splide = new Splide( '.splide', {
-  perPage: 4,
-  perMove:1,
-  type:'loop',
-  autoplay: true,
-  autoplaySpeed: 500,
-  gap    : '4rem',
-  breakpoints: {
-    640: {
-      perPage: 2,
-      gap    : '.7rem',
-      height : '6rem',
-    },
-    480: {
-      perPage: 1,
-      gap    : '.7rem',
-      height : '6rem',
-    },
-  },
-} );
+@yield('form')
 
-splide.mount();
 
-</script>
-    </body>
+
+
+<!--card  start  Section-->
+
+
+
+
+@yield('content')
+
+
+ <!-- card End 2nd Section-->
+
+
+
+<!--cheef start-->
+
+@include('Frontend.partials.cheef')
+
+<!--cheef end here-->
+
+
+<!--start why bakery gallery here-->
+
+ @include('Frontend.partials.facility')
+
+<!--end why bakery gallery here-->
+
+
+<!-- Start Review Section here-->
+
+
+@include('Frontend.partials.review')
+
+
+<!-- End Review Section here-->
+
+
+
+<!-- Start footer Section here-->
+    
+@include('Frontend.partials.footer')
+   
+<!-- End footer Section here-->
+    
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <script src="{{ asset('frontend/style.js') }}"></script>
+       <script src="{{ asset('frontend/js/scripts.js') }}"></script>
+
+
+  <!-- notify JS -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+@include('SweetAlert.error')
+
+
+
+
+
+
+
+
+
+
+
+</body>
 </html>

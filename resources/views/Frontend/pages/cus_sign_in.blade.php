@@ -36,8 +36,15 @@
   <link rel="stylesheet" href="{{asset('admin_inf/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('admin_inf/dist/css/adminlte.min.css')}}">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
 </head>
-<h1>Bakery Shop</h1>
+<h1><b>Bakery Gallery</b></h1>
 <br>
 
 <body class="aa hold-transition login-page">
@@ -67,7 +74,7 @@
         <form action="{{ route('customer_login') }}" method="post">
           @csrf
           <div class="input-group mb-3">
-            <input name="email" type="email" class="form-control" placeholder="Email">
+            <input name="c_email" type="email" class="form-control" placeholder="Email">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -103,7 +110,7 @@
             </div><br>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </div>
             <!-- /.col -->
           </div>
@@ -111,8 +118,8 @@
 
         <br>
         <p class="mb-1">
-          <a href="forgot-password.html">Forgot Password ?</a> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <a href="{{ route('customer_registration_form') }}" class="text-center">Create Account</a>
+          <a href="">Forgot Password ?</a> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <a href="{{ route('customer_registration_form')}}#Sign Up" class="text-center">Create Account</a>
         </p>
         </p>
 
@@ -122,12 +129,24 @@
   </div>
   <!-- /.login-box -->
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+
+
+
   <!-- jQuery -->
   <script src="{{asset('admin_inf/plugins/jquery/jquery.min.js')}}"></script>
   <!-- Bootstrap 4 -->
   <script src="{{asset('admin_inf/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('admin_inf/dist/js/adminlte.min.js')}}"></script>
+@include('SweetAlert.error')
+
+@include('SweetAlert.success')
+
 </body>
 
 </html>
