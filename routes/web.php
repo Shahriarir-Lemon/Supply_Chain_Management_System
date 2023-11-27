@@ -156,7 +156,9 @@ Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])
 
 Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
 
-Route::get('/customer_profile_edit', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
+Route::get('/customer_profile_edit_page', [CustomerRegController::class, 'customer_profile_edit_page'])->name('customer_profile_edit_page');
+
+Route::put('/customer_profile_edit/{id}', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
 
 
 

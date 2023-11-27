@@ -37,7 +37,7 @@ class UnitController extends Controller
       ]);
 
       return redirect()->route('unit_list')->with('success', 'Unit Added Successfully');
-    } catch (GlobalException $e) {
+    } catch (\Exception $e) {
 
       session()->flash('message', $e->getMessage());
       session()->flash('type', 'danger');

@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             // $table->unsignedInteger('category_id');
-              $table->string('c_picture');
+              $table->string('c_picture')->nullable();
               $table->string('c_fullname');
               $table->string('c_username');
+              $table->string('c_about')->nullable();
               $table->string('c_email')->unique();
               $table->string('password');
-              $table->string('c_address');
-              $table->string('c_city');
-              $table->integer('c_zip');
-              $table->string('c_occupation');
+              $table->string('c_address')->nullable();
+              $table->string('c_city')->nullable();
+              $table->integer('c_zip')->nullable();
+              $table->string('c_occupation')->nullable();
               $table->rememberToken();
               $table->timestamps();
         });

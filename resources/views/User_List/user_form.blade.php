@@ -46,7 +46,7 @@ margin-left: 270px;
 
         </a>
         <center><h3><u>Create User</u></h3></center><br>
-        @include('message')
+       
         <form action="{{ route('user_create') }}" method="POST">
           @csrf
           

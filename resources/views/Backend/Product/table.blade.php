@@ -217,13 +217,16 @@ margin-right: 20px;
 </div>
 
 
+
+{{-- Product Edit --}}
+
 @foreach ($products as $key => $product)
 
 
 <div class="modal fade" id="productedit{{$product->id}}" >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="POST" action="{{ route('edit_product',$product->id) }} ">
+                <form method="POST" action="{{ route('edit_product',$product->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
@@ -294,6 +297,8 @@ margin-right: 20px;
     </div>
 
 @endforeach
+{{--End Product Edit --}}
+
 
 
 

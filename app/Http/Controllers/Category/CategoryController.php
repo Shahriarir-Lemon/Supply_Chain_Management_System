@@ -45,7 +45,7 @@ class CategoryController extends Controller
       ]);
 
       return redirect()->route('category_list')->with('success', 'Category Added Successfully');
-    } catch (GlobalException $e) {
+    } catch (\Exception $e) {
 
       session()->flash('message', $e->getMessage());
       session()->flash('type', 'danger');

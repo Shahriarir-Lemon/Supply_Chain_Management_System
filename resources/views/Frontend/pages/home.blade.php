@@ -1,54 +1,65 @@
 @extends('Frontend.master')
-
 @section('content')
 
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{{ asset('frontend/card.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="text-center">Popular Items</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
 
-<div class="main1" id="Categories">
+            @foreach ($products as $product)
 
 
+            <div class="col">
+                <div class="card">
+                    <img src="{{ $product->Product_Image }}" class="card-img-top" alt="Product Image" style="width: auto; height: 250px;">
 
-    <section class="py-2">
-        <div class="container px-3 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
-              
-            
-                
-                <div class="col mb-5">
-                    <div class="card h-100" style="width: 15.5rem;"> <!-- Adjust the width as needed -->
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." style="height: 210px; object-fit: cover;"> <!-- Adjust the height as needed -->
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Sale Item</h5>
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$50.00</span>
-                                $25.00
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                        </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->Product_Name }}</h5>
+                        <p class="card-text text-center text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+                           </p>
                     </div>
+                    <div class="mb-5 d-flex justify-content-around">
+                        <h3>{{ $product->Price }} .tk</h3>
+                        <a class="btn btn-outline-dark mt-auto text-white" href="#" style="background-color:black; border-radius: 10px;">Add to cart</a>
+                    </div>
+                    
+                    
                 </div>
             </div>
+
+            @endforeach
+         
+
+            
+
+
+          
+
+         
+
+
         </div>
-    </section>
-</div> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
 
-
+</html>
 
 @endsection

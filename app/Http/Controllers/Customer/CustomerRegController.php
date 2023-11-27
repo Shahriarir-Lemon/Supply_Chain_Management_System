@@ -9,7 +9,15 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Guard;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use Illuminate\Support\Facades\delete;
 use Illuminate\Http\Request;
+
+
+
 
 class CustomerRegController extends Controller
 {
@@ -135,11 +143,95 @@ class CustomerRegController extends Controller
                 }
 
 
-     public function customer_profile_edit()
+     public function customer_profile_edit_page()
                 {
 
-                   return view('Frontend.pages.customer_profile_edit');
+                    $customer = Auth('customer')->user();
+                    $data['customer'] = $customer;
+                   return view('Frontend.pages.customer_profile_edit',$data);
                 }
+
+    public function customer_profile_edit(Request $request, $id) 
+                 {
+
+                   // dd($request->all());
+
+
+                    $validate = Validator::make($request->all(), [
+             
+                        'c_picture' => 'nullable',
+                        'c_fullname' => 'required|min:6|string',
+                        'c_username' => 'required|string|min:4',
+                        'c_about' => 'nullable|string',
+                        'c_email' => 'required|email|unique:customers,c_email,' . $id,
+                        'c_address' => 'nullable|string',
+                        'password2' => 'required|min:4',
+                        'password1' => 'required|min:4|different:password',
+                        'password1_confirmation' => 'required|same:password1',
+                        'c_city' => 'nullable|string|',
+                        'c_occupation' => 'nullable',
+                
+                      ]);
+
+                if ($validate->fails())
+                    {
+                        return redirect()->back()->withErrors($validate)->withInput();
+
+                    }
+
+
+                      $customer = Customer::find($id); // Replace User with your actual model class
+                      
+                    if (!Hash::check($request->input('password2'), $customer->password)) {
+                        // Old password does not match, return an error or redirect back with a message
+                        return redirect()->route('home');
+                    }
+
+                    $data = [];
+
+                    
+
+         if ($request->hasFile('c_picture'))
+             {
+                
+                $photo = time() . $request->file('c_picture')->getClientOriginalName();
+                
+                
+                $path = $request->file('c_picture')->storeAs('customer_images', $photo, 'public');
+            
+               
+                $data['c_picture'] = '/storage/' . $path;
+            }
+
+
+        
+        $data['c_fullname'] = $request->input('c_fullname');
+        $data['c_username'] = $request->input('c_username');
+        $data['c_about'] = $request->input('c_about');
+        $data['c_email'] = $request->input('c_email');
+        $data['password'] = Hash::make($request->password1);
+        $data['c_address'] = $request->input('c_address');
+        $data['c_city'] = $request->input('c_city');
+        $data['c_occupation'] = $request->input('c_occupation');
+
+
+
+
+                 try{
+                    $customer->update($data);
+                    return redirect()->back()->with('success', 'Profile Updated Successfully.');
+                }
+
+                catch (\Exception $e)
+                 {
+                    session()->flash('message', $e->getMessage());
+                    session()->flash('type', 'danger');
+
+                    return redirect()->route('home');
+                }
+
+
+            }
 
    }
 

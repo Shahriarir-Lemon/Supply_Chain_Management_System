@@ -66,12 +66,14 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_price' => 'required',
             'product_unit' => 'required',
-            'Category' => 'required',
+            'product_category' => 'required',
+            'product_stock' => 'required',
+            'product_description' => 'required',
            
         ]);
 
         $photo = time().$request->file('product_image')->getClientOriginalName();
-        $path = $request-> file('product_image')->storeAs('product_images', $photo, 'public');     
+        $path = $request->file('product_image')->storeAs('product_images', $photo, 'public');     
           
 
         $data = [
@@ -91,7 +93,8 @@ class ProductController extends Controller
 
 
             return redirect()->route('product_list')->with('success', 'Account Created Successfully');
-        } catch (GlobalException $e) {
+        }
+         catch (\Exception $e) {
 
             session()->flash('message', $e->getMessage());
             session()->flash('type', 'danger');
@@ -121,44 +124,55 @@ class ProductController extends Controller
             $product = Product::find($id);
 
             $validate = Validator::make($request->all(), [
+                'product_image' => 'sometimes|image|max:5000',
                 'product_name' => 'required|string|unique:products,Product_Name,'.$id,
                 'product_price' => 'required',
                 'product_unit' => 'required',
                 'product_category' => 'required',
                 'product_stock' => 'required',
-                'product_image' => 'sometimes|image|max:5000',
+                'product_description' => 'required',
+
+                
             ]);
 
-    if ($validate->fails()) {
-        return redirect()->back()->withErrors($validate)->withInput();
-    }
+            if ($validate->fails())
+             {
+                return redirect()->back()->withErrors($validate)->withInput();
+            }
 
-    // Handle file upload
-    if ($request->hasFile('product_image')) {
-        // Delete the old file if it exists
-        if ($product->product_image) {
-            Storage::disk('public')->delete($product->product_image);
-        }
 
-        // Upload the new file
-        $photo = time() . $request->file('product_image')->getClientOriginalName();
-        $path = $request->file('product_image')->storeAs('product_images', $photo, 'public');
-       // $product->update(['Product_Image' => $path]);
-    }
+            $data = [];
 
-    // Update other fields
-    $product->update([
-        'Product_Image' => $path,
-        'Product_Name' => $request->product_name,
-        'Price' => $request->product_price,
-        'Unit_Type' => $request->product_unit,
-        'Category' => $request->product_category,
-        'Stock' => $request->product_stock,
-        'Description' => $request->product_description,
-    ]);
 
-    return redirect()->route('product_list');
-}
+            if ($request->hasFile('product_image'))
+             {
+               
+                $photo = time() . $request->file('product_image')->getClientOriginalName();
+                
+               
+                $path = $request->file('product_image')->storeAs('product_images', $photo, 'public');
+            
+                
+                $data['Product_Image'] = '/storage/' . $path;
+            }
+
+        // Update other fields
+        $data['Product_Name'] = $request->input('product_name');
+        $data['Price'] = $request->input('product_price');
+        $data['Unit_Type'] = $request->input('product_unit');
+        $data['Category'] = $request->input('product_category');
+        $data['Stock'] = $request->input('product_stock');
+        $data['Description'] = $request->input('product_description');
+
+        $product->update($data);
+
+        return redirect()->route('product_list');
+
+
+   }
+
+
+
     public function delete_product($id)
     {
         $product = Product::find($id);
