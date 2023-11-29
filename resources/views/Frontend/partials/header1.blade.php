@@ -1,5 +1,5 @@
 <section class="home-section" id="Home">
-    <div class="text-content">
+    <div class="text-content mt-n10">
        <h5>Most Ordered in rainy Season</h5>
        <h2>Jumbo Burger</h2>
        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est eius placeat officiis recusandae facilis? Voluptatum expedita ea similique quod repellat, incidunt, tenetur culpa eaque pariatur quisquam odio non, rem nulla.</p>

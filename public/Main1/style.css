@@ -30,6 +30,9 @@ li {
     --orange: #FD7238;
     --light-orange: #FFE0D3;
 }
+html {
+	overflow-x: hidden;
+}
 
 body {
     background: var(--grey);
@@ -50,7 +53,7 @@ body {
     overflow-x: hidden;
 }
 #sidebar.hide{
-    width: 60px;
+    width: 75px;
 }
 #sidebar .side {
     font-size: 28px;
@@ -173,8 +176,8 @@ img{
     transition: .3s ease;
 }
 #sidebar.hide ~ #content   {
-    width: calc(100% - 55px);
-    left: 55px;
+    width: calc(100% - 60px);
+    left: 60px;
 }
 
 
@@ -282,9 +285,9 @@ color: var(--blue);
     border-radius: 50%;
 }
 
-#content nav .dropdown .only-img{
+#content nav .dropdown1 .only-img{
    
-    margin-right: 50px;
+    margin-right: 70px;
 }
 
 

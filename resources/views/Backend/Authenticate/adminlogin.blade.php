@@ -35,7 +35,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href=""><b></b></a>
+      <a href="{{ asset('Dashboard/img/scm.png') }}"><b></b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -100,13 +100,6 @@
             <!-- /.col -->
           </div>
         </form>
-
-        <br>
-        <p class="mb-1">
-          <a href="forgot-password.html">Forgot Password ?</a> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <a href="{{route('reg')}}" class="text-center">Create Account</a>
-        </p>
-        </p>
 
       </div>
 

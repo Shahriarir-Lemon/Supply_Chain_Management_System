@@ -43,7 +43,7 @@ class ProductController extends Controller
         $products = Product::paginate(3);
         $units = Unit::get();
         $categories = Category::get();
-        return view('Backend.Product.product_list', compact('products','units' ,'categories'));
+        return view('Backend.Product.table', compact('products','units' ,'categories'));
     }
 
     public function add_product()
@@ -51,7 +51,7 @@ class ProductController extends Controller
         $categories = Category::get();
         $units = Unit::get();
         
-        return view('Backend.Product.product_form', compact('categories','units'));
+        return view('Backend.Product.form', compact('categories','units'));
     }
     
     public function product_store(Request $request)
@@ -104,11 +104,6 @@ class ProductController extends Controller
     }
 
 
-    public function view_product($id)
-    {
-      echo ($id);
-      //  return view('Product.edit_product');
-    }
 
 
     public function update_product($id, Request $request)

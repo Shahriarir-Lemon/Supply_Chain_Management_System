@@ -19,6 +19,9 @@ use App\Http\Controllers\User_List\UserListController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\CustomerRegController;
 use App\Http\Controllers\Raw_Material\RawMaterialController;
+use App\Http\Controllers\Cart_and_payment\CartController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,64 +34,29 @@ use App\Http\Controllers\Raw_Material\RawMaterialController;
 |
 */
 
-//Route::get('/', [LandController::class, 'land'])->name('land');
+
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
-Route::get('/admin/login', [LoginController::class, 'adminlogin'])->name('admin_login');
-Route::post('/admin/post/login', [LoginController::class, 'admin_post_login'])->name('admin_post_login');
+Route::get('/login', [LoginController::class, 'adminlogin'])->name('admin_login');
 
-Route::get('/registration', [RegController::class, 'register'])->name('reg');
-
-Route::post('/registration', [RegController::class, 'register1'])->name('reg1');
+Route::post('/loggedin', [LoginController::class, 'admin_post_login'])->name('admin_post_login');
 
 
 
 
-// Role and permission
-
-Route::get('/role_list', [RoleController::class, 'role_list'])->name('role_list');
-Route::get('/role_form', [RoleController::class, 'role_form'])->name('role_form');
-
-Route::post('/role_create', [RoleController::class, 'role_create'])->name('role_create');
-
-Route::put('/role_edit/{id}', [RoleController::class, 'role_edit'])->name('role_edit');
-Route::delete('/role_delete/{id}', [RoleController::class, 'role_delete'])->name('role_delete');
-
-
-// User List
-Route::get('/user_list', [UserListController::class, 'user_list'])->name('user_list');
-Route::get('/user_form', [UserListController::class, 'user_form'])->name('user_form');
-
-Route::post('/user_create', [UserListController::class, 'user_create'])->name('user_create');
-
-Route::put('/user_edit/{id}', [UserListController::class, 'user_edit'])->name('user_edit');
-Route::delete('/user_delete/{id}', [UserListController::class, 'user_delete'])->name('user_delete');
-
-
-
-
-
-
-
-
-// Middleware
+// Dashboard User Middlewaresub
 Route::group(['middleware' => 'auth'], function ()
  {
 
+    //User log in 
 
     Route::get('/admin/logout', [LoginController::class, 'adminlogout'])->name('admin_logout');
 
-
-   
-
-    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('dash');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dash');
 
 
-    Route::post('/datastore', [DashboardController::class, 'store'])->name('store.data');
-
-    Route::get('/master', [DashboardController::class, 'Master'])->name('master.data');
-
+    
 
 
     //  Product  
@@ -97,8 +65,6 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
 
     Route::post("/product_store", [ProductController::class, 'product_store'])->name('product_store');
-
-    Route::get('/view-product/{id}', [ProductController::class, 'view_product'])->name('view_product');
 
     Route::get('/edit_product/{id}', [ProductController::class, 'edit_product'])->name('edit_product');
    
@@ -140,11 +106,34 @@ Route::group(['middleware' => 'auth'], function ()
     Route::DELETE('/delete/unit/{id}', [UnitController::class, 'delete_unit'])->name('delete_unit');
 
 
+
+    // Role and permission
+
+    Route::get('/role_list', [RoleController::class, 'role_list'])->name('role_list');
+    Route::get('/role_form', [RoleController::class, 'role_form'])->name('role_form');
+
+    Route::post('/role_create', [RoleController::class, 'role_create'])->name('role_create');
+
+    Route::put('/role_edit/{id}', [RoleController::class, 'role_edit'])->name('role_edit');
+    Route::delete('/role_delete/{id}', [RoleController::class, 'role_delete'])->name('role_delete');
+
+
+    // User List
+    Route::get('/user_list', [UserListController::class, 'user_list'])->name('user_list');
+    Route::get('/user_form', [UserListController::class, 'user_form'])->name('user_form');
+
+    Route::post('/user_create', [UserListController::class, 'user_create'])->name('user_create');
+
+    Route::put('/user_edit/{id}', [UserListController::class, 'user_edit'])->name('user_edit');
+    Route::delete('/user_delete/{id}', [UserListController::class, 'user_delete'])->name('user_delete');
+
 });
 
 
 
-// Customer Registration and Logg in
+
+
+//   Customer Registration
 
 Route::get('/customer_registration_form', [CustomerRegController::class, 'customer_registration_form'])->name('customer_registration_form');
 
@@ -154,11 +143,33 @@ Route::get('/customer_login_page', [CustomerRegController::class, 'customer_logi
 
 Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])->name('customer_login');
 
-Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
 
-Route::get('/customer_profile_edit_page', [CustomerRegController::class, 'customer_profile_edit_page'])->name('customer_profile_edit_page');
 
-Route::put('/customer_profile_edit/{id}', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
+
+
+
+Route::group(['middleware' => 'customer'], function ()
+{
+
+    // Customer and Logg in
+
+  
+
+    Route::get('/customer_logout', [CustomerRegController::class, 'customer_logout'])->name('customer_logout');
+
+    Route::get('/customer_profile_edit_page', [CustomerRegController::class, 'customer_profile_edit_page'])->name('customer_profile_edit_page');
+
+    Route::put('/customer_profile_edit/{id}', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
+
+    // Cart
+
+    Route::get('/view_cart/', [CartController::class, 'view_cart'])->name('view_cart');
+    Route::get('/add_to_card/{product_id}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+
+
+
+});
+
 
 
 

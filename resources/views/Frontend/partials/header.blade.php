@@ -8,22 +8,43 @@
     <a class="Logo" href="{{ route('home') }}">Bakary<span>Gallery</span></a>
 
     <nav class="navbar">
-       <a href="#Home" class="active">Home</a>
-       <a href="#Categories">Categories</a>
-       <a href="#Popular Items">Popular Items</a>
-       <a href="#New Arivals">New Arivals</a>
-    </nav>
+      <a href="#Home" class="active">Home</a>
+      <div class="dropdown">
+          <button class="dropbtn">Categories &#9662;</button>
+          <div class="dropdown-content">
+              <a href="#Crackers">Crackers</a>
+              <a href="#Doughnuts">Doughnuts</a>
+              <a href="#Cookies">Cookies</a>
+              <a href="#Biscuits">Biscuits</a>
+              <a href="#Pastries">Pastries</a>
+              <a href="#Bun">Bun</a>
+              <a href="#Cakes">Cakes</a>
+              <a href="#Bread">Bread</a>
+          </div>
+      </div>
+      <a href="#Popular Items">Popular Items</a>
+      <a href="#New Arivals">New Arrivals</a>
+  </nav>
+  
     
     <div class="activity-section">
      <i class="bx bx-search"></i>
      <i class="bx bx-heart"></i>
      
     </div>
-    <button class="btn btn-outline-dark" type="submit">
+   <a href="{{ route('view_cart') }}#Cart "> <button class="btn btn-outline-dark" type="submit">
       <i class="bi-cart-fill me-1"></i>
      
-      <span class="badge bg-dark text-white ms-1 rounded-pill">5</span>
-  </button>
+      <span class="badge bg-dark text-white ms-1 rounded-pill">
+        @if(session()->has('view_card'))
+          {{ count(session()->get('view_card')) }}
+        @else
+        0
+        @endif
+        
+        </span>
+  </button>  </a>
+
     @guest('customer')
  <a href="{{ route('customer_login_page') }}"><button class="btna">Sign in</button></a> 
  <a href="{{ route('customer_registration_form')}}#Sign Up "> <button class="btna">Sign Up</button></a>

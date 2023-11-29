@@ -10,23 +10,12 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('Backend.Dashboard.dashboard');
+        return view('Backend.Dashboard1.dashboard1');
     }
     public function master()
     {
 
         return view('Backend.Master.sidebar');
     }
-    public function store(Request $request)
-
-    {
-        // dd($request->all());
-
-
-        Product::Create([
-            'Name' => $request->name,
-            'Email' => $request->email,
-        ]);
-        return redirect()->route('land');
-    }
+   
 }

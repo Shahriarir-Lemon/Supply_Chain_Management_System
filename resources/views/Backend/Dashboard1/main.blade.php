@@ -5,8 +5,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('Dashboard/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('Main1/style.css') }}" />
+
+
+    {{-- favicon 
+    <link type="image/x-icon" sizes="32x32" rel="icon" href="{{ asset('Main1/img/favicon.png') }}">
+
+--}}
+{{-- Raw materials table --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{{-- Raw materials form --}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+{{-- category cdn --}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <!-- Bootstrap JS and jQuery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- Font Awesome icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
    
+
+
     <title>System</title>
 </head>
 
@@ -37,24 +61,48 @@
     }
 
 /*  profile */
+.profile-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 35px;
+    }
 
-.dropdown1 {
-            position: relative;
-            display: inline-block;
-        }
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      background-color: #e8e7e7;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      right: 0;
+    }
 
-        .dropdown-content1 {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
+    .profile-container img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
 
-        .dropdown1:hover .dropdown-content1 {
-            display: block;
-        }
+    .profile-container:hover .profile-dropdown {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 20px 30px;
+      background: light;
+      
+      font-weight: 500;
+      color: white;
+      height: 60px; 
+      width: 150px; 
+    }
+
+    .dropdown-item:hover {
+      background: rgb(247, 239, 239);
+      color: white;
+      
+    }
 
 </style>
 
@@ -63,12 +111,14 @@
 
     <section id="sidebar">
         
-        <a href="#" class="side">
+       <div class="side">
             <i class="bx bxs-smile"></i>
-            <span class="text"><b>Admin Panel</b></span>
-        </a>
+            <span class="text"><b>{{ auth()->user()->Role }}</b></span>
+        
+       </div>
+           
         <ul class="side-menu top">
-            <li class="active">
+            <li>
                 <a href="{{ route('dash') }}">
                     <i class="bx bxs-dashboard"></i>
                     <span class="text">Dashboard</span>
@@ -76,19 +126,19 @@
             </li>
             <li>
                 <a href="{{route('raw_material_list')}}">
-                    <img src="{{ asset('Dashboard/img/raw.png') }}">
+                    <img src="{{ asset('Main1/img/raw.png') }}">
                     <span class="text">Raw Matrials</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('product_list')}}">
-                    <img src="{{ asset('Dashboard/img/product.png') }}">
+                    <img src="{{ asset('Main1/img/product.png') }}">
                     <span class="text">Products</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('category_list') }}">
-                    <img src="{{ asset('Dashboard/img/manage.png') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Category</span>
                 </a>
             </li>
@@ -97,13 +147,13 @@
            
             <li>
                 <a href="{{ route('unit_list') }}">
-                    <img src="{{ asset('Dashboard/img/manage.png') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Unit</span>
                 </a>
             </li>
             <li class="dropdown">
                 <a href="#" class="logout">
-                    <img src="{{ asset('Dashboard/img/user.png') }}" alt="User Icon">
+                    <img src="{{ asset('Main1/img/user.png') }}" alt="User Icon">
                     <span class="text">Users</span>
                 </a>
                 <div class="dropdown-content">
@@ -115,8 +165,8 @@
     
         <ul class="side-menu">
             <li>
-                <a href="#">
-                    <img src="{{ asset('Dashboard/img/order.png') }}">
+                <a href="">
+                    <img src="{{ asset('Main1/img/order.png') }}">
                     <span class="text">Orders</span>
                 </a>
             </li>
@@ -132,6 +182,7 @@
 
     </section>
     <!--  end Sidebar -->
+
 
     <!--content-->
 
@@ -153,41 +204,56 @@
                 <span class="num">2</span>
             </a>
           
-            <div class="dropdown1">
-                <a href="#" class="only-img" id="profile-dropdown1">
-                    <img src="{{ asset('Dashboard/img/a.png') }}" onclick="toggleMenu()" />
-                </a>
-                <div class="dropdown-content1" id="dropdown-content1">
-                    <div class="sub-menu-wrap" id="subMenu">
+            {{-- Profile --}}
+
+
+           
+
+
+            <div class="profile-container">
+                <img src="{{ asset('Main1/img/navigator.png') }}" alt="Profile Image">
+                <div class="profile-dropdown">
+                  <a href="#" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
+                  <a href="" class="dropdown-item"><i class='bx bxs-cog'></i>  Settings</a>
+                  <a href="{{ route('admin_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
+                </div>
+              
+             
+             
+                    {{--  <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <div class="user-info">
-                                <img src="{{ asset('Dashboard/img/a.png') }}" />
+                                <img src="{{ asset('Main1/img/a.png') }}" />
                                 <h3>&nbsp;&nbsp;&nbsp;<b></b></h3>
                             </div>
                             <hr />
-                           {{--  {{ auth()->user()->name }} --}}
+                           {{--  {{ auth()->user()->name }} 
                             <a href="#" class="sub-menu-link">
-                                <img src="{{ asset('Dashboard/img/profile.png') }}" />
+                                <img src="{{ asset('Main1/img/profile.png') }}" />
                                 <p>Edit Profile</p>
                                 <span>></span>
                             </a>
                             <a href="#" class="sub-menu-link">
-                                <img src="{{ asset('Dashboard/img/setting.png') }}" />
+                                <img src="{{ asset('Main1/img/setting.png') }}" />
                                 <p>Settings</p>
                                 <span>></span>
                             </a>
                             <a href="#" class="sub-menu-link">
-                                <img src="{{ asset('Dashboard/img/help.png') }}" />
+                                <img src="{{ asset('Main1/img/help.png') }}" />
                                 <p>Help & Support</p>
                                 <span>></span>
                             </a>
                             <a href="{{ route('admin_logout') }}" class="sub-menu-link">
-                                <img src="{{ asset('Dashboard/img/logout.png') }}" />
+                                <img src="{{ asset('Main1/img/logout.png') }}" />
                                 <p>Log out</p>
                                 <span>></span>
                             </a>
                         </div>
-                    </div>
+                    </div>   --}}
+
+
+              
+                    
                 </div>
             </div>
         </nav>
@@ -198,19 +264,14 @@
         <!--Main-->
         <main>
             @include('Backend.Admin_Master.op')
- <!-- Button  -->
-               
-  @include('Backend.Admin_Master.button')
+
+             @yield('content')
+                 
+          
 
 
-<!-- end Button  -->
 
 
-<!-- Table  -->
-  
-      @include('Backend.Admin_Master.table')
-
-<!-- end Table  -->
         </main>
       
        
@@ -219,30 +280,11 @@
 
 
 
-   {{--  <div class="m" >
-        <form action="{{ route('store.data') }}" method="post">
-            @csrf
-            <div class="form-group">
-                <label for="">Enter Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter name">
-
-            </div>
-            <div class="form-group">
-                <label for="">Enter mail</label>
-                <input type="email" name="email" class="form-control" placeholder="example@gmail.com">
-            </div>
-
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-    </div>    --}} 
-
-
-
-
+ 
    
 
 
-    <script src="{{ asset('Dashboard/script.js') }}"></script>
+    <script src="{{ asset('Main1/script.js') }}"></script>
 
    
     <script>
@@ -263,25 +305,9 @@
     </script>
 
 
-<script>
-    function toggleMenu() {
-        var dropdownContent = document.getElementById("dropdown-content1");
-        dropdownContent.style.display = (dropdownContent.style.display === "" || dropdownContent.style.display === "none") ? "block" : "none";
-    }
 
-    // Close the dropdown when clicking outside of it
-    window.onclick = function(event) {
-        if (!event.target.matches('.only-img')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content1");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.style.display === "block") {
-                    openDropdown.style.display = "none";
-                }
-            }
-        }
-    }
-</script>
+{{-- profile --}}
+
 
 
 

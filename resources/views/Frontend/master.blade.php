@@ -30,6 +30,17 @@
         {{-- cart --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        {{-- cart --}}
+        <link href="{{ asset('frontend/cart.css') }}" rel="stylesheet" />
+
+        @notifyCss
+
+
+        {{-- modal --}}
+        <link href="{{ asset('frontend/modal.css') }}" rel="stylesheet" />
+
+
     </head>
 
     <style>
@@ -63,17 +74,65 @@
 
     .dropdown-item {
       padding: 20px 30px;
-      text-decoration: none;
-      display: block;
+      background: black;
+      
       font-weight: 500;
-      color: #333;
+      color: #3c2e2e;
       height: 60px; 
       width: 150px; 
     }
 
     .dropdown-item:hover {
-      background-color: #f9f9f9;
+      background: #242222;
     }
+    /* Dropdown  */
+
+
+
+/* Style the dropdown button */
+.dropbtn {
+    display: inline-block;
+    background-color: #e8e7e7;
+    color:  #222;
+    padding: 14px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+/* Style the dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 160px; /* Set a minimum width for the dropdown */
+}
+
+/* Style the dropdown links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    display: block;
+    text-align: left;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+    
+
+
+
   </style>
 
 
@@ -81,8 +140,12 @@
 
 
 <body>
+
+  @include('notify::components.notify')
     
     <!--   header  -->
+
+    
    
   @include('Frontend.partials.header')
 
@@ -111,7 +174,7 @@
 
   @yield('content')
 
-
+  @include('notify::components.notify')
 
  <!-- card End 2nd Section-->
 
@@ -175,14 +238,17 @@
 @include('SweetAlert.error')
 
 
+<!-- modal -->
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
 
 
-
-
-
-
+@notifyJs
 
 </body>
 </html>

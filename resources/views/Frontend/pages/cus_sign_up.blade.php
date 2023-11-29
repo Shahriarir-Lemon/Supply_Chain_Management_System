@@ -2,7 +2,7 @@
 @extends('Frontend.master')
 
 
-@section('form')
+@section('content')
 
 
 <style>

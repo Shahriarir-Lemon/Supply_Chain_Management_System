@@ -18,12 +18,12 @@ class CategoryController extends Controller
   public function category_list()
   {
     $categories = Category::paginate(4);
-    return view('Backend.Category.category_list', compact('categories'));
+    return view('Backend.Category.table', compact('categories'));
   }
 
   public function add_category()
   {
-    return view('Backend.Category.category_form');
+    return view('Backend.Category.form');
   }
 
   

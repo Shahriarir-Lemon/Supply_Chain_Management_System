@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Backend.Dashboard1.main')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Font Awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-    
-    <title>Raw Materials</title>
-</head>
+
+
+
 <style>
 
 /*  view pop up */
@@ -62,17 +44,16 @@
 /*  end  view pop up */
 
 .container {
-        margin-left: 2px;
-        max-width: 980px;
-        /* Set your desired max width */
-               /* Set your desired height */
-            background-color: white; /* Optional: Change the background color */
-            border: 1px solid #161111;    /* Optional: Add a border */
-            padding: 20px;  
+       
+        max-width: auto;
+       
+            background-color: white; 
+            
+            
             margin-bottom: 20px;  
-            margin-top: 30px; 
+           
             align-content: center; 
-            border-radius: 20px     /* Optional: Add padding */
+            
         }
         .product-image {
         width: 200px; 
@@ -82,15 +63,15 @@
     }
 
     .rounded-button {
-    border-radius: 20px; /* Adjust the value to control the roundness of the button */
-    padding: 10px 20px; /* Add padding for better button appearance */
-    color: #ffffff; /* Set text color */
-    border: none; /* Remove border */
-    cursor: pointer; /* Change cursor to a pointer on hover */
+    border-radius: 20px; 
+    padding: 10px 20px; 
+    color: #ffffff;
+    border: none; 
+    cursor: pointer; 
 }
 
 tr .s{
-    height: 50px; /* Adjust the height as needed */
+    height: 50px; 
     text-align: center;
     vertical-align: middle;
 }
@@ -377,7 +358,6 @@ margin-right: 20px;
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.11.6/dist/umd/popper.min.js"></script>
-</body>
-</html>
+@endsection
+
+

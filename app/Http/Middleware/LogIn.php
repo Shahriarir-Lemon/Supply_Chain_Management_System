@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogIn
+class Login
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class LogIn
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            return $next($request);
-        } else {
-            return redirect()->route('getlogin')->with('error', 'Please Log in');
+        if (!auth()->check()) {
+            // Redirect to login if the user is not authenticated
+            return redirect('/admin_login');
         }
+
+        return $next($request);
     }
 }

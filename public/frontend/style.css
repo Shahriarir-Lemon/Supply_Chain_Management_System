@@ -24,13 +24,14 @@
 
         top: 0;
         left: 0;
-        padding: 10px 5%;
+        padding: 1px 5%;
         display: flex;
         justify-content: space-between;
         width: 100%;
         align-items: center;
         background: #e8e7e7;
         box-shadow: 0 0 10px rgba(0,0,0,.4);
+        scrollbar-width: none;
 
     }
 
@@ -128,6 +129,7 @@
             padding: 6rem 9% 2rem;
             background: light;
             margin-bottom: -22px;
+            margin-top: -20px;
         }
 
         .home-section

@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        return view ('Role.role_list', compact('roles','permissions'));
+        return view ('Role.role_table', compact('roles','permissions'));
     }
 
    

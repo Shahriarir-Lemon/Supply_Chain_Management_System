@@ -18,7 +18,7 @@ class UserListController extends Controller
             // return $users;
                 $roles = Role::all();
                 $permissions = Permission::all();
-                return view ('User_List.user_list', compact('roles','users','permissions'));
+                return view ('User_List.user_table', compact('roles','users','permissions'));
             }
 
    public function user_form()
@@ -49,6 +49,7 @@ class UserListController extends Controller
                 'password' => bcrypt($request->input('password')),
                 'Adress' => $request->input('address'),
                 'City' => $request->input('city'),
+                'Role'=>$request->input('roles'),
             ];
 
             $user = User::create($data);
@@ -58,7 +59,7 @@ class UserListController extends Controller
             return redirect()->route('user_list')->with('success', 'User created successfully');
            }
 
-            public function user_edit($id , Request $request)
+     public function user_edit($id , Request $request)
             {
                 $user = User::find($id);
 
@@ -79,6 +80,9 @@ class UserListController extends Controller
                     'password' => bcrypt($request->input('password')),
                     'Adress' => $request->input('address'),
                     'City' => $request->input('city'),
+                    'Role'=>$request->input('roles'),
+
+
                 ];
 
                 $user->update($data);

@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Backend.Dashboard1.main')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-     <!-- Bootstrap JS and jQuery -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-     <!-- Font Awesome icons -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Unit List</title>
-</head>
+
+
 <style>
 
 .container {
-        margin-left: 2px;
-        max-width: 600px;
+   
+        max-width: auto;
         /* Set your desired max width */
                /* Set your desired height */
             background-color: white; /* Optional: Change the background color */
             border: 1px solid #161111;    /* Optional: Add a border */
             padding: 20px;  
             margin-bottom: 20px;  
-            margin-top: 30px; 
+           
             align-content: center; 
             border-radius: 20px     /* Optional: Add padding */
         }
@@ -202,11 +188,8 @@ margin-right: 20px;
 
 
 
+@endsection
 
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.11.6/dist/umd/popper.min.js"></script>
-</body>
-</html>

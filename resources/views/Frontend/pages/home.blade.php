@@ -16,45 +16,91 @@
 </head>
 
 <body>
-    <div class="container py-5">
+    <div class="container py-5" id="Ad">
         <h1 class="text-center">Popular Items</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
 
-            @foreach ($products as $product)
+     @foreach ($products as $product)
 
 
             <div class="col">
+                
                 <div class="card">
-                    <img src="{{ $product->Product_Image }}" class="card-img-top" alt="Product Image" style="width: auto; height: 250px;">
-
+                    <div class="text-center">
+                        
+                        <button class="btn btn-sm" data-toggle="modal" data-target="#pp{{$product->id}}">
+                            <img src="{{ $product->Product_Image }}" class="card-img-top" alt="Product Image" style="width: auto; height: 250px;">    
+                            </i>
+                            </button>
+                       
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->Product_Name }}</h5>
                         <p class="card-text text-center text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
                            </p>
+                    </div> 
+                    
+                    <div class="mb-5 d-flex justify-content-around">
+                        @if($product->Stock > 0)
+                        <div class="alert alert-success">
+                            Stock Available: {{ $product->Stock }} {{ $product->Unit_Type }}
+                        </div>
+                        @else
+                            
+                                <div class="alert alert-danger">
+                                    Out of Stock
+                                </div>
+                                @endif
+
                     </div>
                     <div class="mb-5 d-flex justify-content-around">
                         <h3>{{ $product->Price }} .tk</h3>
-                        <a class="btn btn-outline-dark mt-auto text-white" href="#" style="background-color:black; border-radius: 10px;">Add to cart</a>
+                        <a class="btn btn-outline-green mt-auto text-white" href="{{ route('add_to_cart', $product->id) }}#Ad " style="background-color:green; border-radius: 10px;">Add to Cart</a>
                     </div>
+                  
                     
                     
                 </div>
-            </div>
+             </div>
 
             @endforeach
          
 
-            
-
-
-          
-
-         
-
+    
 
         </div>
     </div>
+
+
+
+
+    @foreach ($products as $product)
+
+
+
+    
+<div class="modal fade" id="pp{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel{{$product->id}}"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+                
+                <div class="modal-body">
+                   
+                    @include('Frontend.pages.productview')
+                  
+                   
+                </div>
+               
+           
+        </div>
+    </div>
+</div>
+
+@endforeach
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
