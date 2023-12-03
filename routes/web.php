@@ -14,25 +14,20 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Authenticate\RegController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Authenticate\LoginController;
+
 use App\Http\Controllers\User_List\UserListController;
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\CustomerRegController;
 use App\Http\Controllers\Raw_Material\RawMaterialController;
 use App\Http\Controllers\Cart_and_payment\CartController;
+use App\Http\Controllers\UserCart\UserCartController;
 
+use App\Notifications\UserNofication;
 
+// Payment for 
+use App\Http\Controllers\SslCommerzPaymentController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 
 
@@ -81,6 +76,11 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::post('/material_store', [RawMaterialController::class, 'material_store'])->name('material_store');
 
+    Route::PUT('/edit_material/{id}', [RawMaterialController::class, 'edit_material'])->name('edit_material');
+
+    Route::get('/delete_material/{id}', [RawMaterialController::class, 'delete_material'])->name('delete_material');
+
+
 
     // Category
 
@@ -127,9 +127,40 @@ Route::group(['middleware' => 'auth'], function ()
     Route::put('/user_edit/{id}', [UserListController::class, 'user_edit'])->name('user_edit');
     Route::delete('/user_delete/{id}', [UserListController::class, 'user_delete'])->name('user_delete');
 
+  // Add to card database for manufacturer
+
+    Route::post('/add_cart/{id}', [UserCartController::class, 'add_cart'])->name('add_cart');
+
+    Route::get('/cart_show', [UserCartController::class, 'cart_show'])->name('cart_show');
+
+    Route::get('/remove_cart/{id}', [UserCartController::class, 'remove_cart'])->name('remove_cart');
+
+    Route::PUT('/quantity_update/{id}', [UserCartController::class, 'quantity_update'])->name('quantity_update');
+
+
+
+
+
+
+
+
 });
 
+// SSLCOMMERZ Start
 
+Route::get('/user.checkout', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('user.checkout');
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
+//SSLCOMMERZ END
 
 
 

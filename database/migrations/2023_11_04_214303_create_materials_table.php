@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('Price');
             $table->string('Unit_Type');
             $table->string('Stock');
+            $table->string('Description');
+
             $table->timestamps();
         });
     }

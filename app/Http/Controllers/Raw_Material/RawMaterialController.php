@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Raw_Material;
 
 use App\Models\Material;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Exception as GlobalException;
 use Illuminate\Support\Facades\Validator;
@@ -13,8 +15,9 @@ class RawMaterialController extends Controller
     public function raw_material_list()
     {
 
-        $materials = Material::paginate(3);
-        return view('Backend.Raw_Materials.table', compact('materials'));
+        $materials = Material::all();
+        $units = Unit::get();
+        return view('Backend.Raw_Materials.table', compact('materials','units'));
     }
 
     public function add_raw_material()
@@ -33,6 +36,7 @@ class RawMaterialController extends Controller
             'material_price' => 'required',
             'material_unit' => 'required',
             'material_stock' => 'required',
+            'material_description'=>'nullable',
         ]);
 
         $image = time() . $request->file('material_image')->getClientOriginalName();
@@ -45,20 +49,79 @@ class RawMaterialController extends Controller
             'Price' => $request->input('material_price'),
             'Unit_Type' => $request->input('material_unit'),
             'Stock' => $request->input('material_stock'),
+            'Description' => $request->input('material_description'),
+
 
         ];
 
         try
         {
             Material::create($mat);
-            return redirect()->route('raw_material_list')->with('success', 'Account Created Successfully');
+            return redirect()->route('raw_material_list')->with('success', 'Material Added successfully');
         } 
-        catch (Exception $e) 
+        catch (\Exception $e) 
         {
             session()->flash('message', $e->getMessage());
             session()->flash('type', 'danger');
 
-            return redirect()->back()->withInput();
+            return redirect()->withErrors($mat)->withInput();
         }
     }
+
+    public function edit_material($id, Request $request)  
+            {
+                $material = Material::find($id);
+
+                $valid = Validator::make($request->all(), [
+                    'material_image' => '|image|max:100000',
+                    'material_name' => 'required|string|unique:materials,Material_Name,' . $id,
+                    'material_price' => 'required',
+                    'material_unit' => 'required',
+                    'material_stock' => 'required',
+                    'material_description' => 'nullable',
+                ]);
+                
+                if ($valid->fails()) {
+                    return redirect()->back()->withErrors($valid)->withInput();
+                }
+                
+                
+
+                $data = [];
+
+                if($request->has('material_image'))
+                {
+                    $image = time() . $request->file('material_image')->getClientOriginalName();
+                    $path = $request->file('material_image')->storeAs('material_images', $image, 'public');
+
+                    $data['Material_Image'] = '/storage/' . $path;
+                }
+
+
+
+
+                $data['Material_Name'] = $request->input('material_name');
+                $data['Price'] = $request->input('material_price');
+                $data['Unit_Type'] = $request->input('material_unit');
+                
+                $data['Stock'] = $request->input('material_stock');
+                $data['Description'] = $request->input('material_description');
+        
+                $material->update($data);
+        
+                return redirect()->back()->with('success', 'Material Updated successfully');
+
+            }
+
+            public function delete_material($id)
+            {
+                $material = Material::find($id);
+                $material->delete();
+
+                $cart = Cart::find($id);
+                $cart->delete();
+
+                return redirect()->back()->with('success', 'Material deleted successfully');
+
+            }
 }

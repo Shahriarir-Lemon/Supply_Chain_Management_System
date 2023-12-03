@@ -31,7 +31,19 @@
    
 
 
+    {{-- spinner --}}
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
     <title>System</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+   
 </head>
 
 <style>
@@ -109,6 +121,8 @@
 <body>
     <!-- Sidebar -->
 
+    
+
     <section id="sidebar">
         
        <div class="side">
@@ -118,12 +132,14 @@
        </div>
            
         <ul class="side-menu top">
+            @if (Auth()->user()->can('edit.product'))
             <li>
                 <a href="{{ route('dash') }}">
                     <i class="bx bxs-dashboard"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
+            @endif
             <li>
                 <a href="{{route('raw_material_list')}}">
                     <img src="{{ asset('Main1/img/raw.png') }}">
@@ -203,6 +219,27 @@
                 <i class="bx bxs-bell"></i>
                 <span class="num">2</span>
             </a>
+
+         {{--  cart --}}
+
+            <a href="{{ route('cart_show') }}"> <button class="btn btn-outline-dark" type="submit">
+                <i class="bi-cart-fill me-1"></i>
+               
+                <span class="badge bg-dark text-white ms-1 rounded-pill">
+                   
+                 @php
+                    $user = Auth::user();
+                    $materials = App\Models\Material::all();
+                    $items = $materials->count() > 0 ? App\Models\Cart::where('user_id', $user->id)->count() : 0;
+                @endphp
+                
+              
+                    {{ $items }}
+                
+                
+                  </span>
+            </button> 
+         </a>
           
             {{-- Profile --}}
 
@@ -262,12 +299,16 @@
         <!--End Navbar-->
 
         <!--Main-->
+        
         <main>
             @include('Backend.Admin_Master.op')
 
+            @include('notify::components.notify')
+            @include('SweetAlert.success')
+
              @yield('content')
                  
-          
+           
 
 
 
@@ -307,9 +348,24 @@
 
 
 {{-- profile --}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- spinnrer --}}
 
+{{-- sand --}}
+
+<script>
+    var obj = {};
+    obj.cus_name = $('#customer_name').val();
+    obj.cus_phone = $('#mobile').val();
+    obj.cus_email = $('#email').val();
+    obj.cus_addr1 = $('#address').val();
+    obj.amount = $('#total_amount').val();
+    
+    $('#sslczPayBtn').prop('postdata', obj);
+</script>
 
 
 </body>

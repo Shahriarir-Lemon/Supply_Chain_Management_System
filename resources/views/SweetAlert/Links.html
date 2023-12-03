@@ -16,3 +16,35 @@
 
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+   Error show and success 
+
+
+   if ($valid->fails()) {
+      return redirect()->route('add_product')->withErrors($valid)->withInput();
+  }
+  
+  // Continue with the processing, for example, saving the material to the database.
+  
+  // Flash a success message to the session.
+  return redirect()->route('add_product')->with('success', 'Material added successfully');
+
+
+
+  @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+  

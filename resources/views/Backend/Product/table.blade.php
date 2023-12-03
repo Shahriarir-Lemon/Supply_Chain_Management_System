@@ -48,10 +48,9 @@
         max-width: auto;
        
             background-color: white; 
+            border: 1px solid #000;
             
-            
-            margin-bottom: 20px;  
-           
+          border-radius: 20px;
             align-content: center; 
             
         }
@@ -129,11 +128,12 @@ margin-right: 20px;
   
 
 <div class="container">
-    <div class="product_form">
+    <div class="product_form"><br>
+        @if (Auth()->user()->can('edit.product'))
         <a href="{{ route('add_product') }}">
             <button class="rounded-button btn btn-success">Add Product</button>
         </a>
-        
+        @endif
         
         <!-- Table to display product information -->
         <h3 class="mt-0 text-center"><u>Product List</u></h3>
@@ -185,6 +185,11 @@ margin-right: 20px;
                       
                         </div>
                       </td>
+
+                    
+                      
+                     
+
                       
                 </tr>
                 @endforeach
@@ -221,7 +226,7 @@ margin-right: 20px;
                         
                         <div class="form-group">
                             <label for="name">Product Image</label>
-                            <input type="file" name="product_image"  class="form-control" required><br>
+                            <input type="file" name="product_image"  class="form-control"><br>
                             <img src="{{ asset($product->Product_Image) }}" class="product-image">
                         </div>
                         <div class="form-group">

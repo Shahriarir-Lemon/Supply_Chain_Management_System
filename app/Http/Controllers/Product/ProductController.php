@@ -48,6 +48,14 @@ class ProductController extends Controller
 
     public function add_product()
     {
+
+
+        if (is_null($this-> user) || !$this->user->can('edit.product'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+
+        
         $categories = Category::get();
         $units = Unit::get();
         
@@ -57,6 +65,8 @@ class ProductController extends Controller
     public function product_store(Request $request)
 
     {
+
+       
         //  dd($request->all());
 
 
