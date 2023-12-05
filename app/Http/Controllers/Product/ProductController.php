@@ -50,10 +50,10 @@ class ProductController extends Controller
     {
 
 
-        if (is_null($this-> user) || !$this->user->can('edit.product'))
-        {
-            abort(403, 'Unauthrorized Access');
-        }
+     //   if (is_null($this-> user) || !$this->user->can('edit.product'))
+      //  {
+      //      abort(403, 'Unauthrorized Access');
+      //  }
 
         
         $categories = Category::get();
@@ -65,11 +65,16 @@ class ProductController extends Controller
     public function product_store(Request $request)
 
     {
+        $categoryName = $request->input('product_category');
 
+        $category = Category::where('Category_Name', $categoryName)->first();
        
-        //  dd($request->all());
+         // dd($request->all());
 
 
+
+    if ($category) 
+    {
         $validate = Validator::make($request->all(), [
             
             'product_image' => 'required|image',
@@ -79,8 +84,16 @@ class ProductController extends Controller
             'product_category' => 'required',
             'product_stock' => 'required',
             'product_description' => 'required',
+
            
         ]);
+
+        if($validate->fails())
+        {
+
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
 
         $photo = time().$request->file('product_image')->getClientOriginalName();
         $path = $request->file('product_image')->storeAs('product_images', $photo, 'public');     
@@ -95,6 +108,7 @@ class ProductController extends Controller
             'Category' => $request->input('product_category'),
             'Stock' => $request->input('product_stock'),
             'Description' => $request->input('product_description'),
+            'category_id'=> $category->id,
 
         ];
 
@@ -102,7 +116,9 @@ class ProductController extends Controller
             Product::create($data);
 
 
-            return redirect()->route('product_list')->with('success', 'Account Created Successfully');
+            return redirect()->route('product_list')->with('success', 'Product added successfully');
+            
+
         }
          catch (\Exception $e) {
 
@@ -111,7 +127,14 @@ class ProductController extends Controller
 
             return redirect()->back()->withInput();
         }
+
+
     }
+        return redirect()->back()->with('success', 'Category Not Found');
+
+
+
+}
 
 
 

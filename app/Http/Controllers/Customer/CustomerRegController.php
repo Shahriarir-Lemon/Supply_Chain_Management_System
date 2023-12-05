@@ -233,6 +233,13 @@ class CustomerRegController extends Controller
 
             }
 
+
+            public function profile_view()
+            {
+
+                return view('Frontend.pages.profile_view');
+            }
+
    }
 
 

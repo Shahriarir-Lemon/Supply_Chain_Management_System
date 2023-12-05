@@ -1,29 +1,36 @@
 
+@php
+   $categories = App\Models\Category::all();
+ 
+ 
+@endphp
 
 
-
+ 
 
 <header class="header fixed-top">
    
     <a class="Logo" href="{{ route('home') }}">Bakary<span>Gallery</span></a>
 
     <nav class="navbar">
-      <a href="#Home" class="active">Home</a>
+      <a href="{{ route('home') }}" class="active">Home</a>
       <div class="dropdown">
           <button class="dropbtn">Categories &#9662;</button>
           <div class="dropdown-content">
-              <a href="#Crackers">Crackers</a>
-              <a href="#Doughnuts">Doughnuts</a>
-              <a href="#Cookies">Cookies</a>
-              <a href="#Biscuits">Biscuits</a>
-              <a href="#Pastries">Pastries</a>
-              <a href="#Bun">Bun</a>
-              <a href="#Cakes">Cakes</a>
-              <a href="#Bread">Bread</a>
+
+
+            @foreach ($categories as $key => $category) 
+
+              <a href="{{ route('bakery_category', $category->id) }}">{{ $category->Category_Name }}</a>
+            
+              @endforeach
+
+
+
           </div>
       </div>
-      <a href="#Popular Items">Popular Items</a>
-      <a href="#New Arivals">New Arrivals</a>
+      <a href="{{ route('popular_items') }}">Popular Items</a>
+      <a href="{{ route('new_arrivals') }}">New Arrivals</a>
   </nav>
   
     
@@ -32,18 +39,23 @@
      <i class="bx bx-heart"></i>
      
     </div>
-   <a href="{{ route('view_cart') }}#Cart "> <button class="btn btn-outline-dark" type="submit">
+   <a href="{{ route('cus_cart_show') }}"> <button class="btn btn-outline-dark" type="submit">
       <i class="bi-cart-fill me-1"></i>
      
       <span class="badge bg-dark text-white ms-1 rounded-pill">
-        @if(session()->has('view_card'))
-          {{ count(session()->get('view_card')) }}
-        @else
-        0
-        @endif
-        
+
+
+    @php
+        $user = Auth::guard('customer')->user();
+        $product = App\Models\Product::all();
+        $items = $product->count() > 0 ? App\Models\CCart::where('user_id', $user->id)->count() : 0;
+    @endphp
+    {{ $items }}
         </span>
-  </button>  </a>
+  </button> 
+ </a>
+
+
 
     @guest('customer')
  <a href="{{ route('customer_login_page') }}"><button class="btna">Sign in</button></a> 
@@ -59,7 +71,7 @@
 <div class="profile-container">
    <img src="{{ Auth('customer')->user()->c_picture }}" alt="Profile Image">
    <div class="profile-dropdown">
-     <a href="#" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
+     <a href="{{ route('profile_view') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
      <a href="{{ route('customer_profile_edit_page') }}" class="dropdown-item"><i class='bx bxs-cog'></i>  Settings</a>
      <a href="{{ route('customer_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
    </div>

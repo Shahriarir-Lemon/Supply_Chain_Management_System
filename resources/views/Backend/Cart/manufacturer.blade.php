@@ -66,9 +66,20 @@ color: #fff;
        
         @php
         $user = Auth::user();
-      //  $pp = App\Models\Cart::all();
+       // $pp = App\Models\Cart::all();
+       $item = App\Models\Cart::where('user_id', $user->id)->first();
+           
+       if ($item) 
+       {
+           $materialID = $item->material_id;
+   
+        } else 
+        {
+            $materialID= 0;
+        }
+
         $items = App\Models\Cart::where('user_id', $user->id)->count();
-        $Material = App\Models\Material::where('id', $user->id)->value('Stock');
+        $Material = App\Models\Material::where('id', $materialID )->value('Stock');
       
         
     @endphp
@@ -115,7 +126,7 @@ color: #fff;
                     <td><img src="{{ $cart->image }}" class="material-image"></td>
                     <td>{{ $cart->material_name }}</td>
                     
-                    @if ($Material !== null)
+                    @if ($Material)
                     @php
                         $Material = (int)$Material; // Convert to integer if needed
                     @endphp
@@ -188,12 +199,24 @@ color: #fff;
             
         </table>
     
+
+        @php
+            $cart = App\Models\Cart::all();
+        @endphp
+
+@if($cart->count() > 0)
         <div class="card">
             <div class="card-body">
-           <a href="{{ route('user.checkout') }}">  <button type="button" class="btn btn-info btn-block btn-lg">Proceed to Order</button></a>
+           <a href="{{ route('chechout') }}">  <button type="button" class="btn btn-info btn-block btn-lg">Cash On Delevery</button></a>
             </div>
           </div>
-    
+
+          <div class="card">
+            <div class="card-body">
+           <a href="{{ route('user.checkout') }}">  <button type="button" class="btn btn-primary btn-block btn-lg">Online Payment</button></a>
+            </div>
+          </div>
+    @endif
 
        
     </div>

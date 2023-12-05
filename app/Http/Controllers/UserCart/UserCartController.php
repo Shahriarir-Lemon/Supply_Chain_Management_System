@@ -6,6 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use App\Models\OrderDetails;
+
+use App\Models\Order1;
+use Illuminate\Support\Facades\Auth;
 
 class UserCartController extends Controller
 {
@@ -78,7 +84,7 @@ class UserCartController extends Controller
             
         }
 
-        public function cart_show()
+ public function cart_show()
         {
 
             $user = auth()->user();
@@ -91,7 +97,7 @@ class UserCartController extends Controller
 
         }
 
-        public function remove_cart($id)
+ public function remove_cart($id)
         {
             
             $cart=Cart::find($id);
@@ -147,5 +153,66 @@ class UserCartController extends Controller
                 }
 
         }
+        
+
+    public function chechout()
+        {
+            return view('Backend.Cart.checkout');
+        }
+
+        
+ public function place_order(Request $request)
+        {
+
+
+           // dd($request->all());
+             $carts = Cart::all();
+             $user = Auth::user();
+             $totalPrice = Cart::where('user_id', $user->id)->sum('price');
+
+
+           $valid = Validator::make($request->all() ,[
+                    'name'=> 'required|max:20',
+                    'email'=> 'required|email',
+                    'mobile'=>'required',
+                    'address'=>'required',
+                    
+           ]);
+
+
+           if($valid->fails())
+           {
+            return redirect()->back()->withErrors($valid)->withInput();
+           }
+
+
+         $order= Order1::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'mobile'=>$request->mobile,
+            'address'=>$request->address,
+            'user_id'=>auth()->user()->id,
+            'status'=>'pending',
+            'total_price'=>$totalPrice,
+            'payment_method'=>'Cash_On_Delivery',
+         ]);
+
+
+         foreach($carts as $cart)
+         {
+            
+          OrderDetails::create([
+            'order_id' =>$order->id,
+            'product_name'=>$cart->material_name,
+            'price'=> $cart->price / $cart->quantity,
+            'quantity'=>$cart->quantity,
+            'subtotal'=>$cart->price,
+
+             ]);
+         }
+         return redirect()->back()->with('success', 'Order Placed successfully');
+
+
+    }
         
 }

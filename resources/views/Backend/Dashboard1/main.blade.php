@@ -251,7 +251,7 @@
                 <img src="{{ asset('Main1/img/navigator.png') }}" alt="Profile Image">
                 <div class="profile-dropdown">
                   <a href="#" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
-                  <a href="" class="dropdown-item"><i class='bx bxs-cog'></i>  Settings</a>
+                  <a href="" class="dropdown-item"><i class='bx bxs-cog'></i>  Orders</a>
                   <a href="{{ route('admin_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
                 </div>
               

@@ -291,7 +291,11 @@ color: var(--blue);
 }
 
 
+::selection{
 
+    background-color: green;
+    color: white;
+}
 
 
 /* End Navbar */

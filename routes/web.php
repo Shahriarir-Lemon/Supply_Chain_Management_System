@@ -22,6 +22,8 @@ use App\Http\Controllers\Customer\CustomerRegController;
 use App\Http\Controllers\Raw_Material\RawMaterialController;
 use App\Http\Controllers\Cart_and_payment\CartController;
 use App\Http\Controllers\UserCart\UserCartController;
+use App\Http\Controllers\CustomerCart\CustomerCartController;
+
 
 use App\Notifications\UserNofication;
 
@@ -137,6 +139,10 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::PUT('/quantity_update/{id}', [UserCartController::class, 'quantity_update'])->name('quantity_update');
 
+    Route::get('/chechout', [UserCartController::class, 'chechout'])->name('chechout');
+    Route::post('/place_order', [UserCartController::class, 'place_order'])->name('place_order');
+
+
 
 
 
@@ -191,11 +197,31 @@ Route::group(['middleware' => 'customer'], function ()
     Route::get('/customer_profile_edit_page', [CustomerRegController::class, 'customer_profile_edit_page'])->name('customer_profile_edit_page');
 
     Route::put('/customer_profile_edit/{id}', [CustomerRegController::class, 'customer_profile_edit'])->name('customer_profile_edit');
+    
+    Route::get('/profile_view', [CustomerRegController::class, 'profile_view'])->name('profile_view');
 
     // Cart
 
-    Route::get('/view_cart/', [CartController::class, 'view_cart'])->name('view_cart');
-    Route::get('/add_to_card/{product_id}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+    Route::post('/cus_add_cart/{id}', [CustomerCartController::class, 'cus_add_cart'])->name('cus_add_cart');
+
+    Route::get('/cus_cart_show', [CustomerCartController::class, 'cus_cart_show'])->name('cus_cart_show');
+
+    Route::get('/cus_remove_cart/{id}', [CustomerCartController::class, 'cus_remove_cart'])->name('cus_remove_cart');
+
+    Route::PUT('/cus_quantity_update/{id}', [CustomerCartController::class, 'cus_quantity_update'])->name('cus_quantity_update');
+
+
+
+
+
+  //Category wise page
+
+ Route::get('/bakery_category/{categoryId}', [HomeController::class, 'bakery_category'])->name('bakery_category');
+ Route::get('/popular_items', [HomeController::class, 'popular_items'])->name('popular_items');
+ Route::get('/new_arrivals', [HomeController::class, 'new_arrivals'])->name('new_arrivals');
+
+
+
 
 
 

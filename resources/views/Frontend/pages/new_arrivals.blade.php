@@ -1,6 +1,6 @@
 @extends('Frontend.master')
-@section('content')
 
+@section('category')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +16,12 @@
 </head>
 
 <body>
-    <div class="container py-5" id="Ad">
-        <h1 class="text-center">All Items</h1>
+    <div class="container py-5 mt-5" id="Ad">
+        <h1 class="text-center">New Arrivals</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
 
-     @foreach ($products as $product)
+     @foreach ($new_arrivals as $product)
 
 
             <div class="col">
@@ -82,7 +82,7 @@
 
 
 
-    @foreach ($products as $product)
+    @foreach ($new_arrivals as $product)
 
 
 
@@ -114,5 +114,8 @@
 </body>
 
 </html>
+
+
+
 
 @endsection

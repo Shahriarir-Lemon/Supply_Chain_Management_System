@@ -2,62 +2,173 @@
 
 @extends('Frontend.master')
 
-@section('content')
+@section('category')
 
 
-<div class="container mt-5 p-3 rounded cart" id="Cart">
-        <div class="row no-gutters">
-            <div class="col-md-8">
-                <div class="product-details mr-2">
-                    <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><span class="ml-2"><div class="btn btn-dark"><i class='bx bx-arrow-back'></i> Continue Shopping</div>
-                    </span></div>
-                    <hr><br>
-                    <h6 class="mb-0"></h6>
-                    <div class="d-flex justify-content-between"><span>You have 4 items in your cart</span>
-                        <div class="d-flex flex-row align-items-center"><span class="text-black-50"></span>
-                            <div class="price ml-2"><span class="mr-1">Price</span><i class="fa fa-angle-down"></i></div>
-                        </div>
-                    </div>
 
-               @if(session()->has('view_card'))
-               @foreach (session()->get('view_card') as $product)
-            
-
-                    <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                        <div class="d-flex flex-row"><img class="rounded" src="https://5.imimg.com/data5/SELLER/Default/2020/8/UF/OY/WJ/2410371/bakery-products-500x500.png" width="40">
-                            <div class="ml-2"><span class="font-weight-bold d-block">{{ $product['name'] }}</span><span class="spec"></span></div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center"><span class="d-block">2</span><span class="d-block ml-5 font-weight-bold">$900</span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
-                    </div>
-                    @endforeach
-                    @endif
-                   
-                   
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="payment-info">
-                    <div class="d-flex justify-content-between align-items-center"><span>Card details</span><img class="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
-
-<label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
-
-<label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span> </label>
+<style>
 
 
-<label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
-                    <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
-                    <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
-                    <div class="row">
-                        <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
-                        <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
-                    </div>
-                    <hr class="line">
-                    <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$3000.00</span></div>
-                    <div class="d-flex justify-content-between information"><span>Shipping</span><span>$20.00</span></div>
-                    <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$3020.00</span></div><button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><span>$3020.00</span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button></div>
-            </div>
+
+
+body{
+    margin-top:100px;
+    
+}
+.ui-w-40 {
+    width: 40px !important;
+    height: auto;
+}
+
+.card{
+    box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);    
+}
+
+.ui-product-color {
+    display: inline-block;
+    overflow: hidden;
+    margin: .144em;
+    width: .875rem;
+    height: .875rem;
+    border-radius: 10rem;
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+    vertical-align: middle;
+}
+
+
+
+</style>
+<div class="container px-3 my-5 clearfix">
+    <!-- Shopping cart table -->
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center" style="font-size: 35px;font-weight:500;color:cornflowerblue">Shopping Cart</h1>
         </div>
-    </div>
+        <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered m-0">
+                <thead>
+                  <tr>
+                    <!-- Set columns width -->
+                    <th class="text-center" style="min-width: 400px;">Product Name &amp; Picture</th>
+                    <th class="text-center" style="width: 100px;">Price</th>
+                    <th class="text-center" style="width: 200px;">Quantity</th>
+                    <th class="text-center" style="width: 100px;">Action</th>
+                    <th class="text-center" style="width: 100px;">Subtotal</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+        
+                   
+@php
+    $total=0;
+    $s=0;
+@endphp
+
+
+
+
+                   
+    @foreach ($carts as $cart)
+
+
+
+
+         @php
+         $user = auth('customer')->user();
+    
+             $price = App\Models\Product::where('id', $cart->product_id)->value('Price');
+         @endphp
+        
+        
+                  <tr>
+                    <td class="p-4">
+                      <div class="media align-items-center">
+                        <img src="{{ $cart->image }}" style="width:80px;height:80px;" class="d-block ui-bordered mr-4" alt="">
+                        <div class="media-body">
+                          <a  class="d-block text-dark">{{ $cart->product_name}}</a>
+                          <small>
+                            <span class="text-muted">Description: </span> Germany
+                          </small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right font-weight-semibold align-middle p-4">{{ $price }}</td>
+                    <td class="text-right font-weight-semibold align-middle p-6">
+                        <form action="" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-row align-middle">
+                                <div class="col-auto">
+                                    <input class="form-control text-right font-weight-semibold align-middle" style="text-align: center; width: 60px; height: 36px;" type="number" min="1" value="{{ $cart->quantity }}" name="quantity">
+                                </div>
+                                <div class="col-auto">
+                                    <button style="background: grey;" type="submit" class="btn btn-success bg-green text-right font-weight-semibold align-middle">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </td>
+                    <td class="text-right font-weight-semibold align-middle p-6">
+                        <div class="action-buttons">
+                         
+                          <a class="text-right font-weight-semibold align-middle" style="color: red;font-weight:600;" onclick="return confirm('Are You Sure to Remove this Product ? ')" href="{{ route('cus_remove_cart',$cart->id) }}" class="action-button delete-button">Remove</a>
+
+                         {{-- <a href="#" class="action-button delete-button">Delete</a>
+                           --}} 
+                        </div>
+                      </td>
+                    <td class="text-right font-weight-semibold align-middle p-4">{{ $cart->price }} </td>
+                  </tr>
+
+                  @php
+                      $total=$total + $cart->price;
+                      $s++;
+                  @endphp
+        
+@endforeach
+
+
+                </tbody>
+
+
+
+              </table>
+            </div>
+            <!-- / Shopping cart table -->
+        
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+              <div class="mt-4">
+                <label class="text-muted font-weight-normal"></label>
+                
+              </div>
+              <div class="d-flex">
+                <div class="text-right mt-4 mr-5">
+                  <label class="text-muted font-weight-normal m-0">Shipping</label>
+                  <div class="text-large"><strong>70 BDT</strong></div>
+                </div>
+                <div class="text-right mt-4">
+                  <label class="text-muted font-weight-normal m-0">Total price</label>
+                  <div class="text-large"><strong>{{ $total + 70}} BDT</strong></div>
+                </div>
+              </div>
+            </div>
+        
+            <div class="float-right">
+              <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
+              @if($s!=0)
+                
+             
+              <button style="background: green;" type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+              @endif
+            </div>
+        
+          </div>
+      </div>
+  </div>
 
 
     @endsection
