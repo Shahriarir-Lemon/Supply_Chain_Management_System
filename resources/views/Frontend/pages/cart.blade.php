@@ -81,6 +81,7 @@ body{
          $user = auth('customer')->user();
     
              $price = App\Models\Product::where('id', $cart->product_id)->value('Price');
+             $stock = App\Models\Product::where('id', $cart->product_id)->value('Stock');
          @endphp
         
         
@@ -98,12 +99,12 @@ body{
                     </td>
                     <td class="text-right font-weight-semibold align-middle p-4">{{ $price }}</td>
                     <td class="text-right font-weight-semibold align-middle p-6">
-                        <form action="" method="POST">
+                        <form action="{{ route('cus_quantity_update' , $cart->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-row align-middle">
                                 <div class="col-auto">
-                                    <input class="form-control text-right font-weight-semibold align-middle" style="text-align: center; width: 60px; height: 36px;" type="number" min="1" value="{{ $cart->quantity }}" name="quantity">
+                                    <input class="form-control text-right font-weight-semibold align-middle" style="text-align: center; width: 60px; height: 36px;" type="number" max={{ $cart->quantity + $stock }} min="1" value="{{ $cart->quantity }}" name="quantity">
                                 </div>
                                 <div class="col-auto">
                                     <button style="background: grey;" type="submit" class="btn btn-success bg-green text-right font-weight-semibold align-middle">Update</button>
@@ -157,12 +158,13 @@ body{
               </div>
             </div>
         
-            <div class="float-right">
-              <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
+            <div class="float-left">
+             <a href="{{ route('home') }}"> <button type="button" style="background: goldenrod" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button></a>
               @if($s!=0)
-                
-             
-              <button style="background: green;" type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+            </div>
+            <div class="float-right">
+              <a href="{{ route('cus_checkout') }}"><button style="background: rgb(221, 216, 216);color:black;font-weight:600;" type="button" class="btn btn-lg btn-primary mt-2">Cash On Delivery</button></a>
+              <button style="background: green;" type="button" class="btn btn-lg btn-primary mt-2"> Online Payment</button>
               @endif
             </div>
         

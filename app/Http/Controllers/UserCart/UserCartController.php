@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\UserCart;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Customer;
 use App\Models\Cart;
+use App\Models\CusOderDetail;
+use App\Models\CusOrder;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -192,9 +195,9 @@ class UserCartController extends Controller
             'mobile'=>$request->mobile,
             'address'=>$request->address,
             'user_id'=>auth()->user()->id,
-            'status'=>'pending',
+            'delevery_status'=>'Processing',
             'total_price'=>$totalPrice,
-            'payment_method'=>'Cash_On_Delivery',
+            'payment_status'=>'Cash_On_Delivery',
          ]);
 
 
@@ -213,6 +216,43 @@ class UserCartController extends Controller
          return redirect()->back()->with('success', 'Order Placed successfully');
 
 
-    }
+          }
+
+    public function customer_order()
+          {
+              
+              $order = CusOrder::all();
+              $orders =CusOderDetail::all();
+  
+              return view('Backend.Cart.customer_order',compact('orders','order'));
+  
+  
+          }     
+
+
+
+    public function cus_status_change(Request $request, $id)
+        {
+            
+            
+            
+        //  dd($id);
+            $order = CusOrder::find($id);
+
+            $order->update([
+                  
+                'order_status'=> $request->status,
+
+            ]);
+          
+
+            return redirect()->back();
+
+
+        }
+
+       
+        
+    
         
 }

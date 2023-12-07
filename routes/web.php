@@ -142,6 +142,11 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/chechout', [UserCartController::class, 'chechout'])->name('chechout');
     Route::post('/place_order', [UserCartController::class, 'place_order'])->name('place_order');
 
+// see customer order in admin panel
+Route::get('/customer_order', [UserCartController::class, 'customer_order'])->name('customer_order');
+
+
+Route::PUT('/cus_status_change/{id}', [UserCartController::class, 'cus_status_change'])->name('cus_status_change');
 
 
 
@@ -200,6 +205,8 @@ Route::group(['middleware' => 'customer'], function ()
     
     Route::get('/profile_view', [CustomerRegController::class, 'profile_view'])->name('profile_view');
 
+    Route::get('/cus_download/{id}/generate', [CustomerRegController::class, 'cus_download'])->name('cus_download');
+
     // Cart
 
     Route::post('/cus_add_cart/{id}', [CustomerCartController::class, 'cus_add_cart'])->name('cus_add_cart');
@@ -209,6 +216,14 @@ Route::group(['middleware' => 'customer'], function ()
     Route::get('/cus_remove_cart/{id}', [CustomerCartController::class, 'cus_remove_cart'])->name('cus_remove_cart');
 
     Route::PUT('/cus_quantity_update/{id}', [CustomerCartController::class, 'cus_quantity_update'])->name('cus_quantity_update');
+
+    Route::get('/cus_checkout', [CustomerCartController::class, 'cus_checkout'])->name('cus_checkout');
+    
+    Route::post('/cus_place_order', [CustomerCartController::class, 'cus_place_order'])->name('cus_place_order');
+
+    
+    Route::get('/cus_cancel_order/{id}', [CustomerCartController::class, 'cus_cancel_order'])->name('cus_cancel_order');
+
 
 
 

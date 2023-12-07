@@ -181,9 +181,9 @@
     
         <ul class="side-menu">
             <li>
-                <a href="">
+                <a href="{{ route('customer_order') }}">
                     <img src="{{ asset('Main1/img/order.png') }}">
-                    <span class="text">Orders</span>
+                    <span class="text">Customer Orders</span>
                 </a>
             </li>
             <li>

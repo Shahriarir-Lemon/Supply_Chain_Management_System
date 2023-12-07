@@ -13,9 +13,12 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
+use App\Models\CusOderDetail;
+use App\Models\CusOrder;
 use Illuminate\Support\Facades\delete;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -237,7 +240,32 @@ class CustomerRegController extends Controller
             public function profile_view()
             {
 
-                return view('Frontend.pages.profile_view');
+                $orders =CusOrder::all();
+                return view('Frontend.pages.profile_view',compact('orders'));
+            }
+
+            public function cus_download($id)
+            {
+
+                $orders =CusOrder::find($id);
+
+                $today = Carbon::now()->format('Y-m-d');
+
+                $details = CusOderDetail::where('cus_order_id',$id)->get();
+                
+               // return view('Frontend.pages.cus_invoice',compact('orders','today','details'));
+
+                $data = [
+                    'orders' => $orders,
+                    'today' => $today,
+                    'details' =>$details,
+                   
+                ];
+
+                $pdf = Pdf::loadView('Frontend.pages.cus_invoice', $data);
+
+                return $pdf->download('invoice of-'.$orders->name.'.pdf');
+
             }
 
    }
