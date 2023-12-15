@@ -135,11 +135,11 @@ label
         <br>
         <div class="form-row">
             <div class="form-group col-md-10">
-               <a href="{{ route('customer_login_page') }}"> <button type="button" data-toggle="modal" data-target="#login" class="btn btn-primary">Already Registered?</button></a>
+               <a href="{{ route('customer_login_page') }}"> <button type="button" data-toggle="modal" data-target="#login" class="btn btn-primary"><span style="background: green;">Already Registered?</span> </button></a>
             </div>
             
             <div class="form-group col-md-1">
-                <a href=""><button type="submit" class="btn btn-primary">Register</button></a>
+                <a href=""><button type="submit" class="btn btn-primary"><span style="background: green;">Register</span></button></a>
             </div>
           </div>
     

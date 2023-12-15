@@ -40,6 +40,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+   
+
 
 
 
@@ -198,6 +200,7 @@
 
     </section>
     <!--  end Sidebar -->
+    @include('notify::components.notify')
 
 
     <!--content-->
@@ -217,7 +220,7 @@
             </form>
             <a href="#" class="notification">
                 <i class="bx bxs-bell"></i>
-                <span class="num">2</span>
+                <span class="num"></span>
             </a>
 
          {{--  cart --}}
@@ -301,9 +304,13 @@
         <!--Main-->
         
         <main>
+            
+
             @include('Backend.Admin_Master.op')
 
-            @include('notify::components.notify')
+
+
+
             @include('SweetAlert.success')
 
              @yield('content')

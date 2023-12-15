@@ -45,11 +45,13 @@
       <span class="badge bg-dark text-white ms-1 rounded-pill">
 
 
-    @php
+     @php
         $user = Auth::guard('customer')->user();
         $product = App\Models\Product::all();
-        $items = $product->count() > 0 ? App\Models\CCart::where('user_id', $user->id)->count() : 0;
+        $itema = App\Models\CCart::all();
+        $items = $itema->count() > 0 ? App\Models\CCart::where('user_id', $user->id)->count() : 0;
     @endphp
+    
     {{ $items }}
         </span>
   </button> 
