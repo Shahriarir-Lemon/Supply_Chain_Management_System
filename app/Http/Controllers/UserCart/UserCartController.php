@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use App\Models\OrderDetails;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Models\Order1;
 use Illuminate\Support\Facades\Auth;
@@ -205,7 +207,7 @@ class UserCartController extends Controller
          {
             
           OrderDetails::create([
-            'order_id' =>$order->id,
+            'order1_id' =>$order->id,
             'product_name'=>$cart->material_name,
             'price'=> $cart->price / $cart->quantity,
             'quantity'=>$cart->quantity,
@@ -213,6 +215,7 @@ class UserCartController extends Controller
 
              ]);
          }
+         Cart::truncate();
          return redirect()->back()->with('success', 'Order Placed successfully');
 
 
@@ -238,21 +241,226 @@ class UserCartController extends Controller
             
         //  dd($id);
             $order = CusOrder::find($id);
+            $orders = CusOderDetail::where('cus_order_id', $id)->get();
+
 
             $order->update([
                   
                 'order_status'=> $request->status,
 
             ]);
+            foreach ($orders as $orderDetail) 
+            {
+                $orderDetail->update([
+                    'status' => $request->status,
+                ]);
+            }
+
+            return redirect()->back();
+
+
+        }
+     public function manufacturer_order()
+        {
+            
+            $order = Order1::all();
+            $orders =OrderDetails::all();
+
+            return view('Backend.Cart.manufacurer_order',compact('orders','order'));
+
+
+        }  
+
+    public function manufacturer_profile()
+    {
+        $orders =Order1::all();
+        return view('Backend.Cart.manufacturer_profile',compact('orders'));
+    }
+       
+    public function manufacturer_status_change(Request $request, $id)
+        {
+            
+        
+        //  dd($id);
+            $order = Order1::find($id);
+            $orders = OrderDetails::where('order1_id', $id)->get();
+
+
+            $order->update([
+                  
+                'order_status'=> $request->status,
+
+            ]);
+            foreach ($orders as $orderDetail) 
+            {
+                $orderDetail->update([
+                    'status' => $request->status,
+                ]);
+            }
           
 
             return redirect()->back();
 
 
         }
+    public function manu_cancel_order($id)
+        {
+            
+            
+            $orders =Order1::find($id);
 
-       
+            OrderDetails::where('order1_id', $id)->delete();
+
+
+           Order1::find($id)->delete();
+
+            return redirect()->back();
+
+
+        }
+    public function manu_invoice($id)
+        {
+
+            $orders =Order1::find($id);
+
+            $today = Carbon::now()->format('Y-m-d');
+
+            $details = OrderDetails::where('order1_id',$id)->get();
+            
+          // return view('Backend.Cart.manu_invoice',compact('orders','today','details'));
+
+            $data = [
+                'orders' => $orders,
+                'today' => $today,
+                'details' =>$details,
+               
+            ];
+
+            $pdf = Pdf::loadView('Backend.Cart.manu_invoice', $data);
+
+            return $pdf->download('invoice of-'.$orders->name.'.pdf');
+        }
+
+    
+        public function retailer_report(Request $request)
         
+            {
+
+
+                $order = CusOrder::where('order_status', 'Approved')->get();
+                $orders = CusOderDetail::where('status', 'Approved')->get();
+
+           //   $orders =CusOderDetail::all();
+
+
+                $today = Carbon::now()->format('Y-m-d');
+
+                switch ($request->report) 
+                {
+                    case 'daily':
+
+                        $startDate = Carbon::now()->startOfDay();
+                        $endDate = Carbon::now()->endOfDay();
+                        break;
+
+
+                    case 'weekly':
+                        $startDate = Carbon::now()->startOfWeek();
+                        $endDate = Carbon::now()->endOfWeek();
+                        break;
+
+                    case 'monthly':
+
+                        $startDate = Carbon::now()->startOfMonth();
+                        $endDate = Carbon::now()->endOfMonth();
+                        break;
+
+                    default:
+                        // Default to daily if an invalid type is provided
+                        $startDate = Carbon::now()->startOfDay();
+                        $endDate = Carbon::now()->endOfDay();
+                        break;
+                }
+
+                $filteredCart = $order->whereBetween('created_at', [$startDate, $endDate]);
+                $filteredCarts = $orders->whereBetween('created_at', [$startDate, $endDate]);
+
+                $data = [
+
+                    'order' => $filteredCart,
+
+                    'orders' => $filteredCarts,
+                    'startDate' => $startDate->format('Y-m-d'),
+                    'endDate' => $endDate->format('Y-m-d'),
+                    'today' => $today,
+                ];
+
+                $pdf = Pdf::loadView('Backend.Cart.retailer_report', $data);
+
+                $fileName = 'Report-' . auth()->user()->user_name . '-' . $request->report . '.pdf';
+
+                return $pdf->download($fileName);
+        }
+
+        public function supplier_report(Request $request)
+        
+            {
+
+
+                $order = Order1::where('order_status', 'Approved')->get();
+                $orders = OrderDetails::where('status', 'Approved')->get();
+
+           //   $orders =CusOderDetail::all();
+
+
+                $today = Carbon::now()->format('Y-m-d');
+
+                switch ($request->report) 
+                {
+                    case 'daily':
+
+                        $startDate = Carbon::now()->startOfDay();
+                        $endDate = Carbon::now()->endOfDay();
+                        break;
+
+
+                    case 'weekly':
+                        $startDate = Carbon::now()->startOfWeek();
+                        $endDate = Carbon::now()->endOfWeek();
+                        break;
+
+                    case 'monthly':
+
+                        $startDate = Carbon::now()->startOfMonth();
+                        $endDate = Carbon::now()->endOfMonth();
+                        break;
+
+                    default:
+                        // Default to daily if an invalid type is provided
+                        $startDate = Carbon::now()->startOfDay();
+                        $endDate = Carbon::now()->endOfDay();
+                        break;
+                }
+
+                $filteredCart = $order->whereBetween('created_at', [$startDate, $endDate]);
+                $filteredCarts = $orders->whereBetween('created_at', [$startDate, $endDate]);
+
+                $data = [
+
+                    'order' => $filteredCart,
+
+                    'orders' => $filteredCarts,
+                    'startDate' => $startDate->format('Y-m-d'),
+                    'endDate' => $endDate->format('Y-m-d'),
+                    'today' => $today,
+                ];
+
+                $pdf = Pdf::loadView('Backend.Cart.supplier_report', $data);
+
+                $fileName = 'Report-' . auth()->user()->user_name . '-' . $request->report . '.pdf';
+
+                return $pdf->download($fileName);
+        }
     
         
 }

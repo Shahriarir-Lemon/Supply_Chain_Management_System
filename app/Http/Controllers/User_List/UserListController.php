@@ -13,7 +13,7 @@ class UserListController extends Controller
 {
     public function user_list()
             {
-                $users = User::with('roles')->latest()->get();
+                $users = User::with('roles')->get();
 
             // return $users;
                 $roles = Role::all();

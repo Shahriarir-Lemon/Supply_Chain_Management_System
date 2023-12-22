@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\CustomerCart;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\CCart;
 use App\Models\CusOderDetail;
 use App\Models\CusOrder;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\DatabaseNotification;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 
 class CustomerCartController extends Controller
 {
@@ -219,11 +224,20 @@ public function cus_place_order(Request $request)
 
              ]);
          }
-          
+        //  $user = User::where('role', 'Supplier')->first();
+
+     //     if (!$user->unreadNotifications->contains(function ($value, $key) use ($order)
+         //    {
+         //     return $value->data['order_id'] == $order->id;
+         //    })) 
+      //  {
+            
+        //    $user->notify(new DatabaseNotification($order));
+       // }
+
          CCart::truncate();
          return redirect()->route('cus_cart_show')->with('success', 'Order Placed successfully');
-
-
+         
       }
 
 

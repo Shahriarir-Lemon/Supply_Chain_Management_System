@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\Customer;
-
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,6 +19,9 @@ class CustomerTableSeeder extends Seeder
             'c_username'=>'lemona',
             'c_email'=>'shahriairlemon@gmail.com',
             'password'=>bcrypt('123456'),
+            'email_verified'=>1,
+            'email_verified_at'=>\Carbon\Carbon::now(),
+            'code'=>'',
             
         ]);
     }

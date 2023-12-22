@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('order_id')->constrained('order1s');
+            $table->bigIncrements('id');
+            $table->foreignId('order1_id')->constrained();
             $table->string('product_name');
             $table->string('price');
-
+            $table->string('status')->default('Pending');
             $table->integer('quantity');
             $table->double('subtotal');
 

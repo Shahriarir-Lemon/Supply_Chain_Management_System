@@ -70,6 +70,35 @@ Route::group(['middleware' => 'auth'], function ()
     Route::DELETE('/delete_product/{id}', [ProductController::class, 'delete_product'])->name('delete_product');
 
 
+
+
+
+     // Add to card database for for distributor
+
+     Route::post('/add_cart1/{id}', [ProductController::class, 'add_cart1'])->name('add_cart1');
+
+     Route::get('/cart_show1', [ProductController::class, 'cart_show1'])->name('cart_show1');
+ 
+     Route::get('/remove_cart1/{id}', [ProductController::class, 'remove_cart1'])->name('remove_cart1');
+ 
+     Route::PUT('/quantity_update1/{id}', [ProductController::class, 'quantity_update1'])->name('quantity_update1');
+
+     Route::get('/request_product', [ProductController::class, 'request_product'])->name('request_product');
+
+     Route::get('/all_request', [ProductController::class, 'all_request'])->name('all_request');
+
+     Route::get('/approve_request/{id}', [ProductController::class, 'approve_request'])->name('approve_request');
+
+     Route::get('/cancel_request/{id}', [ProductController::class, 'cancel_request'])->name('cancel_request');
+
+     Route::get('/available_product', [ProductController::class, 'available_product'])->name('available_product');
+     
+     Route::post('/manu_report/generate', [ProductController::class, 'manu_report'])->name('manu_report');
+
+ 
+
+
+
     // Raw Materials
 
     Route::get('/raw_material_list', [RawMaterialController::class, 'raw_material_list'])->name('raw_material_list');
@@ -142,16 +171,31 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/chechout', [UserCartController::class, 'chechout'])->name('chechout');
     Route::post('/place_order', [UserCartController::class, 'place_order'])->name('place_order');
 
-// see customer order in admin panel
-Route::get('/customer_order', [UserCartController::class, 'customer_order'])->name('customer_order');
+  // see customer order in admin panel
+  Route::get('/customer_order', [UserCartController::class, 'customer_order'])->name('customer_order');
+  Route::PUT('/cus_status_change/{id}', [UserCartController::class, 'cus_status_change'])->name('cus_status_change');
 
 
-Route::PUT('/cus_status_change/{id}', [UserCartController::class, 'cus_status_change'])->name('cus_status_change');
+  // see manufacturer order in supplier panel
+  Route::get('/manufacturer_order', [UserCartController::class, 'manufacturer_order'])->name('manufacturer_order');
+  Route::PUT('/manufacturer_status_change/{id}', [UserCartController::class, 'manufacturer_status_change'])->name('manufacturer_status_change');
 
 
+  // see manufacturer profile ( My Order)
+
+  Route::get('/manufacturer_profile', [UserCartController::class, 'manufacturer_profile'])->name('manufacturer_profile');
+  Route::get('/manu_cancel_order/{id}', [UserCartController::class, 'manu_cancel_order'])->name('manu_cancel_order');
+  Route::get('/manu_invoice/{id}/generate', [UserCartController::class, 'manu_invoice'])->name('manu_invoice');
 
 
+//  Customer order report for Retailer
 
+Route::post('/retailer_report', [UserCartController::class, 'retailer_report'])->name('retailer_report');
+
+
+//  Manufacturer order report for Supplier
+
+Route::post('/supplier_report', [UserCartController::class, 'supplier_report'])->name('supplier_report');
 
 
 
@@ -185,7 +229,21 @@ Route::get('/customer_login_page', [CustomerRegController::class, 'customer_logi
 
 Route::post('/customer_login', [CustomerRegController::class, 'customer_login'])->name('customer_login');
 
+Route::get('/cus_otp', [CustomerRegController::class, 'cus_otp'])->name('cus_otp');
+    
+Route::post('/post_otp', [CustomerRegController::class, 'post_otp'])->name('post_otp');
 
+Route::get('/resend', [CustomerRegController::class, 'resend'])->name('resend');
+
+Route::get('/forgetpassword', [CustomerRegController::class, 'forgetpassword'])->name('forgetpassword');
+
+Route::post('/take_email', [CustomerRegController::class, 'take_email'])->name('take_email');
+
+Route::post('/forget_otp', [CustomerRegController::class, 'forget_otp'])->name('forget_otp');
+
+Route::post('/reset_password', [CustomerRegController::class, 'reset_password'])->name('reset_password');
+
+Route::get('/forget_resend', [CustomerRegController::class, 'forget_resend'])->name('forget_resend');
 
 
 
@@ -207,6 +265,8 @@ Route::group(['middleware' => 'customer'], function ()
 
     Route::get('/cus_download/{id}/generate', [CustomerRegController::class, 'cus_download'])->name('cus_download');
 
+
+
     // Cart
 
     Route::post('/cus_add_cart/{id}', [CustomerCartController::class, 'cus_add_cart'])->name('cus_add_cart');
@@ -223,25 +283,13 @@ Route::group(['middleware' => 'customer'], function ()
 
     
     Route::get('/cus_cancel_order/{id}', [CustomerCartController::class, 'cus_cancel_order'])->name('cus_cancel_order');
-
-
-
-
-
-
-  //Category wise page
-
- Route::get('/bakery_category/{categoryId}', [HomeController::class, 'bakery_category'])->name('bakery_category');
- Route::get('/popular_items', [HomeController::class, 'popular_items'])->name('popular_items');
- Route::get('/new_arrivals', [HomeController::class, 'new_arrivals'])->name('new_arrivals');
-
-
-
-
-
-
 });
 
 
 
 
+//Category wise page
+
+Route::get('/bakery_category/{categoryId}', [HomeController::class, 'bakery_category'])->name('bakery_category');
+Route::get('/popular_items', [HomeController::class, 'popular_items'])->name('popular_items');
+Route::get('/new_arrivals', [HomeController::class, 'new_arrivals'])->name('new_arrivals');

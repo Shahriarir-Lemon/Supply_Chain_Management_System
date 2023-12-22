@@ -105,11 +105,11 @@
       background-color: #dc3545;
       color: #fff;
     }
-    
     .pdf
     {
         margin-left: 810px;
     }
+    
     </style>
     
     <body>
@@ -130,11 +130,13 @@
         <div class="product_form"><br>
            
           
+
+
             <div class="pdf">
-                <form action="{{ route('retailer_report') }}" method="post" class="d-flex">
+                <form action="{{ route('supplier_report') }}" method="post" class="d-flex">
                     @csrf
                     <div class="form-group mr-2">
-                        <select style="width:90px;border:rgb(88, 75, 75) solid 1px;" class="form-control" id="reportType" name="report">
+                        <select  style="width:90px;border:rgb(88, 75, 75) solid 1px;" class="form-control" id="reportType" name="report">
                             <option value="daily">Daily</option>
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
@@ -144,9 +146,10 @@
                     <button style="width: 200px;height:39px;" type="submit" class="btn btn-primary">Download Report</button>
                 </form>
             </div>
+        
             
             <!-- Table to display product information -->
-            <h3 class="mt-0 text-center"><u>Customer Order List</u></h3>
+            <h3 class="mt-0 text-center"><u>Manufacturer Order List</u></h3>
             <table class="table table-bordered ">
                 <thead>
                     <tr style="background: grey;" class="a bg-secondary text-white">
@@ -180,12 +183,12 @@
             
 
 
-              @if ($prevCustomerId !== $order->cus_order->id)
+              @if ($prevCustomerId !== $order->manu_order->id)
 
-                        <th scope="row">{{ $order->cus_order->id }}</th>
-                        <td>{{ $order->cus_order->name }}</td>
-                        <td>{{ $order->cus_order->mobile }}</td>
-                        <td>{{ $order->cus_order->address }}</td>
+                        <th scope="row">{{ $order->manu_order->id }}</th>
+                        <td>{{ $order->manu_order->name }}</td>
+                        <td>{{ $order->manu_order->mobile }}</td>
+                        <td>{{ $order->manu_order->address }}</td>
 
              @else
                     <td></td>
@@ -199,8 +202,8 @@
                         <td>{{ $order->quantity }}</td>
                         <td>{{ $order->subtotal }}</td>
                   
-             @if ($prevCustomerId !== $order->cus_order->id)
-                        <td>{{ $order->cus_order->total_price }}</td>
+             @if ($prevCustomerId !== $order->manu_order->id)
+                        <td>{{ $order->manu_order->total_price }}</td>
 
 
 
@@ -209,22 +212,18 @@
                             
                   
                         <td>
-                            <form action="{{ route('cus_status_change',$order->id) }}" method="post">
+                            <form action="{{ route('manufacturer_status_change',$order->id) }}" method="post">
                                @csrf
                                @method('PUT')
                                 <select name="status" required>
-                                    @if($order->cus_order->order_status=='Approved')
-                                    <option style="color: green;font-weight:700;background:green;" value="{{ $order->cus_order->order_status }}" selected><span style="background: greeen;">{{ $order->cus_order->order_status }}</span></option>
-                                    @else
-                                    <option value="{{ $order->cus_order->order_status }}" selected>{{ $order->cus_order->order_status }}</option>
-                                    @endif
+                                    <option value="{{ $order->manu_order->order_status }}" selected>{{ $order->manu_order->order_status }}</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Canceled">Canceled</option>
-                                    <option style="color: green;font-weight:700;" value="Approved">Approved</option>
+                                    <option value="Approved">Approved</option>
                                     
                                 </select>
                                 <button type="submit">
-                                   <span style="background: grey;color:white;">Update</span>
+                                   <span style="background: green;color:white;">Update</span>
                                 </button>
                             </form>
                         
@@ -239,8 +238,7 @@
                             <div class="spinner-border" role="status">
                                 <span class="sr-only">Loading...</span>
                               </div>
-                              {{ $order->cus_order->delevery_status }}
-                              <a style="text-decoration: none;font-weight:600;color:green;" href=""> Delivery Man </a>
+                              {{ $order->manu_order->delevery_status }}
                         </td>
                             
                 @else
@@ -255,7 +253,7 @@
     
                     </tr>
 
-         @php $prevCustomerId = $order->cus_order->id; @endphp
+         @php $prevCustomerId = $order->manu_order->id; @endphp
  @endforeach
  
                   

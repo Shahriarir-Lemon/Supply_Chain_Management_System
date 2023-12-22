@@ -67,9 +67,10 @@
         @endif
 
         @if(session('success'))
-        <div class="alert alert-success">{{session('success')}}</div>
-        @endif
-
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
         <form action="{{ route('customer_login') }}" method="post">
           @csrf
@@ -118,7 +119,7 @@
 
         <br>
         <p class="mb-1">
-          <a href="">Forgot Password ?</a> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <a href="{{ route('forgetpassword') }}">Forgot Password ?</a> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           <a href="{{ route('customer_registration_form')}}#Sign Up" class="text-center">Create Account</a>
         </p>
         </p>

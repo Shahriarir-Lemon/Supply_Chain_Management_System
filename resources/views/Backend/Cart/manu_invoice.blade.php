@@ -155,7 +155,7 @@
         <tbody>
 
 
-         
+           
     @foreach ($details as $detail )
                 
             
@@ -169,8 +169,8 @@
                 <td width="15%" class="fw-bold">{{ $detail->subtotal }} BDT</td>
             </tr>
           
-           
-  @endforeach
+          
+            @endforeach
             <tr>
                 <td colspan="4" class="total-heading text-right">Total Amount - <small>Inc. Shipping ( 70 BDT )</small> :</td>
                 <td colspan="1" class="total-heading">{{ $detail->subtotal + 70 }} BDT</td>

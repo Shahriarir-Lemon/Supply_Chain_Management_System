@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->constrained();
             $table->string('order_status')->default('Pending');
             $table->string('delevery_status')->default('Processing');
+            
            // $table->foreignId('cus_oder_detail')->references('id')->on('cus_oder_details')->onDelete('cascade');
             $table->double('total_price')->default(0.0);
             $table->string('payment_status')->default('Cash_On_Delivery');

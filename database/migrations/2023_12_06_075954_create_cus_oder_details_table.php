@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('cus_order_id')->constrained();
             $table->string('product_name');
             $table->string('price');
-    
+            $table->string('status')->default('Pending');
             $table->integer('quantity');
             $table->double('subtotal');
 

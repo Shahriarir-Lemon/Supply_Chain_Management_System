@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Invoice #{{ $orders->id }}</title>
+    <title>Report of Selling Product</title>
 
     <style>
         html,
@@ -87,65 +87,29 @@
                     <h2 class="text-start">Bakery Shop</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
-                    <span>Invoice Id: #{{ $orders->id }}</span> <br>
+                    <span>Product Report</span> <br>
                     <span>Date: {{ $today }}</span> <br>
                     <span>Zip code : 1230</span> <br>
                     <span>Address: Road: 12/b, Uttara Sector 10, Dhaka , Bangladesh</span> <br>
                 </th>
             </tr>
-            <tr class="bg-blue">
-                <th width="50%" colspan="2">Order Details</th>
-                <th width="50%" colspan="2">User Details</th>
-            </tr>
+          
         </thead>
-        <tbody>
-            <tr>
-                <td>Order Id:</td>
-                <td>{{ $orders->id }}</td>
-
-                <td>Full Name:</td>
-                <td>{{ $orders->name }}</td>
-            </tr>
-            <tr>
-                <td>Tracking Id/No.:</td>
-                <td></td>
-
-                <td>Email Id:</td>
-                <td>{{ $orders->email }}</td>
-            </tr>
-            <tr>
-                <td>Ordered Date:</td>
-                <td>{{ $orders->created_at }}</td>
-
-                <td>Phone:</td>
-                <td>{{ $orders->mobile }}</td>
-            </tr>
-            <tr>
-                <td>Payment Mode:</td>
-                <td>{{ $orders->payment_status }}</td>
-
-                <td>Address:</td>
-                <td>{{ $orders->address }}</td>
-            </tr>
-            <tr>
-                <td>Order Status:</td>
-                <td>{{ $orders->order_status }}</td>
-
-                <td>Pin code:</td>
-                <td></td>
-            </tr>
-        </tbody>
+     
     </table>
 
     <table>
         <thead>
             <tr>
                 <th class="no-border text-start heading" colspan="5">
-                    Order Items
+                    Product List
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+              
                 <th>Product Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -153,35 +117,42 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $total = 0;
+            @endphp
 
 
-         
-    @foreach ($details as $detail )
+           
+    @foreach ($orders as $order)
                 
             
             <tr>
-                <td width="10%">{{ $detail->id }}</td>
+                
+                <td>{{ $order->cus_order->name }}</td>
                 <td>
-                    {{ $detail->product_name }}
+                    {{ $order->cus_order->mobile }}
                 </td>
-                <td width="10%">{{ $detail->price }} BDT</td>
-                <td width="10%">{{ $detail->quantity }}</td>
-                <td width="15%" class="fw-bold">{{ $detail->subtotal }} BDT</td>
+                <td>{{ $order->cus_order->address }}</td>
+               
+                <td>{{ $order->product_name }}</td>
+                <td>{{ $order->price  }} BDT</td>
+                <td>{{ $order->quantity }}</td>
+                <td>{{ $a= $order->price * $order->quantity }} BDT</td>
             </tr>
           
-           
-  @endforeach
+          @php
+              $total = $total + $a;
+          @endphp
+            @endforeach
             <tr>
-                <td colspan="4" class="total-heading text-right">Total Amount - <small>Inc. Shipping ( 70 BDT )</small> :</td>
-                <td colspan="1" class="total-heading">{{ $detail->subtotal + 70 }} BDT</td>
+                <td colspan="6" class="total-heading text-right">Total Amount -                      <small></small> :</td>
+                <td colspan="1" class="total-heading">{{ $total }} BDT</td>
             </tr>
         </tbody>
     </table>
 
     <br>
-    <p class="text-center">
-        Thank your for shopping...
-    </p>
+    
 
 </body>
 </html>

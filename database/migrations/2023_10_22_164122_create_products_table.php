@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('Stock');
            $table->longText('Description');
           $table->unsignedBigInteger('category_id')->constrained();
+          $table->string('upload')->nullable();
             $table->timestamps();
            // $table->foreignId('category_id')->references('id')->constrained('categories');
         });

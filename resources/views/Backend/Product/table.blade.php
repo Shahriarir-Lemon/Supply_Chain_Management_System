@@ -157,6 +157,7 @@ margin-right: 20px;
                     <th>Stock</th>
                     <th>Description</th>
                     <th>Action</th>
+                    <th>Request</th>
                 </tr>
                 
             </thead>
@@ -165,7 +166,7 @@ margin-right: 20px;
 
                 {{-- scope="row">{{$key+1}}</th> --}}
                 <tr class="s">
-                    <th scope="row">{{$product->id}}</th>
+                    <th scope="row">{{$key+1}}</th>
                     <td><img src="{{ asset($product->Product_Image) }}" class="product-image"></td>
                     <td>{{ $product->Product_Name }}</td>
                     <td>{{ $product->Price }} TK</td>
@@ -193,6 +194,18 @@ margin-right: 20px;
                       
                         </div>
                       </td>
+                      <td>
+                        @if($product->Stock == 0)
+                        <button class="btn btn-sm" data-toggle="modal" data-target="#cart{{$product->id}}" disabled>
+                          <h6 style="color: red;"> <u>Add to cart</u></h6>
+                          </button>
+                        @else
+                        <button class="btn btn-sm" data-toggle="modal" data-target="#cart{{$product->id}}">
+                          <h6 style="color: #28a745;"> <u>Add to cart</u></h6>
+                          </button>
+                          @endif
+                      
+                      </td>
 
                     
                       
@@ -206,7 +219,7 @@ margin-right: 20px;
             
         </table>
 
-        {{ $products->links() }}
+       {{-- {{ $products->links() }} --}} 
     </div>
 </div>
 
@@ -369,6 +382,59 @@ margin-right: 20px;
 
 {{-- End Product View --}}
 
+
+{{-- Add Cart --}}
+
+
+@foreach ($products as $key => $product)
+
+
+
+<div class="modal fade" id="cart{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{$product->id}}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel{{$product->id}}">Product Information :</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+        <div class="form-group">
+          <label for="productName"><h4>Product Name: {{ $product->Product_Name }}</h4></label>
+          
+        </div>
+        <!-- Input box for product price -->
+
+
+   <form action="{{ route('add_cart1' ,$product->id) }}" method="POST" enctype="multipart/form-data">
+          @csrf
+
+        <div class="form-group">
+          <label for="productPrice">Product Quantity:</label>
+          <input type="number" min="1" max="{{ $product->Stock }}" required name="quantity" class="form-control" id="productPrice" placeholder="Enter quantity">
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price: {{ $product->Price }} .TK/{{ $product->Unit_Type }}</label>
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+       <button type="submit" class="btn btn-primary">Add to Cart</button>
+      </div>
+
+  </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+@endforeach
 
 
 @endsection

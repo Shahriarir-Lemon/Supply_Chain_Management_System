@@ -24,7 +24,13 @@ return new class extends Migration
               $table->string('c_city')->nullable();
               $table->integer('c_zip')->nullable();
               $table->string('c_occupation')->nullable();
+              $table->tinyInteger('email_verified')->default(0);
+              $table->timestamp('email_verified_at')->nullable();
+              $table->string('code');
+              $table->string('otp_expires_at')->nullable();
+
               $table->rememberToken();
+            
               $table->timestamps();
         });
     }

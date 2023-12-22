@@ -149,6 +149,12 @@
                 </a>
             </li>
             <li>
+                <a href="#">
+                    <img src="{{ asset('Main1/img/product.png') }}">
+                    <span class="text">All Products</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('product_list')}}">
                     <img src="{{ asset('Main1/img/product.png') }}">
                     <span class="text">Products</span>
@@ -169,6 +175,19 @@
                     <span class="text">Manage Unit</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('all_request') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
+                    <span class="text">All Request</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('available_product') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
+                    <span class="text">Available Product</span>
+                </a>
+            </li>
             <li class="dropdown">
                 <a href="#" class="logout">
                     <img src="{{ asset('Main1/img/user.png') }}" alt="User Icon">
@@ -179,6 +198,9 @@
                     <a href="{{ route('user_list') }}">All Users</a>
                 </div>
             </li>
+        
+
+
         </ul>
     
         <ul class="side-menu">
@@ -188,15 +210,11 @@
                     <span class="text">Customer Orders</span>
                 </a>
             </li>
-            <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-report'></i>
-                    <span class="text">Invoice</span>
-                </a>
-            </li>
+          
           
         </ul>
 
+       
 
     </section>
     <!--  end Sidebar -->
@@ -218,10 +236,89 @@
                     </button>
                 </div>
             </form>
-            <a href="#" class="notification">
-                <i class="bx bxs-bell"></i>
-                <span class="num"></span>
-            </a>
+
+
+
+            {{--  
+
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                    @php
+                        $adminUser = App\Models\User::where('role', 'Supplier')->first();
+                        $unreadNotificationsCount = $adminUser ? $adminUser->unreadNotifications->count() : 0;
+
+                    @endphp
+
+                    <a href="#" class="notification">
+                        <i class="bx bxs-bell"></i>
+                        <span class="num">{{ $unreadNotificationsCount }}</span>
+                    </a>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                   
+                    @foreach($adminUser->unreadNotifications as $notification)
+
+
+                                @php
+                                      $adminUser = App\Models\User::where('role', 'Supplier')->first();
+                                      $notifications = $adminUser ? $adminUser->notifications : [];
+                                @endphp
+
+                                @forelse($notifications as $key => $notificationa)
+
+                                <a class="dropdown-item" href="#">
+                                    {{ $notificationa->data['name'] }} has placed an order
+                                </a>
+
+                                @empty
+                                            <span class="dropdown-item">No new notifications</span>
+                                                @endforelse
+
+
+                     
+                        @php
+                            $notification->markAsRead();
+                        @endphp
+
+                    @endforeach
+
+                </div>
+            </div>
+            --}}
+
+            
+
+
+
+            {{--  
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                @php
+                    $adminUser = App\Models\User::where('role', 'Admin')->first();
+                    $notificationsCount = $adminUser ? $adminUser->notifications->count() : 0;
+                @endphp
+
+                    <a href="#" class="notification">
+                        <i class="bx bxs-bell"></i>
+                        <span class="num">{{ $notificationsCount }}</span>
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                    @foreach(App\Models\User::where('role', 'Admin')->first()->notifications as $notification)
+
+                    <a class="dropdown-item" href="#">{{ $notification->data['name'] }} is placed order</a>
+                    
+                    @endforeach
+                </div>
+            </div>
+
+            --}}
+
+
+          
 
          {{--  cart --}}
 
@@ -246,15 +343,15 @@
           
             {{-- Profile --}}
 
-
+         <a href="{{ route('cart_show1') }}"><button style="background: green;font-weight:700;color:white" class="btn btn-outline-success">Send Requested Prduct</button></a>
            
 
 
             <div class="profile-container">
                 <img src="{{ asset('Main1/img/navigator.png') }}" alt="Profile Image">
                 <div class="profile-dropdown">
-                  <a href="#" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
-                  <a href="" class="dropdown-item"><i class='bx bxs-cog'></i>  Orders</a>
+                  <a href="{{ route('manufacturer_profile') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
+                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>Orders</a>
                   <a href="{{ route('admin_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
                 </div>
               

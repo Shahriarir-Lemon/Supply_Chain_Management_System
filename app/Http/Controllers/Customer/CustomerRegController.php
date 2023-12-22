@@ -4,25 +4,28 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use App\Models\Customer;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Guard;
-
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\CusOderDetail;
 use App\Models\CusOrder;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\delete;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailVerified;
+use App\Models\Email;
+use Illuminate\Support\Carbon as SupportCarbon;
 
-
-
-class CustomerRegController extends Controller
+class CustomerRegController extends Controller implements ShouldQueue
 {
 
      protected $redirectTo = RouteServiceProvider::HOME;
@@ -47,9 +50,9 @@ class CustomerRegController extends Controller
         'c_email' => 'required|email|unique:customers,c_email',
         'password' => 'required|confirmed|min:6',
         'c_address' => 'required|string',
-        'c_city' => 'required|string|',
-        'c_zip' => 'integer|required',
-        'c_occupation' => 'string|required',
+        'c_city' => 'nullable|string|',
+        'c_zip' => 'integer|nullable',
+        'c_occupation' => 'string|nullable',
 
       ]);
 
@@ -78,15 +81,18 @@ class CustomerRegController extends Controller
             'c_city' => $request->input('c_city'),
             'c_zip' => $request->input('c_zip'),
             'c_occupation' => $request->input('c_occupation'),
+            'code'=>Str::random(6),
+            'otp_expires_at' => Carbon::now()->addMinutes(2),
 
         ];
             try{
 
 
-            Customer::create($data);
-
+           $user= Customer::create($data);
+            
+           Mail::to($user->c_email)->send(new EmailVerified($user));
                     
-            return redirect()->route('customer_login_page')->with('success', 'Account Created Successfully.');
+            return redirect()->route('cus_otp')->with('success', 'Please Verify Your Account..');
             }
 
             catch (\Exception $e)
@@ -101,7 +107,186 @@ class CustomerRegController extends Controller
 
     }
 
+    public function cus_otp()
+    {
+    return view('Email.otp_form')->with('success', 'Account Created successfully, Now Verify your Account');;
+    }
 
+
+
+    public function post_otp(Request $request)
+    {
+
+        $customer = Customer::latest()->first();
+
+        if ($customer->code == $request->otp && now()->lt($customer->otp_expires_at)) 
+           {
+
+            $customer->update([
+
+                'email_verified' => 1,
+            ]);
+
+            return view('Frontend.pages.cus_sign_in')->with('success', 'Account Verified successfully');;
+        }
+
+        return redirect()->back()->with('error', 'Invalid or expired OTP.');
+
+    }
+
+
+
+    public function resend()
+    {
+        $customer = Customer::latest()->first();
+
+        $customer->update([
+
+            'code' => Str::random(6),
+            'otp_expires_at' => Carbon::now()->addMinutes(2),
+        ]);
+
+        $user = Customer::latest()->first();
+
+        Mail::to($user->c_email)->send(new EmailVerified($user));
+
+        return redirect()->back()->with('success', 'OTP has been Resent Successfully.');
+
+
+    }
+
+    public function forgetpassword()
+    {
+
+    return view('Email.forgetpassword');
+    }
+
+
+    public function take_email(Request $request)
+    {
+      //  dd($request);
+
+        $this->validate($request, [
+             
+            'email' => 'required|email',
+        
+          ]);
+
+          $data = [
+            'email' => $request->input('email'),
+            ];
+
+            $value= Email::create($data);
+
+            $lastemail = Email::latest()->first();
+
+            $user = Customer::where('c_email', $lastemail->email)->first();
+
+        if ($user)
+         {
+            $user->update([
+
+                'code' => Str::random(6),
+                'otp_expires_at' => Carbon::now()->addMinutes(2),
+            ]);
+
+            $user = Customer::where('c_email', $lastemail->email)->first();
+
+            Mail::to($user->c_email)->send(new EmailVerified($user));
+
+            return view('Email.forget_otp');
+
+        }
+         else 
+        {
+            
+            return redirect()->back()->with('error', 'This email is not associated any account.');
+        }
+        
+      }
+
+
+    public function forget_otp(Request $request)
+    {
+
+            $lastemail = Email::latest()->first();
+
+            $user = Customer::where('c_email', $lastemail->email)->first();
+           
+
+            if ($user->code == $request->otp && now()->lt($user->otp_expires_at)) 
+
+                {
+                    return view('Email.resetpass');
+            
+                }
+
+            return redirect()->back()->with('error', 'Invalid or expired OTP.');
+
+         }
+
+    public function reset_password(Request $request)
+    {
+       // echo "hello";
+        // dd($request);
+        $lastemail = Email::latest()->first();
+
+        $user = Customer::where('c_email', $lastemail->email)->first();
+        
+        $this->validate($request, [
+             
+            'password' => 'required|confirmed|min:6',
+            
+          ]);
+      
+        if (Hash::check($request->input('password'), $user->password))
+           {
+            
+            return redirect()->back()->with('error','You have Entered Previous Password.Please Entered New Password');  
+            }
+          try
+          {
+                $user->update([
+                'password' => bcrypt($request->input('password')),
+                ]);
+                
+                return redirect()->route('customer_login_page')->with('success', 'Password Reset Successfully.');
+
+           }
+
+          
+           catch (\Exception $e)
+           {
+               session()->flash('message', $e->getMessage());
+               session()->flash('type', 'danger');
+       
+               return redirect()->back()->withInput();   
+           }
+       
+
+    }
+
+    public function forget_resend()
+    {
+        $lastemail = Email::latest()->first();
+
+        $user = Customer::where('c_email', $lastemail->email)->first();
+
+        $user->update([
+
+            'code' => Str::random(6),
+            'otp_expires_at' => Carbon::now()->addMinutes(2),
+        ]);
+
+        $user = Customer::where('c_email', $lastemail->email)->first();
+
+        Mail::to($user->c_email)->send(new EmailVerified($user));
+        //dd($user);
+
+        return redirect()->back()->with('success', 'OTP has been Resent Successfully.');
+
+
+    }
 
     public function customer_login_page()
                 {
@@ -130,7 +315,7 @@ class CustomerRegController extends Controller
             // Authentication successful
             return redirect()->route('home')->with('success', 'Logged in Successfully.');
         }
-        return redirect()->back()->with('error', 'Email orfdfzc Password invalid !!');
+        return redirect()->back()->with('error', 'Email or Password invalid !!');
         
     
         }
@@ -207,15 +392,15 @@ class CustomerRegController extends Controller
             }
 
 
-        
-        $data['c_fullname'] = $request->input('c_fullname');
-        $data['c_username'] = $request->input('c_username');
-        $data['c_about'] = $request->input('c_about');
-        $data['c_email'] = $request->input('c_email');
-        $data['password'] = Hash::make($request->password1);
-        $data['c_address'] = $request->input('c_address');
-        $data['c_city'] = $request->input('c_city');
-        $data['c_occupation'] = $request->input('c_occupation');
+                
+                $data['c_fullname'] = $request->input('c_fullname');
+                $data['c_username'] = $request->input('c_username');
+                $data['c_about'] = $request->input('c_about');
+                $data['c_email'] = $request->input('c_email');
+                $data['password'] = Hash::make($request->password1);
+                $data['c_address'] = $request->input('c_address');
+                $data['c_city'] = $request->input('c_city');
+                $data['c_occupation'] = $request->input('c_occupation');
 
 
 
