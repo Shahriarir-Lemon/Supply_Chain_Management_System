@@ -88,11 +88,21 @@ tr .s{
 <div class="container">
     <div class="product_form">
         <div style="text-align: right;">
+       
+       @if (Auth()->user()->can('supplier.view'))
+       @if (Auth()->user()->can('manufacturer.view'))
+       @if (Auth()->user()->can('distributor.view'))
+       @if (Auth()->user()->can('retailer.view'))
+
         <a href="{{ route('user_form') }}">
             <button class="rounded-button btn btn-success">
                 <i class="fas fa-plus"></i> Add User
             </button>
         </a>
+        @endif
+        @endif
+        @endif
+        @endif
         </div>
         
         <!-- Table to display product information -->
@@ -105,7 +115,16 @@ tr .s{
                     <th class="bg-secondary text-white">User Name </th>
                     <th class="bg-secondary text-white">Email</th>
                     <th class="bg-secondary text-white">Role</th>
+                    @if (Auth()->user()->can('supplier.view'))
+                    @if (Auth()->user()->can('manufacturer.view'))
+                    @if (Auth()->user()->can('distributor.view'))
+                    @if (Auth()->user()->can('retailer.view'))
+
                     <th class="bg-secondary text-white">Action</th>
+                    @endif
+                    @endif
+                    @endif
+                    @endif
                 
                 </tr>
             </thead>
@@ -123,8 +142,13 @@ tr .s{
                  </td>
                 
                     
+
+                 @if (Auth()->user()->can('supplier.view'))
+                 @if (Auth()->user()->can('manufacturer.view'))
+                 @if (Auth()->user()->can('distributor.view'))
+                 @if (Auth()->user()->can('retailer.view'))
+
                   <td>
-                    
                      <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edituser{{$user->id}}">
                         <i class="fas fa-edit"></i>
                     </button> 
@@ -138,6 +162,10 @@ tr .s{
                  </form>
             
                  </td>
+                 @endif
+                 @endif
+                 @endif
+                 @endif
                  
                 </tr>
        @endforeach

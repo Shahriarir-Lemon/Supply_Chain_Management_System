@@ -28,6 +28,9 @@ class RolePermissionSeeder extends Seeder
             //Admin Permission
             'dashboard.view',
 
+            // cusomer order
+            'customer.order',
+
             //Raw Materials
             'add.materials',
             'view.material',
@@ -55,6 +58,7 @@ class RolePermissionSeeder extends Seeder
             'delete.unit',
 
             // Users
+            'user.list',
             'add.user',
             'delete.user',
 
@@ -76,6 +80,18 @@ class RolePermissionSeeder extends Seeder
             'product.notification',
             'retailer.notification',
 
+            //supplier
+            'supplier.view',
+
+             //manufacturer
+             'manufacturer.view',
+
+              //distributor
+            'distributor.view',
+
+             //retailer
+             'retailer.view',
+
         ];
 
       for( $i=0 ; $i< count($permissions); $i++)
@@ -86,9 +102,17 @@ class RolePermissionSeeder extends Seeder
         $permission->assignRole($roleAdmin);
       }
 
-      $user = User::find(1); // Replace with the actual user instance
+      $admin = User::find(1); 
+      $supplier = User::find(2); 
+      $manufacturer = User::find(3); 
+      $distributor = User::find(4); 
+      $retailer = User::find(5); 
 
-      $user->assignRole('admin');
+      $admin->assignRole('Admin');
+      $supplier->assignRole('Supplier');
+      $manufacturer->assignRole('Manufacturer');
+      $distributor->assignRole('Distributor');
+      $retailer->assignRole('Retailer');
 
       
     }

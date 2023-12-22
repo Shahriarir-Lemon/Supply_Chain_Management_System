@@ -109,9 +109,15 @@ tr .s{
 
 <div class="container">
     <div class="product_form">
+
+      @if (Auth()->user()->can('manufacturer.view'))
+      @if (Auth()->user()->can('distributor.view'))
+         
         <a href="{{ route('add_raw_material') }}">
             <button class="rounded-button btn btn-success">Add Raw Materials</button>
         </a>
+        @endif
+        @endif
         
         
         <!-- Table to display product information -->
@@ -146,7 +152,9 @@ tr .s{
                     <th>Unit Type</th>
                     <th>Stock</th>
                     <th>Action</th>
+                    @if (Auth()->user()->can('supplier.view'))
                     <th>Cart</th>
+                    @endif
                 
                 </tr>
             </thead>
@@ -170,8 +178,13 @@ tr .s{
                     <td>
                         <div class="action-buttons">
                           <a href="#" class="action-button view-button" data-toggle="modal" data-target="#view{{$material->id}}">View</a>
+
+                          @if (Auth()->user()->can('manufacturer.view'))
+                          @if (Auth()->user()->can('distributor.view'))
                           <a href="#" class="action-button edit-button" data-toggle="modal" data-target="#edit{{ $material->id }}">Edit</a>
                           <a class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure to Remove this Material ? ')" href="{{ route('delete_material',$material->id) }}">Delete</a>
+                          @endif
+                          @endif
                           
 
                          {{-- <a href="#" class="action-button delete-button">Delete</a>
@@ -179,6 +192,8 @@ tr .s{
                         </div>
                       </td>
                    
+
+                    @if (Auth()->user()->can('supplier.view'))
                       <td>
                         @if($material->Stock == 0)
                         <button class="btn btn-sm" data-toggle="modal" data-target="#cart{{$material->id}}" disabled>
@@ -191,6 +206,8 @@ tr .s{
                           @endif
                       
                       </td>
+
+                      @endif
                 </tr>
                 @endforeach
             </tbody>

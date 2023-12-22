@@ -28,6 +28,21 @@ use Illuminate\Support\Carbon as SupportCarbon;
 class CustomerRegController extends Controller implements ShouldQueue
 {
 
+
+        public $user;
+
+        public function __construct()
+        {
+            $this->middleware(function($request, $next){
+            
+                $this->user = Auth()->user();
+                return $next($request);
+
+            });
+        }
+
+        
+
      protected $redirectTo = RouteServiceProvider::HOME;
 
 

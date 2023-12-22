@@ -15,14 +15,55 @@ use App\Cpref;
 
 class CategoryController extends Controller
 {
+
+        public $user;
+
+        public function __construct()
+        {
+            $this->middleware(function($request, $next){
+              
+                $this->user = Auth()->user();
+                return $next($request);
+
+            });
+        }
+
+
+
+
   public function category_list()
   {
+
+
+        if (is_null($this-> user) || !$this->user->can('supplier.view'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+
+        if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+        
+                }
+
     $categories = Category::paginate(4);
     return view('Backend.Category.table', compact('categories'));
   }
 
   public function add_category()
   {
+    if (is_null($this-> user) || !$this->user->can('distributor.view'))
+    {
+            abort(403, 'Unauthrorized Access');
+
+    }
+
     return view('Backend.Category.form');
   }
 

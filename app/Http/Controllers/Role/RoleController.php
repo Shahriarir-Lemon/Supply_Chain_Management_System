@@ -11,6 +11,17 @@ use Spatie\Permission\Models\Permission;
 class RoleController extends Controller
 {
   
+    public $user;
+
+        public function __construct()
+        {
+            $this->middleware(function($request, $next){
+            
+                $this->user = Auth()->user();
+                return $next($request);
+
+            });
+        }
 
 
 
@@ -24,6 +35,27 @@ class RoleController extends Controller
    
     public function role_form()
     {
+
+        if (is_null($this-> user) || !$this->user->can('supplier.view'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+        if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+            {
+              abort(403, 'Unauthrorized Access');
+        
+             }
+        if (is_null($this-> user) || !$this->user->can('retailer.view'))
+             {
+                     abort(403, 'Unauthrorized Access');
+     
+             }
+
         $permissions = Permission::all();
         return view ('Role.role_form', compact('permissions'));
     }

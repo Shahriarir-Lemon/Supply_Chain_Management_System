@@ -41,9 +41,36 @@ class ProductController extends Controller
 
     public function product_list()
     {
+        
 
-        $role = 'Retailer';
-        $products = Product::where('upload', $role)->get();
+
+        $role1 = 'Admin';
+        $role2 = 'Supplier';
+        $role3 = 'Manufacturer';
+        $role4 = 'Distributor';
+        $role5 = 'Retailer';
+
+        if(auth()->user()->Role == $role1)
+            {
+                $products = Product::all();
+            }
+        elseif(auth()->user()->Role == $role2)
+            {
+                $products = Product::all();
+            }
+        elseif(auth()->user()->Role == $role3)
+            {
+                $products = Product::where('upload', $role3)->get();
+            }
+        elseif(auth()->user()->Role == $role4)
+            {
+                $products = Product::where('upload', $role3)->get();
+            }
+            else
+                {
+                    $products = Product::where('upload', $role5)->get();
+                }
+            
      
         $units = Unit::get();
         $categories = Category::get();
@@ -58,6 +85,12 @@ class ProductController extends Controller
       //  {
       //      abort(403, 'Unauthrorized Access');
       //  }
+
+      if (is_null($this-> user) || !$this->user->can('distributor.view'))
+      {
+              abort(403, 'Unauthrorized Access');
+
+      }
 
         
         $categories = Category::get();
@@ -323,6 +356,15 @@ class ProductController extends Controller
  public function cart_show1()
         {
 
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+            if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+
             $user = auth()->user();
             $carts = Cart1::where('user_id', $user->id)->get();
             $product = Product::all();
@@ -399,6 +441,20 @@ class ProductController extends Controller
         public function all_request()
         {
 
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+            if (is_null($this-> user) || !$this->user->can('distributor.view'))
+            {
+                    abort(403, 'Unauthrorized Access');
+    
+            }
+            if (is_null($this-> user) || !$this->user->can('retailer.view'))
+            {
+                    abort(403, 'Unauthrorized Access');
+    
+            }
 
             $cart = Cart1::all();
             return view('Backend.Distributor.distributor_request',compact('cart'));
@@ -438,6 +494,22 @@ class ProductController extends Controller
         public function available_product()
         {
 
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+
+            if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+
+                if (is_null($this-> user) || !$this->user->can('retailer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+        
+                }
 
             $cart = Cart1::where('approve_status', 'Approved')->get();
             return view('Backend.Distributor.availavle_product',compact('cart'));

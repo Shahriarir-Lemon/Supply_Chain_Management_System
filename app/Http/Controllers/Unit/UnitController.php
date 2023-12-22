@@ -9,15 +9,54 @@ use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
+
+      public $user;
+
+      public function __construct()
+      {
+          $this->middleware(function($request, $next){
+            
+              $this->user = Auth()->user();
+              return $next($request);
+
+          });
+      }
+
+
     public function unit_list()
-  {
-    $units = Unit::paginate(4);
-    return view('Backend.Unit.table', compact('units'));
-  }
+      {
+        
+        if (is_null($this-> user) || !$this->user->can('supplier.view'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+
+        if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+        
+                }
+
+        $units = Unit::paginate(4);
+        return view('Backend.Unit.table', compact('units'));
+      }
   public function add_unit()
-  {
-    return view('Backend.Unit.form');
-  }
+      {
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+        {
+                abort(403, 'Unauthrorized Access');
+
+        }
+
+         
+
+        return view('Backend.Unit.form');
+      }
 
   public function store_unit(Request $request)
 

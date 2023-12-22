@@ -134,53 +134,85 @@
        </div>
            
         <ul class="side-menu top">
-            @if (Auth()->user()->can('edit.product'))
+          
             <li>
                 <a href="{{ route('dash') }}">
                     <i class="bx bxs-dashboard"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            @endif
+           
+            @if (Auth()->user()->can('distributor.view'))
+            @if (Auth()->user()->can('retailer.view'))
             <li>
                 <a href="{{route('raw_material_list')}}">
                     <img src="{{ asset('Main1/img/raw.png') }}">
                     <span class="text">Raw Matrials</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <img src="{{ asset('Main1/img/product.png') }}">
-                    <span class="text">All Products</span>
-                </a>
-            </li>
+            @endif
+            @endif
+
+          
+          
+            
             <li>
                 <a href="{{route('product_list')}}">
                     <img src="{{ asset('Main1/img/product.png') }}">
                     <span class="text">Products</span>
                 </a>
             </li>
+           
+
+
+        @if (Auth()->user()->can('supplier.view'))
+        @if (Auth()->user()->can('manufacturer.view'))
+        @if (Auth()->user()->can('distributor.view'))
             <li>
                 <a href="{{ route('category_list') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Category</span>
                 </a>
             </li>
+            @endif
+            @endif
+            @endif
 
 
-           
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('distributor.view'))
             <li>
                 <a href="{{ route('unit_list') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Unit</span>
                 </a>
             </li>
+            @endif
+            @endif
+            @endif
+
+
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('distributor.view'))
+            @if (Auth()->user()->can('retailer.view'))
+
             <li>
                 <a href="{{ route('all_request') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">All Request</span>
                 </a>
             </li>
+            @endif
+            @endif
+            @endif
+
+
+
+
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('retailer.view'))
 
             <li>
                 <a href="{{ route('available_product') }}">
@@ -188,6 +220,12 @@
                     <span class="text">Available Product</span>
                 </a>
             </li>
+            @endif
+            @endif
+            @endif
+
+
+
             <li class="dropdown">
                 <a href="#" class="logout">
                     <img src="{{ asset('Main1/img/user.png') }}" alt="User Icon">
@@ -203,17 +241,22 @@
 
         </ul>
     
+
+    @if (Auth()->user()->can('supplier.view'))
+      @if (Auth()->user()->can('manufacturer.view'))
+      @if (Auth()->user()->can('distributor.view'))
         <ul class="side-menu">
+
             <li>
                 <a href="{{ route('customer_order') }}">
                     <img src="{{ asset('Main1/img/order.png') }}">
                     <span class="text">Customer Orders</span>
                 </a>
             </li>
-          
-          
         </ul>
-
+    @endif
+    @endif
+    @endif
        
 
     </section>
@@ -322,6 +365,12 @@
 
          {{--  cart --}}
 
+         @if (Auth()->user()->can('supplier.view'))
+         @if (Auth()->user()->can('manufacturer.view'))
+         @if (Auth()->user()->can('distributor.view'))
+         @if (Auth()->user()->can('retailer.view'))
+
+
             <a href="{{ route('cart_show') }}"> <button class="btn btn-outline-dark" type="submit">
                 <i class="bi-cart-fill me-1"></i>
                
@@ -340,18 +389,54 @@
                   </span>
             </button> 
          </a>
+         @endif
+         @endif
+         @endif
+         @endif
+
           
             {{-- Profile --}}
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('retailer.view'))
 
-         <a href="{{ route('cart_show1') }}"><button style="background: green;font-weight:700;color:white" class="btn btn-outline-success">Send Requested Prduct</button></a>
-           
+                <a href="{{ route('cart_show1') }}"><button style="font-weight:700;color:black" class="btn btn-outline-success">Requested Product List</button></a>
+            @endif
+            @endif
+            @endif
 
 
             <div class="profile-container">
                 <img src="{{ asset('Main1/img/navigator.png') }}" alt="Profile Image">
                 <div class="profile-dropdown">
+
+
+                @if (Auth()->user()->can('supplier.view'))
+                @if (Auth()->user()->can('manufacturer.view'))
+                    @if (Auth()->user()->can('distributor.view'))
+                       @if (Auth()->user()->can('retailer.view'))
+
                   <a href="{{ route('manufacturer_profile') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
-                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>Orders</a>
+                    @endif
+                     @endif
+                  @else
+                       
+                          <a href="{{ route('manufacturer_profile') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>My Orders</a>
+                         
+                    @endif
+                  @endif
+                  @if (Auth()->user()->can('manufacturer.view'))
+                  @if(auth()->user()->Role == 'Admin' || auth()->user()->Role == 'Supplier')
+                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>Manufacturer <br>Orders</a>
+
+                  @else
+                  @if (Auth()->user()->can('distributor.view'))
+                     @if (Auth()->user()->can('retailer.view'))
+                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>My Orders</a>
+                     @endif
+                  @endif
+                  @endif
+                  @endif
                   <a href="{{ route('admin_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
                 </div>
               

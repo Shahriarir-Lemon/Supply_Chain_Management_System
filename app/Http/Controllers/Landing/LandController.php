@@ -8,6 +8,20 @@ use App\Http\Controllers\Controller;
 
 class LandController extends Controller
 {
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+           
+            $this->user = Auth()->user();
+            return $next($request);
+
+        });
+    }
+
+
     public function land()
     {
 

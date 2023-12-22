@@ -11,6 +11,20 @@ use App\Models\User;
 
 class UserListController extends Controller
 {
+
+        public $user;
+
+        public function __construct()
+        {
+            $this->middleware(function($request, $next){
+            
+                $this->user = Auth()->user();
+                return $next($request);
+
+            });
+        }
+
+        
     public function user_list()
             {
                 $users = User::with('roles')->get();
@@ -23,6 +37,29 @@ class UserListController extends Controller
 
    public function user_form()
         {
+
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+
+            if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+            if (is_null($this-> user) || !$this->user->can('distributor.view'))
+                {
+                  abort(403, 'Unauthrorized Access');
+            
+                 }
+            if (is_null($this-> user) || !$this->user->can('retailer.view'))
+                 {
+                         abort(403, 'Unauthrorized Access');
+         
+                 }
+
+
             $roles = Role::all();
             return view ('User_List.user_form', compact('roles'));
             }

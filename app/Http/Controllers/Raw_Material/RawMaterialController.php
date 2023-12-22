@@ -12,8 +12,35 @@ use Illuminate\Support\Facades\Validator;
 
 class RawMaterialController extends Controller
 {
+
+            public $user;
+
+            public function __construct()
+            {
+                $this->middleware(function($request, $next){
+                
+                    $this->user = Auth()->user();
+                    return $next($request);
+
+                });
+            }
+
+
+
+
     public function raw_material_list()
     {
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+        {
+          abort(403, 'Unauthrorized Access');
+    
+         }
+         if (is_null($this-> user) || !$this->user->can('retailer.view'))
+         {
+                 abort(403, 'Unauthrorized Access');
+ 
+         }
+
 
         $materials = Material::all();
         $units = Unit::get();
@@ -22,6 +49,24 @@ class RawMaterialController extends Controller
 
     public function add_raw_material()
     {
+
+        if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+        {
+                abort(403, 'Unauthrorized Access');
+
+        }
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+        {
+                abort(403, 'Unauthrorized Access');
+
+        }
+        if (is_null($this-> user) || !$this->user->can('retailer.view'))
+        {
+                abort(403, 'Unauthrorized Access');
+
+        }
+
+
         return view('Backend.Raw_Materials.form');
     }
     public function material_store(Request $request)

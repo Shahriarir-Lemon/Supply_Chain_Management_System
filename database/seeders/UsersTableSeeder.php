@@ -14,15 +14,43 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            
-            'user_name'=>'admin',
-            'email'=>'admin@gmail.com',
-            'password'=>bcrypt('123456'),
-            'Role'=>'Admin'
+        $usersData = [
+            [
+                'user_name' => 'Admin',
+                'email' => 'admin1@gmail.com',
+                'password' => bcrypt('111111'),
+                'Role' => 'Admin'
+            ],
+            [
+                'user_name' => 'Supplier',
+                'email' => 'admin2@gmail.com',
+                'password' => bcrypt('111111'),
+                'Role' => 'Supplier'
+            ],
+            [
+                'user_name' => 'Manufacturer',
+                'email' => 'admin3@gmail.com',
+                'password' => bcrypt('111111'),
+                'Role' => 'Manufacturer'
+            ],
+            [
+                'user_name' => 'Distributor',
+                'email' => 'admin4@gmail.com',
+                'password' => bcrypt('111111'),
+                'Role' => 'Distributor'
+            ],
+            [
+                'user_name' => 'Retailer',
+                'email' => 'admin5@gmail.com',
+                'password' => bcrypt('111111'),
+                'Role' => 'Retailer'
+            ],
+          
+        ];
 
-        ]
-    
-    );
-    }
+            foreach ($usersData as $userData) 
+            {
+                User::create($userData);
+            }
+}
 }

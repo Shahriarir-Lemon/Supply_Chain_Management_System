@@ -137,10 +137,12 @@ margin-right: 20px;
 
 <div class="container">
     <div class="product_form"><br>
-        @if (Auth()->user()->can('edit.product'))
+        @if (Auth()->user()->can('supplier.view'))
+        @if (Auth()->user()->can('distributor.view'))
         <a href="{{ route('add_product') }}">
             <button class="rounded-button btn btn-success">Add Product</button>
         </a>
+        @endif
         @endif
         
         <!-- Table to display product information -->
@@ -157,7 +159,15 @@ margin-right: 20px;
                     <th>Stock</th>
                     <th>Description</th>
                     <th>Action</th>
+
+                @if (Auth()->user()->can('supplier.view'))
+                @if (Auth()->user()->can('manufacturer.view'))
+                @if (Auth()->user()->can('retailer.view'))
+
                     <th>Request</th>
+                    @endif
+                    @endif
+                    @endif
                 </tr>
                 
             </thead>
@@ -178,10 +188,11 @@ margin-right: 20px;
                         <div class="action-buttons">
                           <a href="#" class="action-button view-button" data-toggle="modal" data-target="#productview{{$product->id}}">View</a>
 
-                          @if (Auth()->user()->can('edit.product'))
+                          @if (Auth()->user()->can('distributor.view'))
+                          @if (Auth()->user()->can('supplier.view'))
                           <a href="#" class="action-button edit-button"  data-toggle="modal" data-target="#productedit{{$product->id}}">Edit</a>
                           @endif
-                          @if (Auth()->user()->can('edit.product'))
+                          @if (Auth()->user()->can('supplier.view'))
                           <form action="{{ route('delete_product',$product->id) }}" class="d-inline" method="POST" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')
@@ -190,10 +201,16 @@ margin-right: 20px;
                           </button>
                         </form>
                         @endif
+                        @endif
                          
                       
                         </div>
                       </td>
+
+                      @if (Auth()->user()->can('supplier.view'))
+                      @if (Auth()->user()->can('manufacturer.view'))
+                      @if (Auth()->user()->can('retailer.view'))
+
                       <td>
                         @if($product->Stock == 0)
                         <button class="btn btn-sm" data-toggle="modal" data-target="#cart{{$product->id}}" disabled>
@@ -201,17 +218,18 @@ margin-right: 20px;
                           </button>
                         @else
                         <button class="btn btn-sm" data-toggle="modal" data-target="#cart{{$product->id}}">
-                          <h6 style="color: #28a745;"> <u>Add to cart</u></h6>
+                          <h6 style="color: #28a745;"> <u>Send Request</u></h6>
                           </button>
                           @endif
                       
                       </td>
+                      @endif
+                      @endif
+                      @endif
 
                     
                       
-                     
-
-                      
+                
                 </tr>
                 @endforeach
             </tbody>

@@ -87,9 +87,19 @@ tr .s{
 
 <div class="container">
     <div class="product_form">
+
+        @if (Auth()->user()->can('supplier.view'))
+        @if (Auth()->user()->can('manufacturer.view'))
+        @if (Auth()->user()->can('distributor.view'))
+        @if (Auth()->user()->can('retailer.view'))
+
         <a href="{{ route('role_form') }}">
             <button class="rounded-button btn btn-success">Add Role</button>
         </a>
+        @endif
+        @endif
+        @endif
+        @endif
         
         
         <!-- Table to display product information -->
@@ -100,7 +110,17 @@ tr .s{
                     <th class="bg-secondary text-white" scope="col">SL</th>
                     <th class="bg-secondary text-white">Role Name </th>
                     <th class="bg-secondary text-white">Permissions</th>
+
+                    @if (Auth()->user()->can('supplier.view'))
+                    @if (Auth()->user()->can('manufacturer.view'))
+                    @if (Auth()->user()->can('distributor.view'))
+                    @if (Auth()->user()->can('retailer.view'))
+
                     <th class="bg-secondary text-white">Action</th>
+                    @endif
+                    @endif
+                    @endif
+                    @endif
                     
                 
                 </tr>
@@ -123,7 +143,13 @@ tr .s{
                      @endforeach
                  </td>
                  
-                    
+                  
+                 
+                @if (Auth()->user()->can('supplier.view'))
+                @if (Auth()->user()->can('manufacturer.view'))
+                @if (Auth()->user()->can('distributor.view'))
+                @if (Auth()->user()->can('retailer.view'))
+
                   <td class="text-center">
                      <div>
                      <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editrole{{$role->id}}">
@@ -141,6 +167,12 @@ tr .s{
                  </form>
                </div>
                  </td>
+                 @endif
+                 @endif
+                 @endif
+                 @endif
+
+
                  
                 </tr>
        @endforeach

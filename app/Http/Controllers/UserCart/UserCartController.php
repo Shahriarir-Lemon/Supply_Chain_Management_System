@@ -20,6 +20,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCartController extends Controller
 {
+        public $user;
+
+        public function __construct()
+        {
+            $this->middleware(function($request, $next){
+            
+                $this->user = Auth()->user();
+                return $next($request);
+
+            });
+        }
+
+
+
+
     public function add_cart(Request $request, $id)
     {
 
@@ -91,6 +106,11 @@ class UserCartController extends Controller
 
  public function cart_show()
         {
+            if (is_null($this-> user) || !$this->user->can('view.productr'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+
 
             $user = auth()->user();
             $carts = Cart::where('user_id', $user->id)->get();
@@ -223,7 +243,24 @@ class UserCartController extends Controller
 
     public function customer_order()
           {
-              
+            
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+
+          if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+    
+                }
+         if (is_null($this-> user) || !$this->user->can('distributor.view'))
+                {
+                  abort(403, 'Unauthrorized Access');
+            
+                 }
+
               $order = CusOrder::all();
               $orders =CusOderDetail::all();
   
@@ -262,7 +299,22 @@ class UserCartController extends Controller
         }
      public function manufacturer_order()
         {
-            
+            if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
+            {
+                    abort(403, 'Unauthrorized Access');
+
+            }
+            if (is_null($this-> user) || !$this->user->can('distributor.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+            if (is_null($this-> user) || !$this->user->can('retailer.view'))
+            {
+                    abort(403, 'Unauthrorized Access');
+    
+            }
+
+
             $order = Order1::all();
             $orders =OrderDetails::all();
 
@@ -273,6 +325,23 @@ class UserCartController extends Controller
 
     public function manufacturer_profile()
     {
+
+        if (is_null($this-> user) || !$this->user->can('supplier.view'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+        if (is_null($this-> user) || !$this->user->can('distributor.view'))
+        {
+            abort(403, 'Unauthrorized Access');
+        }
+        if (is_null($this-> user) || !$this->user->can('retailer.view'))
+        {
+                abort(403, 'Unauthrorized Access');
+
+        }
+        
+
+
         $orders =Order1::all();
         return view('Backend.Cart.manufacturer_profile',compact('orders'));
     }

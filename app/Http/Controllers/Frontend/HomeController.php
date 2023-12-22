@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+      public $user;
+
+      public function __construct()
+      {
+          $this->middleware(function($request, $next){
+            
+              $this->user = Auth()->user();
+              return $next($request);
+
+          });
+      }
+
+
     public function home()
     {
 

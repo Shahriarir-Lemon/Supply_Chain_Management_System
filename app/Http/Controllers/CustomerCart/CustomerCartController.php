@@ -18,6 +18,22 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerCartController extends Controller
 {
+
+            public $user;
+
+            public function __construct()
+            {
+                $this->middleware(function($request, $next){
+                
+                    $this->user = Auth()->user();
+                    return $next($request);
+
+                });
+            }
+
+
+
+
   
     public function cus_add_cart(Request $request,$id)
     {
