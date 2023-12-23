@@ -80,6 +80,9 @@ class RolePermissionSeeder extends Seeder
             'product.notification',
             'retailer.notification',
 
+            //admin
+              'admin.view',
+
             //supplier
             'supplier.view',
 
@@ -100,6 +103,10 @@ class RolePermissionSeeder extends Seeder
         $permission = Permission::create(['name' => $permissions[$i]]);
         $roleAdmin->givePermissionTo($permission);
         $permission->assignRole($roleAdmin);
+        $permission->assignRole($roleSupplier);
+        $permission->assignRole($roleManufacturer);
+        $permission->assignRole($roleDistributor);
+        $permission->assignRole($roleRetailer);
       }
 
       $admin = User::find(1); 

@@ -72,10 +72,10 @@
 
 <div class="profile-container">
    <img src="{{ Auth('customer')->user()->c_picture }}" alt="Profile Image">
-   <div class="profile-dropdown">
-     <a href="{{ route('profile_view') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
-     <a href="{{ route('customer_profile_edit_page') }}" class="dropdown-item"><i class='bx bxs-cog'></i>  Settings</a>
-     <a href="{{ route('customer_logout') }}" class="dropdown-item"><i class='bx bxs-log-out-circle'></i>  Logout</a>
+   <div style="background:white;" class="profile-dropdown">
+     <a href="{{ route('profile_view') }}" class="dropdown-item"><span><i class='bx bxs-user-circle'></i></span><span>Profile</span> </a>
+     <a href="{{ route('customer_profile_edit_page') }}" class="dropdown-item"><span><i class='bx bxs-cog'></i></span><span>Settings</span>  </a>
+     <a href="{{ route('customer_logout') }}" class="dropdown-item"><span><i class='bx bxs-log-out-circle'></i></span><span>Logout</span>  </a>
    </div>
  </div>
 

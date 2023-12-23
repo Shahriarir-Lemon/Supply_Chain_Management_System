@@ -40,9 +40,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-   
+  {{-- toastr cdn --}} 
 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
    
@@ -135,7 +135,7 @@
            
         <ul class="side-menu top">
           
-            <li>
+            <li class="{{ Route::is('dash') ? 'active' : '' }}">
                 <a href="{{ route('dash') }}">
                     <i class="bx bxs-dashboard"></i>
                     <span class="text">Dashboard</span>
@@ -144,7 +144,7 @@
            
             @if (Auth()->user()->can('distributor.view'))
             @if (Auth()->user()->can('retailer.view'))
-            <li>
+            <li class="{{ Route::is('raw_material_list') ? 'active' : '' }}">
                 <a href="{{route('raw_material_list')}}">
                     <img src="{{ asset('Main1/img/raw.png') }}">
                     <span class="text">Raw Matrials</span>
@@ -156,7 +156,7 @@
           
           
             
-            <li>
+            <li class="{{ Route::is('product_list') ? 'active' : '' }}">
                 <a href="{{route('product_list')}}">
                     <img src="{{ asset('Main1/img/product.png') }}">
                     <span class="text">Products</span>
@@ -168,7 +168,7 @@
         @if (Auth()->user()->can('supplier.view'))
         @if (Auth()->user()->can('manufacturer.view'))
         @if (Auth()->user()->can('distributor.view'))
-            <li>
+            <li class="{{ Route::is('category_list') ? 'active' : '' }}">
                 <a href="{{ route('category_list') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Category</span>
@@ -182,7 +182,7 @@
             @if (Auth()->user()->can('supplier.view'))
             @if (Auth()->user()->can('manufacturer.view'))
             @if (Auth()->user()->can('distributor.view'))
-            <li>
+            <li class="{{ Route::is('unit_list') ? 'active' : '' }}">
                 <a href="{{ route('unit_list') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Manage Unit</span>
@@ -197,10 +197,10 @@
             @if (Auth()->user()->can('distributor.view'))
             @if (Auth()->user()->can('retailer.view'))
 
-            <li>
+            <li class="{{ Route::is('all_request') ? 'active' : '' }}">
                 <a href="{{ route('all_request') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
-                    <span class="text">All Request</span>
+                    <span class="text">All Request(Dis.)</span>
                 </a>
             </li>
             @endif
@@ -214,7 +214,7 @@
             @if (Auth()->user()->can('manufacturer.view'))
             @if (Auth()->user()->can('retailer.view'))
 
-            <li>
+            <li class="{{ Route::is('available_product') ? 'active' : '' }}">
                 <a href="{{ route('available_product') }}">
                     <img src="{{ asset('Main1/img/manage.png') }}">
                     <span class="text">Available Product</span>
@@ -247,7 +247,7 @@
       @if (Auth()->user()->can('distributor.view'))
         <ul class="side-menu">
 
-            <li>
+            <li class="{{ Route::is('customer_order') ? 'active' : '' }}">
                 <a href="{{ route('customer_order') }}">
                     <img src="{{ asset('Main1/img/order.png') }}">
                     <span class="text">Customer Orders</span>
@@ -261,8 +261,7 @@
 
     </section>
     <!--  end Sidebar -->
-    @include('notify::components.notify')
-
+   
 
     <!--content-->
 
@@ -366,9 +365,10 @@
          {{--  cart --}}
 
          @if (Auth()->user()->can('supplier.view'))
-         @if (Auth()->user()->can('manufacturer.view'))
+         
          @if (Auth()->user()->can('distributor.view'))
          @if (Auth()->user()->can('retailer.view'))
+         @if (Auth()->user()->can('admin.view'))
 
 
             <a href="{{ route('cart_show') }}"> <button class="btn btn-outline-dark" type="submit">
@@ -393,14 +393,18 @@
          @endif
          @endif
          @endif
+ 
 
           
             {{-- Profile --}}
             @if (Auth()->user()->can('supplier.view'))
             @if (Auth()->user()->can('manufacturer.view'))
             @if (Auth()->user()->can('retailer.view'))
-
+               @if(auth()->user()->Role != 'Admin')
                 <a href="{{ route('cart_show1') }}"><button style="font-weight:700;color:black" class="btn btn-outline-success">Requested Product List</button></a>
+                @else
+                 <a href="{{ route('cart_show1') }}"><button style="font-weight:700;color:black" class="btn btn-outline-success">Distributor Orders</button></a>
+                   @endif
             @endif
             @endif
             @endif
@@ -415,8 +419,9 @@
                 @if (Auth()->user()->can('manufacturer.view'))
                     @if (Auth()->user()->can('distributor.view'))
                        @if (Auth()->user()->can('retailer.view'))
-
+                        @if(auth()->user()->Role != 'Admin')
                   <a href="{{ route('manufacturer_profile') }}" class="dropdown-item"><i class='bx bxs-user-circle'></i>  Profile</a>
+                        @endif
                     @endif
                      @endif
                   @else
@@ -493,7 +498,7 @@
 
 
 
-            @include('SweetAlert.success')
+           
 
              @yield('content')
                  
@@ -556,6 +561,9 @@
     $('#sslczPayBtn').prop('postdata', obj);
 </script>
 
+
+{{-- toastr cdn --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 

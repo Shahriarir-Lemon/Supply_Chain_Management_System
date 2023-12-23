@@ -103,7 +103,7 @@ class RawMaterialController extends Controller
         {
             Material::create($mat);
             notify()->success('Laravel Notify is awesome!');
-            return redirect()->route('raw_material_list')->with('success', 'Material Added successfully');
+            return redirect()->route('raw_material_list')->with("success", "Material Added successfully");
         } 
         catch (\Exception $e) 
         {

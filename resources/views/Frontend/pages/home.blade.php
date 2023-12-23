@@ -4,6 +4,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    
+<style>
+  .card:hover{
+    box-shadow: 5px 5px 5px black;
+    skew
+    padding:5px ;
+  }
+
+</style>
+
 
 <head>
     <meta charset="UTF-8">

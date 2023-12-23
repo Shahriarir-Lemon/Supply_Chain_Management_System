@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
        // $category = Category::all();
         $products = [
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/a.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Manufacturer',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/b.jpg',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Manufacturer',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/c.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -50,7 +50,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Manufacturer',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/d.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Manufacturer',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/e.jpg',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -72,7 +72,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Manufacturer',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/g.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -94,7 +94,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Distributor',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/g.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -105,7 +105,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Distributor',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/c.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -116,7 +116,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Distributor',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/i.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -127,7 +127,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Distributor',
             ],
             [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/h.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -138,7 +138,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Retailer',
               ],
               [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/i.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -149,7 +149,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Retailer',
               ],
               [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/h.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -160,7 +160,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Retailer',
               ],
               [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/g.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
@@ -171,7 +171,7 @@ class ProductSeeder extends Seeder
                 'upload' => 'Retailer',
               ],
               [
-                'Product_Image' => '/storage/material/p.png',
+                'Product_Image' => '/storage/material/i.png',
                 'Product_Name' => 'Product 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',

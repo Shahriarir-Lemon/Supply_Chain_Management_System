@@ -106,7 +106,15 @@ class UserCartController extends Controller
 
  public function cart_show()
         {
-            if (is_null($this-> user) || !$this->user->can('view.productr'))
+            if (is_null($this-> user) || !$this->user->can('supplier.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+            if (is_null($this-> user) || !$this->user->can('distributor.view'))
+            {
+                abort(403, 'Unauthrorized Access');
+            }
+            if (is_null($this-> user) || !$this->user->can('retailer.view'))
             {
                 abort(403, 'Unauthrorized Access');
             }

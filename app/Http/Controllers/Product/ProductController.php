@@ -356,14 +356,7 @@ class ProductController extends Controller
  public function cart_show1()
         {
 
-            if (is_null($this-> user) || !$this->user->can('supplier.view'))
-            {
-                abort(403, 'Unauthrorized Access');
-            }
-            if (is_null($this-> user) || !$this->user->can('manufacturer.view'))
-            {
-                abort(403, 'Unauthrorized Access');
-            }
+           
 
             $user = auth()->user();
             $carts = Cart1::where('user_id', $user->id)->get();

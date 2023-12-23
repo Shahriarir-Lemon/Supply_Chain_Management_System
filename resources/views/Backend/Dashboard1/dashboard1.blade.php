@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('SweetAlert.success')
+
 
     {{-- button --}}
     <ul class="box-info">
