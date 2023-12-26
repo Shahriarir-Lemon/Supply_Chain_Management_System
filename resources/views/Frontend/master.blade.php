@@ -34,7 +34,7 @@
         {{-- cart --}}
         <link href="{{ asset('frontend/cart.css') }}" rel="stylesheet" />
 
-        @notifyCss
+       
 
 
         {{-- modal --}}
@@ -43,6 +43,14 @@
 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+ {{-- toastr cdn --}} 
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
 
     </head>
 
@@ -133,7 +141,9 @@
     display: block;
 }
     
-
+.toast-margin {
+       margin-top: 70px; /* Adjust this value as needed */
+   }
 
 
   </style>
@@ -144,7 +154,7 @@
 
 <body>
 
-  @include('notify::components.notify')
+  
     
     <!--   header  -->
 
@@ -249,9 +259,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-@notifyJs
+  @include('SweetAlert.success')
+  @include('SweetAlert.error')
+
+
+
 
 </body>
 </html>

@@ -75,7 +75,7 @@ class RawMaterialController extends Controller
       //  dd($request->all());
 
 
-        $valid = Validator::make($request->all(), [
+      $this->validate($request,  [
             'material_image' => 'required|image|max:100000',
             'material_name' => 'required',
             'material_price' => 'required',
@@ -99,18 +99,19 @@ class RawMaterialController extends Controller
 
         ];
 
+
+
         try
         {
             Material::create($mat);
-            notify()->success('Laravel Notify is awesome!');
-            return redirect()->route('raw_material_list')->with("success", "Material Added successfully");
+            
+            return redirect()->route('raw_material_list')->with("success1", "Material Added successfully");
         } 
         catch (\Exception $e) 
         {
-            session()->flash('message', $e->getMessage());
-            session()->flash('type', 'danger');
-
-            return redirect()->withErrors($mat)->withInput();
+            include('SweetAlert.flash');
+    
+            return redirect()->back()->withInput();
         }
     }
 
@@ -128,7 +129,8 @@ class RawMaterialController extends Controller
                 ]);
                 
                 if ($valid->fails()) {
-                    return redirect()->back()->withErrors($valid)->withInput();
+                    include('SweetAlert.flash');
+                    return redirect()->back()->withInput();
                 }
                 
                 
@@ -155,19 +157,24 @@ class RawMaterialController extends Controller
         
                 $material->update($data);
         
-                return redirect()->back()->with('success', 'Material Updated successfully');
+                return redirect()->back()->with("success1", "Material Updated successfully");
 
             }
 
-            public function delete_material($id)
+     public function delete_material($id)
             {
                 $material = Material::find($id);
                 $material->delete();
 
                 $cart = Cart::find($id);
-                $cart->delete();
+                if($cart)
+                {
+                    $cart->delete();
 
-                return redirect()->back()->with('success', 'Material deleted successfully');
+
+                }
+
+                return redirect()->back()->with('success1', 'Material deleted successfully');
 
             }
 }

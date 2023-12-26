@@ -1,8 +1,3 @@
-
-@extends('Backend.Dashboard1.main')
-@section('content')
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,12 +12,6 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
-        .container
-        {
-            border: 1px solid black;
-            border-radius: 20px;
-            background: white;
-        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -39,7 +28,7 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-light">
 <div class="container">
     <div class="py-5 text-center">
         <h2>EasyCheckout (Popup) - SSLCommerz</h2>
@@ -174,26 +163,24 @@
                     <label class="custom-control-label" for="save-info">Save this information for next time</label>
                 </div>
                 <hr class="mb-4">
-<div class=" mb-6">  
-                <button class="btn btn-primary btn-lg btn-block mb-4" id="sslczPayBtn"
+                <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
                         postdata="your javascript arrays or objects which requires in backend"
                         order="If you already have the transaction generated for current order"
                         endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
                 </button>
-</div>  
             </form>
         </div>
     </div>
 
-   {{--  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; 2019 Company Name</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Privacy</a></li>
             <li class="list-inline-item"><a href="#">Terms</a></li>
             <li class="list-inline-item"><a href="#">Support</a></li>
         </ul>
-    </footer> --}} 
+    </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -229,5 +216,3 @@
     })(window, document);
 </script>
 </html>
-
-@endsection

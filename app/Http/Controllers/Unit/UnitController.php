@@ -75,11 +75,10 @@ class UnitController extends Controller
 
       ]);
 
-      return redirect()->route('unit_list')->with('success', 'Unit Added Successfully');
+      return redirect()->route('unit_list')->with('success1', 'Unit Added Successfully');
     } catch (\Exception $e) {
 
-      session()->flash('message', $e->getMessage());
-      session()->flash('type', 'danger');
+      include('SweetAlert.flash');
 
       return redirect()->back()->withInput();
     }
@@ -99,7 +98,9 @@ class UnitController extends Controller
         ]);
 
         // $validator = Validator::make($request->all(),$validate);
-        if ($validate->fails()) {
+        if ($validate->fails())
+         {
+          include('SweetAlert.flash');
           return redirect()->back()->withErrors($validate)->withInput();
         }
 
@@ -109,7 +110,7 @@ class UnitController extends Controller
           'Unit_Name' => $request->unit_name,
         ]);
 
-        return redirect()->route('unit_list');
+        return redirect()->route('unit_list')->with("success1","Unit Name Updated Successfully");;
       }
 
 public function delete_unit($id)
@@ -117,7 +118,7 @@ public function delete_unit($id)
           $unit = Unit::find($id);
           $unit->delete(); 
 
-          return redirect()->route('unit_list');
+          return redirect()->route('unit_list')->with("success1","Unit Deleted Successfully");;
       }
 
 }

@@ -13,6 +13,9 @@ use Exception as GlobalException;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Cart1;
+use App\Models\User;
+use App\Notifications\DatabaseNotification;
+
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Exception;
@@ -127,7 +130,7 @@ class ProductController extends Controller
 
         if($validate->fails())
         {
-
+            include('SweetAlert.flash');
             return redirect()->back()->withErrors($validate)->withInput();
         }
 
@@ -154,21 +157,20 @@ class ProductController extends Controller
             Product::create($data);
 
 
-            return redirect()->route('product_list')->with('success', 'Product added successfully');
+            return redirect()->route('product_list')->with('success1', 'Product added successfully');
             
 
         }
          catch (\Exception $e) {
 
-            session()->flash('message', $e->getMessage());
-            session()->flash('type', 'danger');
+            include('SweetAlert.flash');
 
             return redirect()->back()->withInput();
         }
 
 
     }
-        return redirect()->back()->with('success', 'Category Not Found');
+        
 
 
 
@@ -203,6 +205,7 @@ class ProductController extends Controller
 
             if ($validate->fails())
              {
+                include('SweetAlert.flash');
                 return redirect()->back()->withErrors($validate)->withInput();
             }
 
@@ -232,7 +235,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('product_list');
+        return redirect()->route('product_list')->with("success1","Product List Updated Successfully");;
 
 
    }
@@ -245,7 +248,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete(); 
 
-        return redirect()->route('product_list');
+        return redirect()->route('product_list')->with("success1","Product Delete Successfully");;
     }
 
 
@@ -278,7 +281,7 @@ class ProductController extends Controller
                         'Stock' => $product->Stock - ($newQuantity - $oldQuantity),
                     ]);
                     
-                    return redirect()->back()->with('success', 'Product Updated Successfully.');
+                    return redirect()->back()->with('success1', 'Product Added Successfully.');
                 }
                 else
                 {
@@ -311,7 +314,7 @@ class ProductController extends Controller
                     $cart->save();
     
             
-                    return redirect()->back()->with('success', 'Product Added Successfully.');
+                    return redirect()->back()->with('success1', 'Product Added Successfully.');
                 }
 
             }
@@ -346,7 +349,7 @@ class ProductController extends Controller
                 $cart->save();
 
         
-                return redirect()->back()->with('success', 'Product Added Successfully.');
+                return redirect()->back()->with('success1', 'Product Added Successfully.');
             }
         
     
@@ -382,7 +385,7 @@ class ProductController extends Controller
 
 
             $cart->delete();
-            return redirect()->back();
+            return redirect()->back()->with("success1","Cart Removed Successfully");;
 
            
 
@@ -414,24 +417,42 @@ class ProductController extends Controller
                         'quantity' => $request->input('quantity'),
                         'price' => $product->Price * $request->input('quantity'),
                     ]);
-                    return redirect()->back();
+                    return redirect()->back()->with("success1","Quantity Updated Successfully");
                 } 
 
                 else 
                 {
                     
-                    return redirect()->back();
+                    return redirect()->back()->with("success1","Quantity Updated Successfully");
                 }
 
         }
 
 
-        public function request_product()
+ public function request_product()
         {
-            return redirect()->back();
+
+            $auth = auth()->user();
+            $admins = User::where('Role', 'Admin')->get();
+
+            $distributor = User::where('Role', 'Manufacturer')->get();
+        
+            $users = $admins->merge($distributor);
+        
+            foreach ($users as $user)
+            {
+                $user->notify(new DatabaseNotification($auth));
+
+            }
+
+            return redirect()->back()->with("success1","Request Sent Successfully");
 
         }
-        public function all_request()
+
+
+
+
+public function all_request()
         {
 
             if (is_null($this-> user) || !$this->user->can('supplier.view'))
@@ -454,7 +475,7 @@ class ProductController extends Controller
 
         }
 
-        public function approve_request($id)
+public function approve_request($id)
         {
 
 
@@ -465,7 +486,20 @@ class ProductController extends Controller
                 'approve_status'=> 'Approved',
 
             ]);
-            return redirect()->back();
+
+            $auth = auth()->user();
+           // $admins = User::where('Role', 'Admin')->get();
+
+            $distributors = User::where('Role', 'Distributor')->get();
+        
+           // $users = $admins->merge($distributor);
+        
+            foreach ($distributors as $user)
+            {
+                $user->notify(new DatabaseNotification($auth));
+
+            }
+            return redirect()->back()->with("success1","Request Approved Successfully");;
 
         }
 
@@ -480,7 +514,8 @@ class ProductController extends Controller
                 'approve_status'=> 'Canceled',
 
             ]);
-            return redirect()->back();
+
+            return redirect()->back()->with("success1","Request Cancel Successfully");;
 
         }
 

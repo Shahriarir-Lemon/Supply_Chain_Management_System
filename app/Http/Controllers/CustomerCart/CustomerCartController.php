@@ -59,7 +59,7 @@ class CustomerCartController extends Controller
                 $cart1->save();
 
                
-                return redirect()->back()->with('success', 'Product Updated Successfully.');
+                return redirect()->back()->with('success1', 'Product Updated Successfully.');
 
             }
              else 
@@ -93,7 +93,7 @@ class CustomerCartController extends Controller
 
                 
 
-                return redirect()->back()->with('success', 'Product Added Successfully.');
+                return redirect()->back()->with('success1', 'Product Added Successfully.');
             }
         
     
@@ -136,7 +136,7 @@ class CustomerCartController extends Controller
 
 
         $cart->delete();
-        return redirect()->back();
+        return redirect()->back()->with("success1","Removed Successfully");
 
        
 
@@ -171,13 +171,13 @@ class CustomerCartController extends Controller
                  'quantity' => $request->input('quantity'),
                  'price' => $product->Price * $request->input('quantity'),
              ]);
-             return redirect()->back();
+             return redirect()->back()->with("success1","Quantity Updated Successfully");
          } 
 
          else 
          {
              
-             return redirect()->back();
+             return redirect()->back()->with("success1","Quantity Updated Successfully");
          }
 
        }
@@ -212,7 +212,8 @@ public function cus_place_order(Request $request)
 
            if($valid->fails())
            {
-            return redirect()->back()->withErrors($valid)->withInput();
+            include('SweetAlert.flash');
+            return redirect()->back()->withInput();
            }
 
           // dd($user->id, $totalPrice, $carts);
@@ -252,7 +253,7 @@ public function cus_place_order(Request $request)
        // }
 
          CCart::truncate();
-         return redirect()->route('cus_cart_show')->with('success', 'Order Placed successfully');
+         return redirect()->route('cus_cart_show')->with('success1', 'Order Placed successfully');
          
       }
 
@@ -269,7 +270,7 @@ public function cus_place_order(Request $request)
 
            CusOrder::find($id)->delete();
 
-            return redirect()->back();
+            return redirect()->back()->with("success1","Order cancel Successfully");;
 
 
         }

@@ -113,6 +113,8 @@
   <script src="{{asset('admin_inf/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('admin_inf/dist/js/adminlte.min.js')}}"></script>
+
+  
 </body>
 
 </html>

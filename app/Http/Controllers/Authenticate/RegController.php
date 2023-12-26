@@ -45,7 +45,7 @@ class RegController extends Controller
             User::create($data);
             
 
-            return redirect()->route('getlogin')->with('success', 'Account Created Successfully');
+            return redirect()->route('getlogin')->with('success1', 'Account Created Successfully');
         } catch (\Exception $e) {
 
             session()->flash('message', $e->getMessage());

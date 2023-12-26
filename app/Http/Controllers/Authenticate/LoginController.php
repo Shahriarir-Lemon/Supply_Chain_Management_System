@@ -5,12 +5,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class LoginController extends Controller
 {
     public function adminlogin()
-    {
+    {  
 
         return view('Backend.Authenticate.login');
     }
@@ -28,21 +29,29 @@ class LoginController extends Controller
        {
            return redirect()->back();
        }   */
+            $credentials = [
+                'user_name' => $request->user_name,
+                'password' => $request->password,
+            ];
+            
+            $validated = auth()->attempt($credentials);
+            
+            if ($validated)
+             {
 
-      $validated = auth()->attempt([
-            'user_name' => $request->user_name,
-            'password' => $request->password,
-        ], $request->password);
-
-           // $credentials=$request->except('_token');
-            // $credentials=$request->only('email','password');
-
-            if($validated)
-            {
-                return redirect()->route('dash')->with('success', 'Succesfully Loged in');
+                if(auth()->user()->unreadNotifications->count() > 0)
+                    {
+                        Redirect::to('')->with('success2', 'Hello, You Got New Notifications !!');
+                        return redirect()->route('dash')->with('success1', 'Successfully Logged in');
+                    }
+          
+                return redirect()->route('dash')->with('success1', 'Successfully Logged in');
             }
 
-            return redirect()->back()->with('error', 'Invalid email or Wrong pasword');
+            
+
+            return redirect()->back()->withInput()->with('error', 'Invalid username or password');
+            
 
 
 
@@ -66,6 +75,6 @@ class LoginController extends Controller
     public function adminlogout()
     {
         auth()->logout();
-        return redirect()->route('admin_login');
+        return redirect()->route('admin_login')->with("success1", "Successfully Logged Out");
     }
 }

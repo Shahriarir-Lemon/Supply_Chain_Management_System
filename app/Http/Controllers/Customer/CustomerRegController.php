@@ -48,10 +48,10 @@ class CustomerRegController extends Controller implements ShouldQueue
 
     public function customer_registration_form()
 
-    {
-    return view('Frontend.pages.cus_sign_up');
+            {
+            return view('Frontend.pages.cus_sign_up');
 
-    }
+            }
     
     public function customer_registration(Request $request) 
     {
@@ -107,14 +107,12 @@ class CustomerRegController extends Controller implements ShouldQueue
             
            Mail::to($user->c_email)->send(new EmailVerified($user));
                     
-            return redirect()->route('cus_otp')->with('success', 'Please Verify Your Account..');
+            return redirect()->route('cus_otp')->with('success1', 'Succcessfully Sent OTP, Please Check Your Email.');
             }
 
             catch (\Exception $e)
             {
-                session()->flash('message', $e->getMessage());
-                session()->flash('type', 'danger');
-        
+                include('SweetAlert.flash');
                 return redirect()->back()->withInput();   
             }
 
@@ -124,7 +122,7 @@ class CustomerRegController extends Controller implements ShouldQueue
 
     public function cus_otp()
     {
-    return view('Email.otp_form')->with('success', 'Account Created successfully, Now Verify your Account');;
+    return view('Email.otp_form')->with('success1', 'Account Created successfully, Now Verify your Account');;
     }
 
 
@@ -142,10 +140,11 @@ class CustomerRegController extends Controller implements ShouldQueue
                 'email_verified' => 1,
             ]);
 
-            return view('Frontend.pages.cus_sign_in')->with('success', 'Account Verified successfully');;
+            return view('Frontend.pages.cus_sign_in')->with('success1', 'Account Verified successfully');;
         }
 
-        return redirect()->back()->with('error', 'Invalid or expired OTP.');
+        include('SweetAlert.flash');
+        return redirect()->back();
 
     }
 
@@ -165,7 +164,7 @@ class CustomerRegController extends Controller implements ShouldQueue
 
         Mail::to($user->c_email)->send(new EmailVerified($user));
 
-        return redirect()->back()->with('success', 'OTP has been Resent Successfully.');
+        return redirect()->back()->with('success1', 'OTP has been Resent Successfully.');
 
 
     }
@@ -209,13 +208,13 @@ class CustomerRegController extends Controller implements ShouldQueue
 
             Mail::to($user->c_email)->send(new EmailVerified($user));
 
-            return view('Email.forget_otp');
+            return view('Email.forget_otp')->with("success1", "Code Send Successfully");
 
         }
          else 
         {
-            
-            return redirect()->back()->with('error', 'This email is not associated any account.');
+            include('SweetAlert.flash');
+            return redirect()->back();
         }
         
       }
@@ -232,11 +231,12 @@ class CustomerRegController extends Controller implements ShouldQueue
             if ($user->code == $request->otp && now()->lt($user->otp_expires_at)) 
 
                 {
-                    return view('Email.resetpass');
+                    return view('Email.resetpass')->with('success1',"Otp Send Successfullt");
             
                 }
 
-            return redirect()->back()->with('error', 'Invalid or expired OTP.');
+                include('SweetAlert.flash');
+            return redirect()->back();
 
          }
 
@@ -256,8 +256,9 @@ class CustomerRegController extends Controller implements ShouldQueue
       
         if (Hash::check($request->input('password'), $user->password))
            {
+            include('SweetAlert.flash');
             
-            return redirect()->back()->with('error','You have Entered Previous Password.Please Entered New Password');  
+            return redirect()->back();
             }
           try
           {
@@ -265,15 +266,14 @@ class CustomerRegController extends Controller implements ShouldQueue
                 'password' => bcrypt($request->input('password')),
                 ]);
                 
-                return redirect()->route('customer_login_page')->with('success', 'Password Reset Successfully.');
+                return redirect()->route('customer_login_page')->with('success1', 'Password Reset Successfully.');
 
            }
 
           
            catch (\Exception $e)
            {
-               session()->flash('message', $e->getMessage());
-               session()->flash('type', 'danger');
+            include('SweetAlert.flash');
        
                return redirect()->back()->withInput();   
            }
@@ -298,7 +298,7 @@ class CustomerRegController extends Controller implements ShouldQueue
         Mail::to($user->c_email)->send(new EmailVerified($user));
         //dd($user);
 
-        return redirect()->back()->with('success', 'OTP has been Resent Successfully.');
+        return redirect()->back()->with('success1', 'OTP has been Resent Successfully.');
 
 
     }
@@ -328,9 +328,10 @@ class CustomerRegController extends Controller implements ShouldQueue
         if ($credentials) 
         {
             // Authentication successful
-            return redirect()->route('home')->with('success', 'Logged in Successfully.');
+            return redirect()->route('home')->with('success1', 'Logged in Successfully.');
         }
-        return redirect()->back()->with('error', 'Email or Password invalid !!');
+        
+        return redirect()->back();
         
     
         }
@@ -342,7 +343,7 @@ class CustomerRegController extends Controller implements ShouldQueue
 
                     Auth::guard('customer')->logout();
                 
-                    return redirect()->route('home');
+                    return redirect()->route('home')->with('success1',"Log out successfully");
                 }
 
 
@@ -378,7 +379,8 @@ class CustomerRegController extends Controller implements ShouldQueue
 
                 if ($validate->fails())
                     {
-                        return redirect()->back()->withErrors($validate)->withInput();
+                        include('SweetAlert.flash');
+                        return redirect()->back()->withInput();
 
                     }
 
@@ -387,6 +389,7 @@ class CustomerRegController extends Controller implements ShouldQueue
                       
                     if (!Hash::check($request->input('password2'), $customer->password)) {
                         // Old password does not match, return an error or redirect back with a message
+                        include('SweetAlert.flash');
                         return redirect()->route('home');
                     }
 
@@ -422,13 +425,12 @@ class CustomerRegController extends Controller implements ShouldQueue
 
                  try{
                     $customer->update($data);
-                    return redirect()->back()->with('success', 'Profile Updated Successfully.');
+                    return redirect()->back()->with('success1', 'Profile Updated Successfully.');
                 }
 
                 catch (\Exception $e)
                  {
-                    session()->flash('message', $e->getMessage());
-                    session()->flash('type', 'danger');
+                    include('SweetAlert.flash');
 
                     return redirect()->route('home');
                 }

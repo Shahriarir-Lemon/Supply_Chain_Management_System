@@ -1,0 +1,26 @@
+ <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="notification">
+                        <i class="bx bxs-bell"></i>
+                        <span class="num">5</span>
+                    </a>
+                </button>
+                <div style="width: 100px;" class="dropdown-menu">
+                   
+                    @foreach (auth()->user()->notifications as $notification )
+                        
+                                <a class="dropdown-item" href="#">
+
+                                {{ $notification->data['name'] }}    has placed an order
+
+                                </a>
+                     
+                    @endforeach       
+  
+                </div>
+                </div>
+
+
+
+
+                

@@ -20,15 +20,26 @@
 </style>
 
 
+
+   @include('SweetAlert.errorlaravel')
+
+
     
   <div class="container">
     <a href="{{route('raw_material_list')}}">
         <button type="submit" class="btn btn-success rounded-o">See Raw Materials</button>
        
     </a>
+
+ 
+
+
     <div class="product_form">
         
         <h3 class="mt-1 text-center"><u>Enter Your Materials Information</u></h3>
+
+           
+
         <form action="{{ route('material_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
@@ -38,11 +49,11 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Materials Name :</b> :</label>
-                    <input type="text" class="form-control" id="product:name" name="material_name" placeholder="Material Name" required>
+                    <input type="text" value="{{ old('material_name') }}" class="form-control" id="product:name" name="material_name" placeholder="Material Name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Price :</b> :</label>
-                    <input type="text" class="form-control" id="product:price" name="material_price" placeholder="Price" required>
+                    <input type="text" value="{{ old('material_price') }}" class="form-control" id="product:price" name="material_price" placeholder="Price" required>
                 </div>
             </div>
 
@@ -61,7 +72,7 @@
             <div class="form-group">
                 <label for="product:stock" style="color: black;"><b>Stock :</b> :</label><br>
 
-                <input type="number" class="form-control" id="product:stock" name="material_stock" placeholder="Stock" required>
+                <input type="number" class="form-control" id="product:stock" name="material_stock" placeholder="Stock">
             </div>
 
             <div class="form-group">

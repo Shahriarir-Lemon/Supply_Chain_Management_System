@@ -1,17 +1,18 @@
+    
+   
+   
+   
 
-
-
-
-
-@if(Session::has('success'))
-<script>
-    swal({
-        title: "Congratulation!",
-        text: "{!! Session::get('success') !!}",
-        icon: "success",
-        button: "ok",
-        width: 400, // Set the width of the SweetAlert popup in pixels
-        timer: 3000, // Set the time (in milliseconds) before the SweetAlert is automatically closed
-    });
-</script>
+   @if (Session::has('success1'))
+   <script>
+       setTimeout(function() {
+           toastr.options = {
+               "progressBar": true,
+               "closeButton": true,
+               "backgroundColor": "#4CAF50",
+               "positionClass": "toast-top-center toast-margin", // Add custom class
+           };
+           toastr.success("{{ Session::get('success1') }}");
+       }, 1000); // Adjust the delay as needed
+   </script>
 @endif

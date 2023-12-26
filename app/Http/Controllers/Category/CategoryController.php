@@ -85,11 +85,12 @@ class CategoryController extends Controller
 
       ]);
 
-      return redirect()->route('category_list')->with('success', 'Category Added Successfully');
-    } catch (\Exception $e) {
+      return redirect()->route('category_list')->with('success1', 'Category Added Successfully');
+    } 
+    catch (\Exception $e) 
+    {
 
-      session()->flash('message', $e->getMessage());
-      session()->flash('type', 'danger');
+      include('SweetAlert.flash');
 
       return redirect()->back()->withInput();
     }
@@ -108,7 +109,8 @@ class CategoryController extends Controller
           // $validator = Validator::make($request->all(),$validate);
           if ($validate->fails())
               {
-                return redirect()->back()->withErrors($validate)->withInput();
+                include('SweetAlert.flash');
+                return redirect()->back()->withInput();
               }
 
           $category = Category::find($id);
@@ -117,7 +119,7 @@ class CategoryController extends Controller
               'Category_Name' => $request->category_name,
               ]);
 
-          return redirect()->route('category_list');
+          return redirect()->route('category_list')->with("success1", "Category Added Successfully");
         }
 
   public function delete_category($id)
@@ -125,6 +127,6 @@ class CategoryController extends Controller
       $category = Category::find($id);
       $category->delete();
 
-      return redirect()->route('category_list');
+      return redirect()->route('category_list')->with("success1", "Category Added Successfully");
   }
 }

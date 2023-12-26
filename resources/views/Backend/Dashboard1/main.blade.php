@@ -118,6 +118,47 @@
       
     }
 
+    .toast-margin {
+       margin-top: 50px; 
+   }
+   .toast-margin1
+   {
+    margin-top: 50px; 
+    margin-left: 200px;
+
+   }
+
+
+   /*  notificaton */
+     .notification-item {
+        
+        align-items: center;
+        width: 800px; /* Adjust the width as needed */
+       
+       
+        
+        margin-left: -20px;
+    }
+ 
+.dropdown-item
+{
+    width: 320px;
+}
+
+.dropdown-menu {
+    width: auto; 
+    min-width: 320px; 
+
+    margin-right: 200px;
+}
+
+.notification-text
+{
+  font-size: 5px:
+}
+
+
+
 </style>
 
 <body>
@@ -208,6 +249,33 @@
             @endif
 
 
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('retailer.view'))
+             @if(auth()->user()->Role != 'Admin')
+                <li class="{{ Route::is('cart_show1') ? 'active' : '' }}">
+                    <a href="{{ route('cart_show1') }}">
+                        <img src="{{ asset('Main1/img/manufacturer.jpg') }}">
+                        <span style="font-size: 16px;font-weight:300;" class="text">Requested Product List</span>
+                    </a>
+                </li>
+             @else
+
+                <li class="{{ Route::is('cart_show1') ? 'active' : '' }}">
+                    <a href="{{ route('cart_show1') }}">
+                        <img src="{{ asset('Main1/img/manufacturer.jpg') }}">
+                        <span class="text">Distributor Orders</span>
+                    </a>
+                </li>
+                @endif
+
+
+            @endif
+            @endif
+            @endif
+       
+
+
 
 
             @if (Auth()->user()->can('supplier.view'))
@@ -236,28 +304,35 @@
                     <a href="{{ route('user_list') }}">All Users</a>
                 </div>
             </li>
-        
-
-
         </ul>
     
-
-    @if (Auth()->user()->can('supplier.view'))
-      @if (Auth()->user()->can('manufacturer.view'))
-      @if (Auth()->user()->can('distributor.view'))
+    
         <ul class="side-menu">
 
-            <li class="{{ Route::is('customer_order') ? 'active' : '' }}">
-                <a href="{{ route('customer_order') }}">
-                    <img src="{{ asset('Main1/img/order.png') }}">
-                    <span class="text">Customer Orders</span>
-                </a>
-            </li>
-        </ul>
-    @endif
-    @endif
-    @endif
-       
+         
+        
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('distributor.view'))
+                    <li class="{{ Route::is('customer_order') ? 'active' : '' }}">
+                        <a href="{{ route('customer_order') }}">
+                            <img src="{{ asset('Main1/img/order.png') }}">
+                            <span class="text">Customer Orders</span>
+                        </a>
+                    </li>
+            @endif
+            @endif
+            @endif
+            
+
+
+
+
+   </ul>
+
+
+
+
 
     </section>
     <!--  end Sidebar -->
@@ -270,66 +345,69 @@
         <nav>
             <i class="bx bx-menu"></i>
             <a href="#" class="nav-link"></a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search..." />
-                    <button type="submit" class="search-btn">
-                        <i class="bx bx-search"></i>
-                    </button>
-                </div>
-            </form>
+          <h2 style="  font-weight: 800;
+          color:black; 
+          background: light; 
+          padding: 4px;
+          border-radius: 8px;
+          text-align: center;
+          margin-left:40px;
+          border-radius: 15px;
+          border: 2px solid black;margin-top:5px;
+          margin-right:160px;">Supply Chain Management System</h2>
 
 
 
-            {{--  
+          
 
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    
-                    @php
-                        $adminUser = App\Models\User::where('role', 'Supplier')->first();
-                        $unreadNotificationsCount = $adminUser ? $adminUser->unreadNotifications->count() : 0;
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <a href="#" class="notification">
+                <i class="bx bxs-bell"></i>
 
-                    @endphp
+                <span class="num">{{ auth()->user()->unreadNotifications->count() }}</span>
+            </a>
 
-                    <a href="#" class="notification">
-                        <i class="bx bxs-bell"></i>
-                        <span class="num">{{ $unreadNotificationsCount }}</span>
-                    </a>
-                </button>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                   
-                    @foreach($adminUser->unreadNotifications as $notification)
+        </button>
+        <div class="dropdown-menu">
 
 
-                                @php
-                                      $adminUser = App\Models\User::where('role', 'Supplier')->first();
-                                      $notifications = $adminUser ? $adminUser->notifications : [];
-                                @endphp
+            @foreach(auth()->user()->notifications as $notification)
 
-                                @forelse($notifications as $key => $notificationa)
+            <a class="dropdown-item" href="{{ $notification->data['link'] ?? '#' }}">
+                
 
-                                <a class="dropdown-item" href="#">
-                                    {{ $notificationa->data['name'] }} has placed an order
-                                </a>
+                    <div class="notification-item">
 
-                                @empty
-                                            <span class="dropdown-item">No new notifications</span>
-                                                @endforelse
+                        <div class="notification-content">
+                            <span style="font-size: 15px;" class="notification-text">
+                                  @if(auth()->user()->Role != 'Distributor')
+
+                                    {{ $notification->data['name'] }}({{ $notification->data['role'] }})has placed an order<br>
+                                    @else
+                                      Your Request has been Approved<br>
+                                         @endif
+
+                            </span>
+
+                            <span style="font-size: 15px;" class="notification-text">
+
+                                {{ $notification->created_at->diffForHumans() }}
+
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                {{ $notification->markAsRead() }}
+
+            @endforeach
+
+        </div>
+    </div>
 
 
-                     
-                        @php
-                            $notification->markAsRead();
-                        @endphp
-
-                    @endforeach
-
-                </div>
-            </div>
-            --}}
-
+           
             
 
 
@@ -397,17 +475,7 @@
 
           
             {{-- Profile --}}
-            @if (Auth()->user()->can('supplier.view'))
-            @if (Auth()->user()->can('manufacturer.view'))
-            @if (Auth()->user()->can('retailer.view'))
-               @if(auth()->user()->Role != 'Admin')
-                <a href="{{ route('cart_show1') }}"><button style="font-weight:700;color:black" class="btn btn-outline-success">Requested Product List</button></a>
-                @else
-                 <a href="{{ route('cart_show1') }}"><button style="font-weight:700;color:black" class="btn btn-outline-success">Distributor Orders</button></a>
-                   @endif
-            @endif
-            @endif
-            @endif
+        
 
 
             <div class="profile-container">
@@ -564,6 +632,20 @@
 
 {{-- toastr cdn --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  @include('SweetAlert.success')
+  @include('SweetAlert.error')
+  @include('SweetAlert.success1')
+
+{{-- paymetn --}}
+
+
+
+
+
 
 </body>
 

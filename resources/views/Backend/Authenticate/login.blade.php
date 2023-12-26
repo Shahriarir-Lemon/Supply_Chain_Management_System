@@ -7,6 +7,9 @@
 	<meta name="description" content="This is a login page template based on Bootstrap 5">
 	<title>User Login</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+
 </head>
 <style>
     body
@@ -28,14 +31,11 @@
 						<div class="card-body p-5">
 							<h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
 
-
-                            @if(session('error'))
-                            <div class="text-danger text center">{{session('error')}}</div>
-                            @endif
-                    
-                            @if(session('success'))
-                            <div class="alert alert-success">{{session('success')}}</div>
-                            @endif
+							@if(session('error'))
+							<div class="alert alert-danger">
+								{{ session('error') }}
+							</div>
+						@endif
 
 
 

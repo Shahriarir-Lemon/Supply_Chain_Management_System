@@ -19,3 +19,5 @@ class VerifyCsrfToken extends Middleware
         '/pay-via-ajax', // only required to run example codes. Please see bellow.
     ];
 }
+
+

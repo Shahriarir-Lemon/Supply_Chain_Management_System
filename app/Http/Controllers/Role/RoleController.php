@@ -85,7 +85,7 @@ class RoleController extends Controller
                 }
 
 
-            return redirect()->route('role_list');
+            return redirect()->route('role_list')->with("success1","New Role Added Successfully");;
 
     }
 
@@ -110,7 +110,7 @@ class RoleController extends Controller
         $permissions = $request->input('permissions') ?? [];
         $role->syncPermissions($permissions);
 
-        return redirect()->route('role_list');
+        return redirect()->route('role_list')->with("success1","Role Edited Successfully");;
 
          }
 
@@ -122,7 +122,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role->delete();
-        return redirect()->route('role_list');
+        return redirect()->route('role_list')->with("success1","Role Deleted Successfully");;
 
      }
 }

@@ -26,8 +26,30 @@ class DatabaseNotification extends Notification
  
     public function toArray(object $notifiable): array
     {
-        return [
-            'name'=>$this->user['user_name'],
-        ];
+
+        $role = null;
+
+        if (auth()->user()->Role == 'Manufacturer') 
+                {
+                    $link = route('manufacturer_order'); 
+                }
+                 elseif (auth()->user()->Role == 'Distributor')
+                 {
+                    $link = route('all_request'); 
+                } 
+                elseif (auth()->guard('customer')->user()->Role == 'Customer')
+                {
+                   $link = route('customer_order'); 
+               } 
+                else 
+                {
+                    
+                }
+
+                return [
+                    'name'=>$this->user['user_name'],
+                    'role'=>$this->user['Role'],
+                    'link' => $link,
+                ];
     }
 }

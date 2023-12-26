@@ -77,6 +77,7 @@ class UserListController extends Controller
             ]);
 
             if ($validator->fails()) {
+                include('SweetAlert.flash');
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
@@ -93,7 +94,7 @@ class UserListController extends Controller
 
             $user->assignRole($request->roles);
 
-            return redirect()->route('user_list')->with('success', 'User created successfully');
+            return redirect()->route('user_list')->with('success1', 'User created successfully');
            }
 
      public function user_edit($id , Request $request)
@@ -108,6 +109,7 @@ class UserListController extends Controller
                 ]);
                   
                 if ($validator->fails()) {
+                    include('SweetAlert.flash');
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
 
@@ -130,7 +132,7 @@ class UserListController extends Controller
               }
              
 
-                return redirect()->route('user_list')->with('success', 'User created successfully');
+                return redirect()->route('user_list')->with('success1', 'User created successfully');
 
                 
             }
@@ -138,7 +140,7 @@ class UserListController extends Controller
         {
             $user = User::find($id);
             $user->delete();
-            return redirect()->route('user_list')->with('success', 'User created successfully');
+            return redirect()->route('user_list')->with('success1', 'User created successfully');
         }
    
 }

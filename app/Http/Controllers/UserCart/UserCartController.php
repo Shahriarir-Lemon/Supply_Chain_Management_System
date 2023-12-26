@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\OrderDetails;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Notifications\DatabaseNotification;
 use App\Models\Order1;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserCartController extends Controller
@@ -59,7 +60,7 @@ class UserCartController extends Controller
                     'Stock' => $material->Stock - ($newQuantity - $oldQuantity),
                 ]);
                 
-                return redirect()->back()->with('success', 'Product Updated Successfully.');
+                return redirect()->back()->with('success1', 'Product Added Successfully.');
 
             }
              else 
@@ -97,7 +98,7 @@ class UserCartController extends Controller
               
 
 
-                return redirect()->back()->with('success', 'Product Added Successfully.');
+                return redirect()->back()->with('success1', 'Product Added Successfully.');
             }
         
     
@@ -144,7 +145,7 @@ class UserCartController extends Controller
 
 
             $cart->delete();
-            return redirect()->back();
+            return redirect()->back()->with("success1","Items Removed Successfully");;
 
            
 
@@ -176,13 +177,13 @@ class UserCartController extends Controller
                         'quantity' => $request->input('quantity'),
                         'price' => $material->Price * $request->input('quantity'),
                     ]);
-                    return redirect()->back();
+                    return redirect()->back()->with("success1","Quantity Updated Successfully");;
                 } 
 
                 else 
                 {
                     
-                    return redirect()->back();
+                    return redirect()->back()->with("success1","Quantity Not Found");;
                 }
 
         }
@@ -215,6 +216,7 @@ class UserCartController extends Controller
 
            if($valid->fails())
            {
+            include('SweetAlert.flash');
             return redirect()->back()->withErrors($valid)->withInput();
            }
 
@@ -244,12 +246,75 @@ class UserCartController extends Controller
              ]);
          }
          Cart::truncate();
-         return redirect()->back()->with('success', 'Order Placed successfully');
+
+
+        
+
+
+         if (auth()->user()->Role == 'Manufacturer') 
+                {
+
+                    $auth = auth()->user();
+                    $admins = User::where('Role', 'Admin')->get();
+
+                    $suppliers = User::where('Role', 'Supplier')->get();
+
+                
+                    $users = $admins->merge($suppliers);
+                
+                    foreach ($users as $user)
+                    {
+                        $user->notify(new DatabaseNotification($auth));
+
+                    }
+                    
+                }
+        elseif(auth()->user()->Role == 'Distributor')
+                {
+
+                
+                       $auth = auth()->user();
+                        $admins = User::where('Role', 'Admin')->get();
+
+                        $manufacturer = User::where('Role', 'Manufacturer')->get();
+                    
+                        $users = $admins->merge($manufacturer);
+                    
+                        foreach ($users as $user)
+                        {
+                            $user->notify(new DatabaseNotification($auth));
+
+                        }
+                           
+                }
+
+
+           else
+
+                {
+                    $auth = auth()->user();
+                    $admins = User::where('Role', 'Admin')->get();
+
+                    $distributor = User::where('Role', 'Distributor')->get();
+                
+                    $users = $admins->merge($distributor);
+                
+                    foreach ($users as $user)
+                    {
+                        $user->notify(new DatabaseNotification($auth));
+
+                    }
+                }
+
+
+        
+        
+             return redirect()->back()->with('success1', 'Order Placed successfully');
 
 
           }
 
-    public function customer_order()
+public function customer_order()
           {
             
             if (is_null($this-> user) || !$this->user->can('supplier.view'))
@@ -279,7 +344,7 @@ class UserCartController extends Controller
 
 
 
-    public function cus_status_change(Request $request, $id)
+public function cus_status_change(Request $request, $id)
         {
             
             
@@ -301,7 +366,7 @@ class UserCartController extends Controller
                 ]);
             }
 
-            return redirect()->back();
+            return redirect()->back()->with("success1","Status Changed Successfully");;
 
 
         }
@@ -376,11 +441,11 @@ class UserCartController extends Controller
             }
           
 
-            return redirect()->back();
+            return redirect()->back()->with("success1","Status Changed Successfully");;
 
 
         }
-    public function manu_cancel_order($id)
+public function manu_cancel_order($id)
         {
             
             
@@ -391,11 +456,11 @@ class UserCartController extends Controller
 
            Order1::find($id)->delete();
 
-            return redirect()->back();
+            return redirect()->back()->with("success1","Order Canceled Successfully");;
 
 
         }
-    public function manu_invoice($id)
+public function manu_invoice($id)
         {
 
             $orders =Order1::find($id);
@@ -419,7 +484,7 @@ class UserCartController extends Controller
         }
 
     
-        public function retailer_report(Request $request)
+public function retailer_report(Request $request)
         
             {
 
@@ -479,7 +544,7 @@ class UserCartController extends Controller
                 return $pdf->download($fileName);
         }
 
-        public function supplier_report(Request $request)
+public function supplier_report(Request $request)
         
             {
 
