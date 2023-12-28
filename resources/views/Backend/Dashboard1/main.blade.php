@@ -194,7 +194,17 @@
             @endif
             @endif
 
-          
+         
+
+          @if(auth()->user()->Role == 'Retailer')
+            <li class="{{ Route::is('product_list') ? 'active' : '' }}">
+                <a href="{{route('product_list')}}">
+                    <img src="{{ asset('Main1/img/product.png') }}">
+                    <span class="text">My Products</span>
+                </a>
+            </li>
+            @else
+ 
           
             
             <li class="{{ Route::is('product_list') ? 'active' : '' }}">
@@ -203,6 +213,7 @@
                     <span class="text">Products</span>
                 </a>
             </li>
+            @endif
            
 
 

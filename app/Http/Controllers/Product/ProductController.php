@@ -15,7 +15,7 @@ use App\Models\Cart;
 use App\Models\Cart1;
 use App\Models\User;
 use App\Notifications\DatabaseNotification;
-
+use App\Models\Last;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Exception;
@@ -537,6 +537,18 @@ public function approve_request($id)
                 {
                         abort(403, 'Unauthrorized Access');
         
+                }
+
+                $products = Cart1::all();
+
+                foreach ($products as $userData)
+                 {
+                    $backupUser = new Last();
+                    $backupUser->name = $userData->name; // Replace 'name' with your actual column names
+                    $backupUser->email = $userData->email;
+                    // ... Repeat for other columns
+            
+                    $backupUser->save();
                 }
 
             $cart = Cart1::where('approve_status', 'Approved')->get();

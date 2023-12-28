@@ -10,7 +10,7 @@
             <i class='bx bxs-calendar-check' ></i>
             <span class="text">
                 <h3>4</h3>
-                <p>New Order</p>
+                <p>Total Order</p>
             </span>
         </li>
         <li>

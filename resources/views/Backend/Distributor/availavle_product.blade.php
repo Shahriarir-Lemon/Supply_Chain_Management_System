@@ -162,7 +162,9 @@
                         <th style="background: grey;color:white;">Quantity</th>
                      
                         <th style="background: grey;color:white;text-align:center;">Subtotal</th>
-                       
+                        @if(auth()->user()->Role == 'Retailer')
+                        <th style="background: grey;color:white;text-align:center;">Request</th>
+                       @endif
                     </tr>
                     
             </thead>

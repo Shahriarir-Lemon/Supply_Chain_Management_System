@@ -14,7 +14,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Authenticate\RegController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Authenticate\LoginController;
-
+use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\User_List\UserListController;
 
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -197,6 +197,16 @@ Route::post('/retailer_report', [UserCartController::class, 'retailer_report'])-
 
 Route::post('/supplier_report', [UserCartController::class, 'supplier_report'])->name('supplier_report');
 
+
+
+
+// chat system 
+
+Route::post('/submit_chat', [ChatController::class,'submit_chat'])->name('chat');
+
+Route::get('/get_chat', [ChatController::class, 'getChat'])->name('getchat');
+
+Route::delete('/delete_message/{id}', [ChatController::class, 'deleteMessage']);
 
 
 });

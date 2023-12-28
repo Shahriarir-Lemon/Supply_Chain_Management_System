@@ -10,15 +10,31 @@
         <li>
             <i class='bx bxs-calendar-check' ></i>
             <span class="text">
-                <h3>22</h3>
-                <p>New Order</p>
+                @if(auth()->user()->Role == 'Distributor' || auth()->user()->Role == 'Manufacturer')
+                <h3>{{ $total }}</h3>
+                <p>Total Request</p>
+                @else
+                <h3>{{ $total }}</h3>
+                <p>Total Order</p>
+                   
+                @endif
+                
             </span>
         </li>
         <li>
             <i class='bx bxs-group' ></i>
             <span class="text">
-                <h3>35</h3>
+             @if(auth()->user()->Role == 'Admin' || auth()->user()->Role == 'Retailer')
+                <h3>{{ $user }}</h3>
                 <p>Customer</p>
+            @elseif (auth()->user()->Role == 'Supplier')
+                <h3>{{ $user }}</h3>
+                <p>Manufacturer</p>
+            @elseif (auth()->user()->Role == 'Manufacturer')
+                <h3>{{ $user }}</h3>
+                <p>Distributor</p>
+                @else
+                @endif
             </span>
         </li>
         <li>
@@ -38,7 +54,12 @@
 
     {{-- table --}}
 
+   
+   
 
+<div class="container">
+<div class="row">
+     <div class="col">        
 
     
     <div class="table-data">
@@ -93,8 +114,21 @@
             </table>
         </div>
     </div>
+</div>
 
 
+
+        <div class="col">
+
+           @include('chat.chat')
+                
+        </div>
+
+
+
+
+</div>
+</div>
 
 
 @endsection
