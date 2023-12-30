@@ -93,11 +93,7 @@ class UserCartController extends Controller
 
                 $cart->save();
 
-                
-
-              
-
-
+        
                 return redirect()->back()->with('success1', 'Product Added Successfully.');
             }
         
@@ -227,7 +223,7 @@ class UserCartController extends Controller
             'mobile'=>$request->mobile,
             'address'=>$request->address,
             'user_id'=>auth()->user()->id,
-            'delevery_status'=>'Processing',
+            'delevery_status'=>'Pending',
             'total_price'=>$totalPrice,
             'payment_status'=>'Cash_On_Delivery',
          ]);
@@ -419,7 +415,7 @@ public function cus_status_change(Request $request, $id)
         return view('Backend.Cart.manufacturer_profile',compact('orders'));
     }
        
-    public function manufacturer_status_change(Request $request, $id)
+public function manufacturer_status_change(Request $request, $id)
         {
             
         
@@ -445,6 +441,30 @@ public function cus_status_change(Request $request, $id)
 
 
         }
+
+
+    public function delivery_status_change(Request $request, $id)
+        {
+            
+        
+        //  dd($id);
+            $order = Order1::find($id);
+            $orders = OrderDetails::where('order1_id', $id)->get();
+
+
+            $order->update([
+                  
+                'delevery_status'=> $request->status,
+
+            ]);
+           
+
+            return redirect()->back()->with("success1","Status Changed Successfully");;
+
+
+        }
+
+        
 public function manu_cancel_order($id)
         {
             

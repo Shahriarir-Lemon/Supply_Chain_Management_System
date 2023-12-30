@@ -150,7 +150,7 @@
         
             
             <!-- Table to display product information -->
-            <h3 class="mt-0 text-center"><u>All Available Product</u></h3>
+            <h3 class="mt-0 text-center"><u>My Requested Product</u></h3>
             <table class="table table-bordered ">
                 <thead>
                     <tr style="background: grey;" class="a bg-secondary text-white">
@@ -162,9 +162,7 @@
                         <th style="background: grey;color:white;">Quantity</th>
                      
                         <th style="background: grey;color:white;text-align:center;">Subtotal</th>
-                        @if(auth()->user()->Role == 'Retailer')
-                        <th style="background: grey;color:white;text-align:center;">Request</th>
-                        @endif
+                       
                         <th style="background: grey;color:white;text-align:center;">Status</th>
                       
                     </tr>
@@ -211,8 +209,14 @@
 
                
                                <td>{{ $detail->price }} BDT</td>
+
+                               @if($detail->approve_status == 'Approved')
+                          
+                               <td style="color: green;font-weight:700;">{{ $detail->approve_status }}</td>
+                               @else
                                <td>{{ $detail->approve_status }}</td>
 
+                               @endif
                                 </tr>
                
                             @if($detail->approve_status == 'Approved')

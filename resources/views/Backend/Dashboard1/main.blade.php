@@ -194,6 +194,23 @@
             @endif
             @endif
 
+            {{-- for Retailer --}}
+            @if (Auth()->user()->can('admin.view'))
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('distributor.view'))
+
+            <li class="{{ Route::is('retailer_show') ? 'active' : '' }}">
+                <a href="{{route('retailer_show')}}">
+                    <img src="{{ asset('Main1/img/product.png') }}">
+                    <span class="text">Products</span>
+                </a>
+            </li>
+            @endif
+            @endif
+            @endif
+            @endif
+
          
 
           @if(auth()->user()->Role == 'Retailer')
@@ -205,8 +222,7 @@
             </li>
             @else
  
-          
-            
+       
             <li class="{{ Route::is('product_list') ? 'active' : '' }}">
                 <a href="{{route('product_list')}}">
                     <img src="{{ asset('Main1/img/product.png') }}">
@@ -214,6 +230,8 @@
                 </a>
             </li>
             @endif
+
+            
            
 
 
@@ -292,6 +310,8 @@
             @if (Auth()->user()->can('supplier.view'))
             @if (Auth()->user()->can('manufacturer.view'))
             @if (Auth()->user()->can('retailer.view'))
+            @if (Auth()->user()->can('admin.view'))
+
 
             <li class="{{ Route::is('available_product') ? 'active' : '' }}">
                 <a href="{{ route('available_product') }}">
@@ -302,6 +322,42 @@
             @endif
             @endif
             @endif
+            @endif
+
+
+        @if (Auth()->user()->can('admin.view'))
+        @if (Auth()->user()->can('supplier.view'))
+        @if (Auth()->user()->can('manufacturer.view'))
+        @if (Auth()->user()->can('distributor.view'))
+
+            <li class="{{ Route::is('my_product') ? 'active' : '' }}">
+                <a href="{{ route('my_product') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
+                    <span class="text">My Request</span>
+                </a>
+            </li>
+            @endif
+            @endif
+            @endif
+            @endif
+
+
+
+            @if (Auth()->user()->can('supplier.view'))
+            @if (Auth()->user()->can('manufacturer.view'))
+            @if (Auth()->user()->can('retailer.view'))
+           
+
+            <li class="{{ Route::is('ret_request') ? 'active' : '' }}">
+                <a href="{{ route('ret_request') }}">
+                    <img src="{{ asset('Main1/img/manage.png') }}">
+                    <span class="text">Retailer Request</span>
+                </a>
+            </li>
+            @endif
+            @endif
+            @endif
+        
 
 
 

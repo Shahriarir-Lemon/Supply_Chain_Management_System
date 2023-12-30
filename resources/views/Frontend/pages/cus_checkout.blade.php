@@ -115,7 +115,7 @@
              
                 <div class="mb-3">
                     <label for="email">Mobile : </span></label>
-                    <input type="number" name="mobile" class="form-control" id="email" placeholder="017688...." required>
+                    <input type="tel" name="mobile" pattern="\+880[0-9]{10}" class="form-control" id="email" placeholder="017688...." required>
                     <div class="invalid-feedback"> Please enter a valid mobile number for shipping  </div>
                 </div>
                 <div class="mb-3">

@@ -23,8 +23,7 @@ use App\Http\Controllers\Raw_Material\RawMaterialController;
 use App\Http\Controllers\Cart_and_payment\CartController;
 use App\Http\Controllers\UserCart\UserCartController;
 use App\Http\Controllers\CustomerCart\CustomerCartController;
-
-
+use App\Http\Controllers\Retailer_Show\RetailerController;
 use App\Notifications\UserNofication;
 
 // Payment for 
@@ -179,6 +178,8 @@ Route::group(['middleware' => 'auth'], function ()
   // see manufacturer order in supplier panel
   Route::get('/manufacturer_order', [UserCartController::class, 'manufacturer_order'])->name('manufacturer_order');
   Route::PUT('/manufacturer_status_change/{id}', [UserCartController::class, 'manufacturer_status_change'])->name('manufacturer_status_change');
+  
+  Route::PUT('/delivery_status_change/{id}', [UserCartController::class, 'delivery_status_change'])->name('delivery_status_change');
 
 
   // see manufacturer profile ( My Order)
@@ -196,6 +197,22 @@ Route::post('/retailer_report', [UserCartController::class, 'retailer_report'])-
 //  Manufacturer order report for Supplier
 
 Route::post('/supplier_report', [UserCartController::class, 'supplier_report'])->name('supplier_report');
+
+
+//  Retailer show
+
+Route::get('/retailer_show', [RetailerController::class, 'retailer_show'])->name('retailer_show');
+
+Route::post('/retailer_request/{id}', [RetailerController::class, 'retailer_request'])->name('retailer_request');
+
+Route::get('/ret_request', [RetailerController::class, 'ret_request'])->name('ret_request');
+
+Route::get('/retailer_approve/{id}', [RetailerController::class, 'retailer_approve'])->name('retailer_approve');
+
+Route::get('/retailer_cancel/{id}', [RetailerController::class, 'retailer_cancel'])->name('retailer_cancel');
+
+Route::get('/my_product', [RetailerController::class, 'my_product'])->name('my_product');
+
 
 
 
@@ -292,6 +309,9 @@ Route::group(['middleware' => 'customer'], function ()
 
     
     Route::get('/cus_cancel_order/{id}', [CustomerCartController::class, 'cus_cancel_order'])->name('cus_cancel_order');
+
+  Route::PUT('/cus_delivery_change/{id}', [CustomerCartController::class, 'cus_delivery_change'])->name('cus_delivery_change');
+    
 });
 
 

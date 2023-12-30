@@ -94,7 +94,7 @@
                                     <tr style="border:1px solid black;">
                                         <td style="border:1px solid black;"><a class="navi-link" href="#order-details"
                                                 data-toggle="modal">{{ $order->id }}</a></td>
-                                        <td style="border:1px solid black;text-align:left;">April 04, 2017</td>
+                                        <td style="border:1px solid black;text-align:left;">{{ $order->created_at }}</td>
                                         <td style="border:1px solid black;">{{ $order->total_price }} BDT</span></td>
 
                                         
@@ -109,9 +109,9 @@
                                                     </div>
                                                     Pending
                                                 @elseif($order->order_status == 'Canceled')
-                                                    <span style="color:red;">Canceled by Admin</span>
+                                                    <span style="color:red;font-weight:700;">Canceled by Admin</span>
                                                 @else
-                                                    <span style="color:green;">Approved</span>
+                                                    <span style="color:green;font-weight:700;">Approved</span>
                                                 @endif
                                             </td>
 
@@ -119,20 +119,32 @@
 
                                 <td style="border:1px solid black;color:green;font-weight:600;">Cash On Delivery</td>
 
-                                <td style="border:1px solid black;">
-                                @if ($order->order_status == 'Canceled')
-                                    <span style="color:red;">Canceled by Admin</span>
 
-                                    </td>
-                                @else
-                                    
+                                <td style="border:1px solid black;">
+                                    @if ($order->order_status == 'Canceled')
+                                        <span style="color:red;">Canceled by Admin</span>
+    
+                                        </td>
+    
+                                    @elseif($order->delevery_status == 'Pending')
                                         <div class="spinner-border" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
-                                        Processing
-                                    </td>
-                                @endif
-
+                                        Pending
+                                        </td>
+    
+                                    @elseif($order->delevery_status == 'Progressing')
+                                        <div class="spinner-border" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Progressing
+                                        </td>
+    
+                                    @else
+                                        
+                                            <span style="color: green;font-weight:700;">Done</span>
+                                        </td>
+                                    @endif
 
 
 

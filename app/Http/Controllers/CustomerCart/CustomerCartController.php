@@ -223,7 +223,7 @@ public function cus_place_order(Request $request)
             'mobile'=>$request->mobile,
             'address'=>$request->address,
             'customer_id'=>$id,
-            'delevery_status'=>'Processing',
+            'delevery_status'=>'Pending',
             'total_price'=>$totalPrice,
             'payment_status'=>'Cash_On_Delivery',
          ]);
@@ -253,7 +253,7 @@ public function cus_place_order(Request $request)
        // }
 
          CCart::truncate();
-         return redirect()->route('cus_cart_show')->with('success1', 'Order Placed successfully');
+         return redirect()->route('profile_view')->with('success1', 'Order Placed successfully');
          
       }
 
@@ -271,6 +271,27 @@ public function cus_place_order(Request $request)
            CusOrder::find($id)->delete();
 
             return redirect()->back()->with("success1","Order cancel Successfully");;
+
+
+        }
+    
+public function cus_delivery_change(Request $request, $id)
+        {
+            
+        
+        //  dd($id);
+            $order = CusOrder::find($id);
+            $orders = CusOderDetail::where('cus_order_id', $id)->get();
+
+
+            $order->update([
+                  
+                'delevery_status'=> $request->status,
+
+            ]);
+           
+
+            return redirect()->back()->with("success1","Status Changed Successfully");;
 
 
         }

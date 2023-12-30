@@ -236,10 +236,12 @@
                                <td>{{ $detail->price }} BDT</td>
 
                                 </tr>
-
+                   
+                            @if($detail->approve_status == 'Approved')
                                 @php
                                     $total= $total + $detail->price;
                                 @endphp
+                                @endif
                                 @endforeach
 
                             </tbody>

@@ -212,7 +212,7 @@
                             <form action="{{ route('cus_status_change',$order->id) }}" method="post">
                                @csrf
                                @method('PUT')
-                                <select name="status" required>
+                                <select style="height:40px;width:120px;" name="status" required class="form-control">
                                     @if($order->cus_order->order_status=='Approved')
                                     <option style="color: green;font-weight:700;background:green;" value="{{ $order->cus_order->order_status }}" selected><span style="background: greeen;">{{ $order->cus_order->order_status }}</span></option>
                                     @else
@@ -223,8 +223,8 @@
                                     <option style="color: green;font-weight:700;" value="Approved">Approved</option>
                                     
                                 </select>
-                                <button type="submit">
-                                   <span style="background: grey;color:white;">Update</span>
+                                <button class="btn btn-success" style="width:120px;" type="submit">
+                                   <span>Update</span>
                                 </button>
                             </form>
                         
@@ -235,12 +235,22 @@
 
 
                         <td style="color: #28a745; font-weight:500">Cash</td>
+
                         <td>
-                            <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              {{ $order->cus_order->delevery_status }}
-                              <a style="text-decoration: none;font-weight:600;color:green;" href=""> Delivery Man </a>
+                            <form action="{{ route('cus_delivery_change',$order->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                 <select style="height:40px;width:120px;" name="status" required class="form-control">
+                                     <option value="{{ $order->cus_order->delevery_status }}" selected>{{ $order->cus_order->delevery_status }}</option>
+                                     <option value="Pending">Pending</option>
+                                     <option value="Progressing">Progressing</option>
+                                     <option value="Done">Done</option>
+                                     
+                                 </select>
+                                 <button style="width:120px;" type="submit" class="btn btn-success">
+                                    <span>Update</span>
+                                 </button>
+                             </form>
                         </td>
                             
                 @else

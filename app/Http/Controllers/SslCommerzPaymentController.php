@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use DB;
+
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class SslCommerzPaymentController extends Controller
 {

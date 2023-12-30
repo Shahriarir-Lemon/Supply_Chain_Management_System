@@ -138,8 +138,8 @@
                         <th style="background: grey;color:white;">Date</th>
                         <th style="background: grey;color:white;">Total</th>
                         <th style="background: grey;color:white;">Order Staus</th>
-                        <th style="background: grey;color:white;">Delivery Status</th>
                         <th style="background: grey;color:white;">Payment Status</th>
+                        <th style="background: grey;color:white;">Delivery Status</th>
                         <th style="background: grey;color:white;">Action</th>
                         <th style="background: grey;color:white;">Invoice</th>
                        
@@ -172,7 +172,7 @@
                                                 @elseif($order->order_status == 'Canceled')
                                                     <span style="color:red;">Canceled by Admin</span>
                                                 @else
-                                                    <span style="color:green;">Approved</span>
+                                                    <span style="color:green;font-weight:700;">Approved</span>
                                                 @endif
                                             </td>
 
@@ -185,12 +185,24 @@
                                     <span style="color:red;">Canceled by Admin</span>
 
                                     </td>
+
+                                @elseif($order->delevery_status == 'Pending')
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    Pending
+                                    </td>
+
+                                @elseif($order->delevery_status == 'Progressing')
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    Progressing
+                                    </td>
+
                                 @else
                                     
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                        Processing
+                                        <span style="color: green;font-weight:700;">Done</span>
                                     </td>
                                 @endif
 

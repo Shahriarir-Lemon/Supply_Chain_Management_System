@@ -38,7 +38,7 @@ label
 <div class="form1">
 <form action="{{ route('customer_registration') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <h2><center><u>Customer Registration</u></center></h2>
+    <h2 style="font-size: 40px;"><center><u>Customer Registration</u></center></h2>
 
     @if(Session::has('message'))
     <div class="alert alert-{{ Session::get('type') }}">
@@ -135,11 +135,11 @@ label
         <br>
         <div class="form-row">
             <div class="form-group col-md-10">
-               <a href="{{ route('customer_login_page') }}"> <button type="button" data-toggle="modal" data-target="#login" class="btn btn-primary"><span style="background: green;">Already Registered?</span> </button></a>
+               <a href="{{ route('customer_login_page') }}"> <button type="button" data-toggle="modal" data-target="#login" class="btn btn-primary"><span>Already Registered?</span> </button></a>
             </div>
             
             <div class="form-group col-md-1">
-                <a href=""><button type="submit" class="btn btn-primary"><span style="background: green;">Register</span></button></a>
+                <a href=""><button type="submit" class="btn btn-primary"><span>Register</span></button></a>
             </div>
           </div>
     

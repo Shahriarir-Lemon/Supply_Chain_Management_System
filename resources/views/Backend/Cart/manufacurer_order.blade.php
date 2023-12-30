@@ -215,15 +215,15 @@
                             <form action="{{ route('manufacturer_status_change',$order->id) }}" method="post">
                                @csrf
                                @method('PUT')
-                                <select name="status" required>
+                                <select style="height:40px;width:120px;" name="status" required class="form-control">
                                     <option value="{{ $order->manu_order->order_status }}" selected>{{ $order->manu_order->order_status }}</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Canceled">Canceled</option>
                                     <option value="Approved">Approved</option>
                                     
                                 </select>
-                                <button type="submit">
-                                   <span style="background: green;color:white;">Update</span>
+                                <button style="width:120px;" type="submit" class="btn btn-success">
+                                   <span>Update</span>
                                 </button>
                             </form>
                         
@@ -234,11 +234,22 @@
 
 
                         <td style="color: #28a745; font-weight:500">Cash</td>
+
                         <td>
-                            <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                              </div>
-                              {{ $order->manu_order->delevery_status }}
+                            <form action="{{ route('delivery_status_change',$order->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                 <select style="height:40px;width:120px;" name="status" required class="form-control">
+                                     <option value="{{ $order->manu_order->delevery_status }}" selected>{{ $order->manu_order->delevery_status }}</option>
+                                     <option value="Pending">Pending</option>
+                                     <option value="Progressing">Progressing</option>
+                                     <option value="Done">Done</option>
+                                     
+                                 </select>
+                                 <button style="width:120px;" type="submit" class="btn btn-success">
+                                    <span>Update</span>
+                                 </button>
+                             </form>
                         </td>
                             
                 @else

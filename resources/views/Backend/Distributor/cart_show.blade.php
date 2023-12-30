@@ -122,8 +122,10 @@ color: #fff;
 
                 @foreach ($carts as $cart)
                     
-           
+        @if($cart->approve_status == 'Pending')
+        {
 
+        
                 {{-- scope="row">{{$key+1}}</th> --}}
                 <tr class="s">
                     <th scope="row">{{ $cart->id }}</th>
@@ -202,8 +204,10 @@ color: #fff;
        @php
            $total = $total + $pp;
        @endphp
-                
-            @endforeach
+        }
+        @endif
+         @endforeach
+
 @endif
             </tbody>
             

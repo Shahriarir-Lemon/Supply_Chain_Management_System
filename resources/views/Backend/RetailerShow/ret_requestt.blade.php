@@ -108,6 +108,7 @@
       background-color: #dc3545;
       color: #fff;
     }
+   
     
     
     </style>
@@ -150,23 +151,21 @@
         
             
             <!-- Table to display product information -->
-            <h3 class="mt-0 text-center"><u>All Available Product</u></h3>
+            <h3 class="mt-0 text-center"><u>All Request From Retailer</u></h3>
             <table class="table table-bordered ">
                 <thead>
                     <tr style="background: grey;" class="a bg-secondary text-white">
                         <th style="background: grey;color:white;" scope="col"> #</th>
-                    
+                        <th style="background: grey;color:white;">Name</th>
+                        <th style="background: grey;color:white;">Phone</th>
+                        <th style="background: grey;color:white;">Address</th>
                         <th style="background: grey;color:white;">Product Image</th>
                         <th style="background: grey;color:white;">Product Name</th>
-                        <th style="background: grey;color:white;">Buy Price</th>
+                        <th style="background: grey;color:white;">Price</th>
                         <th style="background: grey;color:white;">Quantity</th>
-                     
-                        <th style="background: grey;color:white;text-align:center;">Subtotal</th>
-                        @if(auth()->user()->Role == 'Retailer')
-                        <th style="background: grey;color:white;text-align:center;">Request</th>
-                        @endif
                         <th style="background: grey;color:white;text-align:center;">Status</th>
-                      
+                        <th style="background: grey;color:white;text-align:center;">Subtotal</th>
+                       
                     </tr>
                     
             </thead>
@@ -183,8 +182,17 @@
 
                                     <tr style="border:1px solid black;">
                                         <td><a class="navi-link" href="#order-details"
-                                                data-toggle="modal">{{ $key+1 }}</a></td>
-                      
+                                                data-toggle="modal">{{ $detail->id }}</a></td>
+                                        <td>{{ $detail->name }}</td>
+                                        <td>{{ $detail->phone }}</span></td>
+
+                                        
+
+                                            <td>
+                                        
+                                                    <span>{{ $detail->address }}</span>
+                                              
+                                            </td>
 
 
 
@@ -201,7 +209,7 @@
 
                                    
                                  <td>
-                                    {{ $detail->price / $detail->quantity }} BDT</td>
+                                    {{ $detail->price}} BDT</td>
                                       
 
                             
@@ -209,17 +217,32 @@
                                        {{ $detail->quantity }}
                                     </td>
 
-               
-                               <td>{{ $detail->price }} BDT</td>
-                               <td>{{ $detail->approve_status }}</td>
+                                    @if($detail->approve_status == 'Canceled')
+
+                                       <td> <button class="btn btn-danger">Canceled</button></td>
+                                    @elseif($detail->approve_status == 'Approved')
+                                        
+                                        <td> <button class="btn btn-success">Approved</button></td>
+                                  
+                                   @else
+                                    <td style="text-align: center;">
+                                        {{ $detail->approve_status }}<br><div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div><br>
+                                        <a onclick="return confirm('Are You Sure to Approve the Request ? ')" href="{{ route('retailer_approve',$detail->id) }}"><button class="btn btn-success">Approve</button></a><br>
+                                        <a onclick="return confirm('Are You Sure to Cancel the Request ? ')" href="{{ route('retailer_cancel',$detail->id) }}"><button style="width: 92px;" class="btn btn-danger">Cancel</button></a>
+                                        
+                                    </td>
+                                  @endif
+                               <td>{{ $detail->price * $detail->quantity }} BDT</td>
 
                                 </tr>
-               
+                   
                             @if($detail->approve_status == 'Approved')
                                 @php
                                     $total= $total + $detail->price;
                                 @endphp
-                            @endif
+                                @endif
                                 @endforeach
 
                             </tbody>

@@ -94,6 +94,11 @@ class ProductController extends Controller
               abort(403, 'Unauthrorized Access');
 
       }
+      if (is_null($this-> user) || !$this->user->can('retailer.view'))
+      {
+              abort(403, 'Unauthrorized Access');
+
+      }
 
         
         $categories = Category::get();
@@ -471,6 +476,10 @@ public function all_request()
             }
 
             $cart = Cart1::all();
+            $lasts = Last::all();
+
+           
+    
             return view('Backend.Distributor.distributor_request',compact('cart'));
 
         }
@@ -499,6 +508,52 @@ public function approve_request($id)
                 $user->notify(new DatabaseNotification($auth));
 
             }
+
+
+
+
+            $cartq = Cart1::all();
+            $lasts = Last::all();
+
+            if($cart)
+            {
+                  foreach ($cartq as $data) 
+                  {
+                      if (Last::where('id', $data->id)->exists()) 
+                      {
+                          Last::where('id', $data->id)->update
+                          ([
+                              'quantity' => $data->quantity,
+                              
+                          ]);
+                      }
+                      else
+                      {
+                          $new = new Last();
+                      $new->id = $data->id; 
+                      $new->name = $data->name;
+                      $new->email = $data->email;
+                      $new->phone = $data->phone;
+                      $new->address = $data->address;
+                      $new->product_name = $data->product_name;
+                      $new->price = $data->price;
+                      $new->quantity = $data->quantity;
+                      $new->image = $data->image;
+                      $new->product_id = $data->product_id;
+                      $new->approve_status = $data->approve_status;
+                      $new->role = $data->role;
+                      $new->user_id = $data->user_id;
+                    
+              
+                      $new->save();
+                      }
+      
+                
+      
+                  }
+              }
+
+
             return redirect()->back()->with("success1","Request Approved Successfully");;
 
         }
@@ -539,19 +594,13 @@ public function approve_request($id)
         
                 }
 
-                $products = Cart1::all();
-
-                foreach ($products as $userData)
-                 {
-                    $backupUser = new Last();
-                    $backupUser->name = $userData->name; // Replace 'name' with your actual column names
-                    $backupUser->email = $userData->email;
-                    // ... Repeat for other columns
-            
-                    $backupUser->save();
+                if (is_null($this-> user) || !$this->user->can('admin.view'))
+                {
+                        abort(403, 'Unauthrorized Access');
+        
                 }
 
-            $cart = Cart1::where('approve_status', 'Approved')->get();
+            $cart = Cart1::get();
             return view('Backend.Distributor.availavle_product',compact('cart'));
 
         }
