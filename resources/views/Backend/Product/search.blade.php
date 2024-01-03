@@ -159,7 +159,7 @@ margin-right: 20px;
 
 
 
-
+        <h4 style="margin-left: 10px;color:green;margin-top:10px; ">{{ $count }}- items found..</h4>  
 
 
 

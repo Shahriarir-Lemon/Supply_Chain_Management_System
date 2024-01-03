@@ -5,7 +5,7 @@ use App\Providers;
 use GuzzleHttp\Middleware;
 use App\Http\Middleware\LogIn;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Extra\Extra;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\Landing\LandController;
@@ -223,7 +223,20 @@ Route::post('/submit_chat', [ChatController::class,'submit_chat'])->name('chat')
 
 Route::get('/get_chat', [ChatController::class, 'getChat'])->name('getchat');
 
-Route::delete('/delete_message/{id}', [ChatController::class, 'deleteMessage']);
+Route::delete('/delete_sms/{id}', [ChatController::class, 'delete_sms'])->name('delete_sms');
+
+
+
+//extra
+Route::post('/ajax-example/change-page', [Extra::class,'newPage'])->name('extra');
+
+
+//search
+
+Route::get('/matetial_search',[DashboardController::class,'matetial_search'])->name('matetial_search');
+Route::get('/product_search',[DashboardController::class,'product_search'])->name('product_search');
+
+
 
 
 });

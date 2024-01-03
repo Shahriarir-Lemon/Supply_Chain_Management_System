@@ -36,9 +36,20 @@
 
 <body>
     <div class="container py-5" id="Ad">
-        <h1 class="text-center">All Items</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+        <h1 style="margin-bottom: 10px;" class="text-center">All Items</h1>
 
+
+        <form  action="{{ route('matetial_search') }}" method="GET" style="display: flex; justify-content: center; align-items: center;">
+            @csrf
+            <input type="text" style="width:90%;" name="search" class="form-control" placeholder="Enter your search items">
+            <button style="width:100px;" class="form-control btn btn-success" type="submit">Search</button>
+        </form>
+  
+
+
+
+
+        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
      @foreach ($products as $product)
 

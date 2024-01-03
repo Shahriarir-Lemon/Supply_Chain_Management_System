@@ -33,6 +33,9 @@
             @elseif (auth()->user()->Role == 'Manufacturer')
                 <h3>{{ $user }}</h3>
                 <p>Distributor</p>
+            @elseif (auth()->user()->Role == 'Distributor')
+                <h3>{{ $user }}</h3>
+                <p>Retailer</p>
                 @else
                 @endif
             </span>
@@ -40,7 +43,7 @@
         <li>
             <i class='bx bxs-dollar-circle' ></i>
             <span class="text">
-                <h3>70,000 .BDT</h3>
+                <h3>{{ $price }} .BDT</h3>
                 <p>Total Sales</p>
             </span>
         </li>
@@ -65,50 +68,59 @@
     <div class="table-data">
         <div class="order">
             <div class="head">
+                @if(auth()->user()->Role == 'Manufacturer' || auth()->user()->Role == 'Distributor')
+                <h3>Recent Request</h3>
+                @else
                 <h3>Recent Orders</h3>
+                @endif
                 
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>User</th>
-                        <th>Date Order</th>
-                        <th>Status</th>
+                        <th>Name</th>
+                @if(auth()->user()->Role == 'Manufacturer' || auth()->user()->Role == 'Distributor')
+                        <th>Date</th>
+                @else
+                <th>Date Order</th>
+
+                @endif
+                      <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
+
+                    @foreach ($recent as $cus)
+                        
+               
                     <tr>
                         <td>
-                            <img src="img/people.png">
-                            <p>Shahriair Lemon</p>
+                            <p>{{ $cus->name }}</p>
                         </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status completed">Completed</span></td>
+
+                        <td>{{ $cus->created_at->format('m F, Y') }}</td>
+
+                        @if($cus->order_status == 'Canceled')
+
+                        <td><span style="color:black;background:red;" class="status completed">{{ $cus->order_status }}</span></td>
+                          
+                        @elseif(auth()->user()->Role == 'Manufacturer' || auth()->user()->Role == 'Distributor' )
+                       
+                           
+                             <td><span class="status completed">{{ $cus->approve_status }}</span></td>
+
+                           
+                          
+
+                        @else
+
+                        <td><span class="status completed">{{ $cus->order_status }}</span></td>
+
+                        @endif
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="img/people.png">
-                            <p>Shahriair Alam</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="img/people.png">
-                            <p>Hello</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status process">Process</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="img/people.png">
-                            <p>Lemon</p>
-                        </td>
-                        <td>01-10-2021</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
+                   
+                    @endforeach
+                  
                     
                 </tbody>
             </table>

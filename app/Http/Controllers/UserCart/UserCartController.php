@@ -350,11 +350,16 @@ public function cus_status_change(Request $request, $id)
             $orders = CusOderDetail::where('cus_order_id', $id)->get();
 
 
+            if($order)
+            {
+              
             $order->update([
                   
                 'order_status'=> $request->status,
 
             ]);
+            }
+
             foreach ($orders as $orderDetail) 
             {
                 $orderDetail->update([

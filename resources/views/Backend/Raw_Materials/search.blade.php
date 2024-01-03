@@ -123,6 +123,9 @@ tr .s{
         <!-- Table to display product information -->
         <h3 class="mt-0 text-center"><u>Raw Material List</u></h3>
 
+       
+        
+
 
         <form action="{{ route('matetial_search') }}" method="GET" style="display: flex; justify-content: center; align-items: center;">
           @csrf
@@ -130,6 +133,9 @@ tr .s{
           <button style="width:100px;" class="form-control btn btn-success" type="submit">Search</button>
       </form>
 
+
+
+     <h4 style="margin-left: 10px;color:green;margin-top:10px; ">{{ $count }}- items found..</h4>   
 
 
         <table class="table table-bordered ">

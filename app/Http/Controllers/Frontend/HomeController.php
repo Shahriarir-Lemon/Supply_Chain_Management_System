@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function home()
     {
 
-        $products = Product::get();
+        $products = Product::where('upload','Retailer')->get();
         
        
       return view('Frontend.pages.home', compact('products'));

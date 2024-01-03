@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <title>Chat Box</title>
     <style>
 
@@ -145,7 +148,7 @@
                         @foreach($messages as $message)
                         @if($message->user_id != $user_id)
 
-                                <li class="agent clearfix">
+                                <li class="agent clearfix" id="tr_{{ $message->id }}">
                                     <span class="chat-img left clearfix mx-2">
                                         <img src="{{ asset('Main1/img/navigator.png') }}" alt="Agent" class="img-circle" />
                                     </span>
@@ -157,19 +160,39 @@
                                         <p>
                                             {{ $message->sms }}
                                         </p>
+                                        
                                     </div>
-                                   
+
+
+                               @if(auth()->user()->Role == 'Admin')
+                                    <a href="javascript:void(0)" onclick="deletesms({{ $message->id }})">
+                                        <i style="color: red;" class="bi bi-trash delete-message"></i>
+                                    </a>
+                                    @endif
+                                     
+
+
+
                                 </li>
                                 @endif
 
                         @if($message->user_id == $user_id )
                                 
                         
-                                <li class="admin clearfix">
+                                <li class="admin clearfix" id="tr_{{ $message->id }}">
                                     <span class="chat-img right clearfix  mx-2">
                                         <img src="{{ asset('Main1/img/navigator.png') }}" alt="Admin" class="img-circle" />
                                     </span>
-                                    <i class="bi bi-trash delete-message" data-message-id="{{ $message->id }}"></i>
+
+
+
+                            <a href="javascript:void(0)" onclick="deletesms({{ $message->id }})">
+                                    <i style="color: red;" class="bi bi-trash delete-message"></i>
+                            </a>
+
+
+
+
                                     <div class="chat-body1 clearfix">
                                         <div class="header clearfix">
                                             <small class="left text-muted"><span class="glyphicon glyphicon-time"></span>{{ $message->created_at->diffForHumans() }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
@@ -243,8 +266,42 @@
                 // Update the chat every 5 seconds
                 setInterval(updateChat, 5000);
             });
+    </script>
+
+    <script type="text/javascript">
+         
+         function deletesms(id)
+
+         {
+
+            $.ajaxSetup({
+
+                    headers:
+                        {
+
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+
+                     });
 
 
+              if(confirm("Are yu sure to delete this message"))
+              {
+                $.ajax({
+                         url:'delete_sms/'+id,
+                         type:'DELETE',
+
+                         success:function(result)
+                         {
+                            $("#"+result['tr']).slideUp("slow");
+
+                         }
+        
+                });
+              }
+         }
+    
+    
     </script>
 
 </body>

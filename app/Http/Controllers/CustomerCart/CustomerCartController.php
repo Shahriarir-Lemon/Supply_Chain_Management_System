@@ -241,16 +241,21 @@ public function cus_place_order(Request $request)
 
              ]);
          }
-        //  $user = User::where('role', 'Supplier')->first();
+       
+         $auth = auth()->user();
+         $admins = User::where('Role', 'Admin')->get();
 
-     //     if (!$user->unreadNotifications->contains(function ($value, $key) use ($order)
-         //    {
-         //     return $value->data['order_id'] == $order->id;
-         //    })) 
-      //  {
-            
-        //    $user->notify(new DatabaseNotification($order));
-       // }
+         $manufacturer = User::where('Role', 'Retailer')->get();
+     
+         $users = $admins->merge($manufacturer);
+     
+         foreach ($users as $user)
+         {
+             $user->notify(new DatabaseNotification($auth));
+
+         }
+
+
 
          CCart::truncate();
          return redirect()->route('profile_view')->with('success1', 'Order Placed successfully');
@@ -284,11 +289,19 @@ public function cus_delivery_change(Request $request, $id)
             $orders = CusOderDetail::where('cus_order_id', $id)->get();
 
 
+
+         if($order)
+         {
+
+   
+
             $order->update([
                   
                 'delevery_status'=> $request->status,
 
             ]);
+
+        }
            
 
             return redirect()->back()->with("success1","Status Changed Successfully");;

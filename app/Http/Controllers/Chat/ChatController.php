@@ -18,12 +18,12 @@ class ChatController extends Controller
         ]);
 
         
-        $formData = new Chat(); 
-        $formData->sms = $request->input('sms');
-        $formData->user_id = auth()->user()->id;
-        $formData->role = auth()->user()->Role;
+        $data = new Chat(); 
+        $data->sms = $request->input('sms');
+        $data->user_id = auth()->user()->id;
+        $data->role = auth()->user()->Role;
 
-        $formData->save();
+        $data->save();
 
         $messages = Chat::all();
         return view('chat.chat', compact('messages'));
@@ -33,20 +33,26 @@ class ChatController extends Controller
     
     public function getChat()
     {
+
+
         $messages = Chat::all();
         return view('partials.messages', compact('messages'));
     }
 
-    public function deleteMessage($id)
+
+
+
+    public function delete_sms($id)
     {
-        $message = Chat::find($id);
+      $sms = Chat::find($id);
 
-        if (!$message) {
-            return response()->json(['success' => false, 'message' => 'Message not found'], 404);
-        }
+      $sms->delete();
 
-        $message->delete();
+      return response()->json(['success'=>true, 'tr'=>'tr_'.$id]);
 
-        return response()->json(['success' => true]);
+    
+
+
+        
     }
 }

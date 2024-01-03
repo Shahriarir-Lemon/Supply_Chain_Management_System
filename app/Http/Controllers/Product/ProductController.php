@@ -94,11 +94,7 @@ class ProductController extends Controller
               abort(403, 'Unauthrorized Access');
 
       }
-      if (is_null($this-> user) || !$this->user->can('retailer.view'))
-      {
-              abort(403, 'Unauthrorized Access');
-
-      }
+     
 
         
         $categories = Category::get();
