@@ -39,7 +39,7 @@
         <h1 style="margin-bottom: 10px;" class="text-center">All Items</h1>
 
 
-        <form  action="{{ route('matetial_search') }}" method="GET" style="display: flex; justify-content: center; align-items: center;">
+        <form  action="{{ route('cus_search') }}#search" method="GET" style="display: flex; justify-content: center; align-items: center;">
             @csrf
             <input type="text" style="width:90%;" name="search" class="form-control" placeholder="Enter your search items">
             <button style="width:100px;" class="form-control btn btn-success" type="submit">Search</button>

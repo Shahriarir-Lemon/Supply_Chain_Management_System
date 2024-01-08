@@ -42,9 +42,9 @@
         <div class="card p-3">
           <div class="e-navlist e-navlist--active-bg">
             <ul class="nav">
-              <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-              <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-              <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
+              <li class="nav-item"><a class="nav-link px-2" href="{{ route('profile_view') }}" target="__blank"><i class='bx bx-user-circle'></i><span>&nbsp;&nbsp;Profile</span></a></li>
+
+              <li class="nav-item"><a class="nav-link px-2 active" href="{{ route('cus_cart_show') }}"><i class='bx bxs-cart-download'></i><span>&nbsp;&nbsp;Cart</span></a></li>
             </ul>
           </div>
         </div>
@@ -91,7 +91,7 @@
                       </div>
                       <div class="text-center text-sm-right">
                         <span class="badge badge-secondary">Customer</span>
-                        <div class="text-muted"><small>Joined 09 Nov 2023</small></div>
+                        <div class="text-muted"><small>Joined {{ auth('customer')->user()->created_at->format('F-Y') }} </small></div>
                       </div>
                     </div>
                   </div>
@@ -196,7 +196,7 @@
                                 <label>City</label>
                              
                                   
-                                <input class="form-control mb-3" name="c_city" value="{{ $customer->c_city }}" type="text" placeholder="••••••">                                    
+                                <input class="form-control mb-3" name="c_city" value="{{ $customer->c_city }}" type="text" placeholder="Dhaka">                                    
                                
                                 <label>Occupation</label>
                              
@@ -253,7 +253,7 @@
             <div class="card">
               <div class="card-body">
                 <h6 class="card-title font-weight-bold">Support</h6>
-                <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                <p class="card-text">Get fast Response</p>
                 <button type="button" class="btn btn-primary">Contact Us</button>
               </div>
             </div>

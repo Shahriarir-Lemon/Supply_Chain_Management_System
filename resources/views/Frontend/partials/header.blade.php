@@ -35,7 +35,7 @@
   
     
     <div class="activity-section">
-     <i class="bx bx-search"></i>
+     
      <i class="bx bx-heart"></i>
      
     </div>

@@ -21,7 +21,7 @@
                     <!-- Account Sidebar-->
                     <div class="author-card pb-3">
                         <div class="author-card-profile">
-                            <div class="author-card-avatar"><img src="{{ auth('customer')->user()->c_picture }}"
+                            <div class="author-card-avatar"><img style="width: 350px;height:200px;" src="{{ auth('customer')->user()->c_picture }}"
                                     alt="Daniel Adams">
                             </div>
                             <div class="author-card-details mt-5">
@@ -39,26 +39,25 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div><i class="fa fa-shopping-bag mr-1 text-muted"></i>
                                         <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
-                                    </div><span class="badge badge-secondary">6</span>
+                                    </div><span class="badge badge-secondary"> {{ $count }} </span>
                                 </div>
                             </a>
                             <a class="list-group-item"
-                                href="https://www.bootdey.com/snippets/view/bs4-profile-settings-page" target="__blank"><i
-                                    class="fa fa-user text-muted"></i>Profile Settings</a><a class="list-group-item"
-                                href="#"><i class="fa fa-map-marker text-muted"></i>Addresses</a>
+                                href="#"><i class='bx bxs-envelope'></i></i>  &nbsp;&nbsp;  {{ auth('customer')->user()->c_email }}</a><a class="list-group-item"
+                                href="#"><i class="fa fa-map-marker text-muted"></i> &nbsp;&nbsp;&nbsp;&nbsp;{{ auth('customer')->user()->c_address }} </a>
                             <a class="list-group-item"
-                                href="https://www.bootdey.com/snippets/view/bs4-wishlist-profile-page" tagert="__blank">
+                                href="#" tagert="__blank">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fa fa-heart mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
-                                    </div><span class="badge badge-secondary">3</span>
+                                    <div><i class='bx bxs-cart-download'></i>
+                                        <div class="d-inline-block font-weight-medium text-uppercase">&nbsp;&nbsp;&nbsp;Pending Order</div>
+                                    </div><span class="badge badge-secondary">{{ $pending }}</span>
                                 </div>
                             </a>
                             <a class="list-group-item" href="#">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div><i class="fa fa-tag mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
-                                    </div><span class="badge badge-secondary">4</span>
+                                        <div class="d-inline-block font-weight-medium text-uppercase">&nbsp;&nbsp;&nbsp;Completed Order</div>
+                                    </div><span class="badge badge-secondary">{{ $complete }}</span>
                                 </div>
                             </a>
                         </nav>

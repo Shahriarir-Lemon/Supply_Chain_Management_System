@@ -184,8 +184,7 @@ public function master()
                 
                 $data = $request->input('search');
             
-                $materials= DB::table('materials')->where('Material_Name', 'like', '%' . $data . '%')->get();
-                $count= DB::table('materials')->where('Material_Name', 'like', '%' . $data . '%')->count();
+              
             
 
                 $role1 = 'Admin';

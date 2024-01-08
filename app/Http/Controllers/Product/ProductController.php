@@ -206,7 +206,7 @@ class ProductController extends Controller
 
             if ($validate->fails())
              {
-                include('SweetAlert.flash');
+               
                 return redirect()->back()->withErrors($validate)->withInput();
             }
 

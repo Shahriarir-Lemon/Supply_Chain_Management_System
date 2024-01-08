@@ -147,8 +147,16 @@ margin-right: 20px;
         @endif
         @endif
         
-        <!-- Table to display product information -->
-        <h3 class="mt-0 text-center"><u>Product List</u></h3>
+ 
+         @if(auth()->user()->Role =='Retailer')
+        <button type="button" data-toggle="modal" data-target="#manual" style="text-align: left;" class="btn btn-success">Manual Request</button>
+          
+         @endif
+
+
+
+        
+        <h3 class="mt-0 text-center"><u>Product List</u></h3>  
         <table class="table table-bordered ">
             <thead>
                 <tr class="a bg-secondary text-white">
@@ -286,6 +294,54 @@ margin-right: 20px;
 
 
 @endforeach
+
+{{-- Manual Request --}}
+
+<div class="modal" id="manual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="manual">Enter Product Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<form action="{{ route('manual_request') }}" method="POST" enctype="multipart/form-data">
+  @csrf
+
+        <span style="font-weight: 700;">Product Name-1: </span>
+        <input type="text" name="product1" class="form-control" required>
+        <span>Quanity: </span>
+        <input type="number" min="10" name="quantity1" class="form-control" required>
+
+        &nbsp;
+
+        <span style="font-weight: 700;">Product Name-2: </span>
+        <input type="text" name="product2" class="form-control" required>
+        <span>Quanity: </span>
+        <input type="number" min="10" name="quantity2" class="form-control" required>
+
+        &nbsp;
+
+        <span style="font-weight: 700;">Product Name-3: </span>
+        <input type="text" name="product3" class="form-control" required>
+        <span>Quanity: </span>
+        <input type="number" min="10" name="quantity3" class="form-control" required>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
 
 
 @endsection

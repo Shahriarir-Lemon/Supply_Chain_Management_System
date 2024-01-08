@@ -332,7 +332,7 @@
 
             <li class="{{ Route::is('my_product') ? 'active' : '' }}">
                 <a href="{{ route('my_product') }}">
-                    <img src="{{ asset('Main1/img/manage.png') }}">
+                    <i class='bx bxs-calendar-check'></i>
                     <span class="text">My Request</span>
                 </a>
             </li>
@@ -340,6 +340,25 @@
             @endif
             @endif
             @endif
+
+
+        @if(auth()->user()->Role == 'Retailer' || auth()->user()->Role == 'Distributor')
+            
+      
+         
+            <li class="{{ Route::is('manual_request1') ? 'active' : '' }}">
+                <a href="{{ route('manual_request1') }}">
+                    <i class='bx bxs-calendar-check'></i>
+                    <span class="text">Manual Request</span>
+                </a>
+            </li>
+            @endif
+
+
+
+
+
+
 
 
 
@@ -376,7 +395,19 @@
     
         <ul class="side-menu">
 
+          @if(auth()->user()->Role == 'Retailer')  
          
+            <li class="{{ Route::is('customer_list') ? 'active' : '' }}">
+                <a href="{{ route('customer_list') }}">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Customer List</span>
+                </a>
+            </li>
+            @endif
+
+
+
+
         
             @if (Auth()->user()->can('supplier.view'))
             @if (Auth()->user()->can('manufacturer.view'))

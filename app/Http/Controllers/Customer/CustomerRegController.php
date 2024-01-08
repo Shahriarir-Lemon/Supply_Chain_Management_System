@@ -442,8 +442,13 @@ class CustomerRegController extends Controller implements ShouldQueue
             public function profile_view()
             {
 
-                $orders =CusOrder::all();
-                return view('Frontend.pages.profile_view',compact('orders'));
+                $orders = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->get();
+                $count = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->count();
+                $pending = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->where('delevery_status', 'Pending')->count();
+                $complete = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->where('delevery_status', 'Done')->count();
+
+
+                return view('Frontend.pages.profile_view',compact('orders','count','pending','complete'));
             }
 
             public function cus_download($id)

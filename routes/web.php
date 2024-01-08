@@ -237,6 +237,20 @@ Route::get('/matetial_search',[DashboardController::class,'matetial_search'])->n
 Route::get('/product_search',[DashboardController::class,'product_search'])->name('product_search');
 
 
+  // /Customer list
+
+  Route::get('/customer_list',[ChatController::class,'customer_list'])->name('customer_list');
+  
+  Route::delete('/customer_delete/{id}',[ChatController::class,'customer_delete'])->name('customer_delete');
+
+
+  // Manual Request
+
+  Route::post('/manual_request',[ChatController::class,'manual_request'])->name('manual_request');
+
+  Route::get('/manual_request1',[ChatController::class,'manual_request1'])->name('manual_request1');
+
+
 
 
 });
@@ -335,3 +349,7 @@ Route::group(['middleware' => 'customer'], function ()
 Route::get('/bakery_category/{categoryId}', [HomeController::class, 'bakery_category'])->name('bakery_category');
 Route::get('/popular_items', [HomeController::class, 'popular_items'])->name('popular_items');
 Route::get('/new_arrivals', [HomeController::class, 'new_arrivals'])->name('new_arrivals');
+
+//  Customr search
+
+Route::get('/cus_search',[HomeController::class,'cus_search'])->name('cus_search');

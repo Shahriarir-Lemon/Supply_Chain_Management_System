@@ -242,7 +242,7 @@ tr .s{
 
         <div class="form-group">
           <label for="productPrice">Material Quantity:</label>
-          <input type="number" min="1" max="{{ $material->Stock }}" required name="quantity" class="form-control" id="productPrice" placeholder="Enter quantity" oninput="setCustomValidity('Please enter a valid quantity (between 1 and {{$material->Stock}})')">
+          <input type="number" min="1" max="{{ $material->Stock }}" required name="quantity" class="form-control" id="productPrice" placeholder="Enter quantity" >
 
         </div>
         <div class="form-group">
