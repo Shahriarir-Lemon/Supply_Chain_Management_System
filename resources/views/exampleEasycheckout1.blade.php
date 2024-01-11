@@ -32,20 +32,12 @@
 <div class="container">
   
     
-        @php
-
-        $user = Auth::user();
-
-        $cart = App\Models\Cart::where('user_id', $user->id)->get();
-    @endphp
     @php
-    $total = 0;
-    @endphp
-    @php
+    
 
-    $user = Auth::user();
+    $user = auth()->guard('customer')->user();
 
-    $cartv = App\Models\Cart::where('user_id', $user->id)->count();
+    $cartcc = App\Models\CCart::where('user_id', $user->id)->count();
     @endphp
 
 
@@ -57,11 +49,19 @@
         <div class="col order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill">{{ $cartv }}</span>
+                <span class="badge badge-secondary badge-pill">{{ $cartcc }}</span>
             </h4>
             <ul class="list-group mb-3">
 
 
+
+                @php
+    
+
+                $user = auth()->guard('customer')->user();
+            $total = 0;
+                $cart = App\Models\CCart::where('user_id', $user->id)->get();
+                @endphp
 
 
 
@@ -70,7 +70,7 @@
 
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">{{ $carts->material_name }}</h6>
+                        <h6 class="my-0">{{ $carts->product_name }}</h6>
                         <small class="text-muted">Quantity:({{ $carts->quantity }}) x  Price: ({{ $carts->price / $carts->quantity }})</small>
                     </div>
                     <span class="text-muted">{{ $carts->price }}</span>

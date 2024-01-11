@@ -212,7 +212,7 @@ class UserCartController extends Controller
 
            if($valid->fails())
            {
-            include('SweetAlert.flash');
+            
             return redirect()->back()->withErrors($valid)->withInput();
            }
 
@@ -241,11 +241,8 @@ class UserCartController extends Controller
 
              ]);
          }
-         Cart::truncate();
 
-
-        
-
+         Cart::where('user_id', auth()->user()->id)->delete();
 
          if (auth()->user()->Role == 'Manufacturer') 
                 {
@@ -367,6 +364,12 @@ public function cus_status_change(Request $request, $id)
                 ]);
             }
 
+            if($order->order_status == 'Approved')
+            {
+
+                Cart::where('user_id', auth()->user()->id)->delete();
+            }
+
             return redirect()->back()->with("success1","Status Changed Successfully");;
 
 
@@ -389,7 +392,7 @@ public function cus_status_change(Request $request, $id)
             }
 
 
-            $order = Order1::all();
+            $order = Order1::where('payment_status','Completed')->where('payment_status','Cash_On_Delivery')->get();
             $orders =OrderDetails::all();
 
             return view('Backend.Cart.manufacurer_order',compact('orders','order'));
@@ -476,9 +479,31 @@ public function manu_cancel_order($id)
             
             $orders =Order1::find($id);
 
+           
+
+            $detail = OrderDetails::where('order1_id', $id)->get();
+
+
+            foreach($detail as $details)
+            {
+
+
+            $change = Material::where('Material_Name', $details->product_name)->first();
+
+           
+                $change->update([
+                  
+                    'Stock'=> $details->quantity + $change->Stock,
+    
+                ]);
+       
+               
+
+            }
+
+
+
             OrderDetails::where('order1_id', $id)->delete();
-
-
            Order1::find($id)->delete();
 
             return redirect()->back()->with("success1","Order Canceled Successfully");;

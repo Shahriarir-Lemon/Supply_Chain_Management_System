@@ -84,8 +84,14 @@
                                 @endif
 
                     </div>
+
+                  
                     <div class="mb-5 d-flex justify-content-around">
                         <h3>{{ $product->Price }} .tk</h3>
+
+
+                        @if($product->Stock > 0)  
+
                         <form action="{{ route('cus_add_cart',$product->id) }}" method="POST">
                             @csrf
 
@@ -94,7 +100,10 @@
                       <button type="submit" class="btn btn-outline-green mt-auto text-white" style="background-color:green; border-radius: 10px;">Add to Cart</a></button>
 
                     </form>
+
+                    @endif
                     </div>
+                   
                   
                     
                     

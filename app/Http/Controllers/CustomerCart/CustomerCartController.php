@@ -101,10 +101,11 @@ class CustomerCartController extends Controller
         }
 
 
-    public function cus_cart_show()
+public function cus_cart_show()
     {
 
         $user = auth('customer')->user();
+        
             $carts = CCart::where('user_id', $user->id)->get();
             $product = Product::all();
 
@@ -242,7 +243,11 @@ public function cus_place_order(Request $request)
              ]);
          }
        
-         $auth = auth()->user();
+
+         CCart::where('user_id', auth()->guard('customer')->user()->id)->delete();
+
+
+         $auth = auth()->guard('customer')->user();
          $admins = User::where('Role', 'Admin')->get();
 
          $manufacturer = User::where('Role', 'Retailer')->get();
@@ -257,7 +262,7 @@ public function cus_place_order(Request $request)
 
 
 
-         CCart::truncate();
+       
          return redirect()->route('profile_view')->with('success1', 'Order Placed successfully');
          
       }
@@ -270,7 +275,29 @@ public function cus_place_order(Request $request)
             
             $orders =CusOrder::find($id);
 
-            CusOderDetail::where('cus_order_id', $id)->delete();
+
+
+            $detail = CusOderDetail::where('cus_order_id', $id)->get();
+
+
+            foreach($detail as $details)
+            {
+
+
+            $change = Product::where('upload', 'Retailer')->where('Product_Name', $details->product_name)->first();
+               // dd($change);
+           
+                $change->update([
+                  
+                    'Stock'=> $details->quantity + $change->Stock,
+    
+                ]);
+       
+               
+
+            }
+
+           CusOderDetail::where('cus_order_id', $id)->delete();
 
 
            CusOrder::find($id)->delete();
@@ -307,6 +334,13 @@ public function cus_delivery_change(Request $request, $id)
             return redirect()->back()->with("success1","Status Changed Successfully");;
 
 
+        }
+
+
+
+    public function cus_checkout1()
+        {
+            return view('Frontend.pages.cus_checkout1');
         }
 
       

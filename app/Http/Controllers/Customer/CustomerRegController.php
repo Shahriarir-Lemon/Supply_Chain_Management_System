@@ -389,7 +389,7 @@ class CustomerRegController extends Controller implements ShouldQueue
                       
                     if (!Hash::check($request->input('password2'), $customer->password)) {
                         // Old password does not match, return an error or redirect back with a message
-                        include('SweetAlert.flash');
+                        
                         return redirect()->route('home');
                     }
 

@@ -178,7 +178,7 @@
 
 
 
-                                <td style="border:1px solid black;color:green;font-weight:600;">Cash On Delivery</td>
+                                <td style="border:1px solid black;color:green;font-weight:600;">{{ $order->payment_status }}</td>
 
                                 <td style="border:1px solid black;">
                                 @if ($order->order_status == 'Canceled')

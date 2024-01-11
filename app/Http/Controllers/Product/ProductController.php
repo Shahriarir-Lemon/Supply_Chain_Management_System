@@ -116,7 +116,7 @@ class ProductController extends Controller
 
     if ($category) 
     {
-        $validate = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             
             'product_image' => 'required|image',
             'product_name' => 'required',
@@ -125,15 +125,12 @@ class ProductController extends Controller
             'product_category' => 'required',
             'product_stock' => 'required',
             'product_description' => 'required',
-
-           
         ]);
-
-        if($validate->fails())
-        {
-            include('SweetAlert.flash');
-            return redirect()->back()->withErrors($validate)->withInput();
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+        
 
 
         $photo = time().$request->file('product_image')->getClientOriginalName();

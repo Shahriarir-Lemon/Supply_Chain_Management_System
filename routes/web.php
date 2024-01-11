@@ -253,11 +253,10 @@ Route::get('/product_search',[DashboardController::class,'product_search'])->nam
 
 
 
-});
+  // SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('exam');
+Route::get('/example3', [SslCommerzPaymentController::class, 'exampleEasyCheckout1'])->name('exam1');
 
-
-// SSLCOMMERZ Start
-Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
 Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
@@ -269,6 +268,35 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+// online 
+
+Route::post('/payment', [SslCommerzPaymentController::class, 'place_order1'])->name('place_order1');
+Route::get('/chechout1', [SslCommerzPaymentController::class, 'chechout1'])->name('chechout1');
+
+
+
+
+});
+
+
+
+  // SSLCOMMERZ Start
+  Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('exam');
+  Route::get('/example3', [SslCommerzPaymentController::class, 'exampleEasyCheckout1'])->name('exam1');
+  Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+  
+  Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+  Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+  
+  Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+  Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+  Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+  
+  Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+  //SSLCOMMERZ END
+
 
 
 
@@ -331,6 +359,9 @@ Route::group(['middleware' => 'customer'], function ()
     Route::PUT('/cus_quantity_update/{id}', [CustomerCartController::class, 'cus_quantity_update'])->name('cus_quantity_update');
 
     Route::get('/cus_checkout', [CustomerCartController::class, 'cus_checkout'])->name('cus_checkout');
+
+    Route::get('/cus_checkout1', [CustomerCartController::class, 'cus_checkout1'])->name('cus_checkout1');
+
     
     Route::post('/cus_place_order', [CustomerCartController::class, 'cus_place_order'])->name('cus_place_order');
 
@@ -338,6 +369,14 @@ Route::group(['middleware' => 'customer'], function ()
     Route::get('/cus_cancel_order/{id}', [CustomerCartController::class, 'cus_cancel_order'])->name('cus_cancel_order');
 
   Route::PUT('/cus_delivery_change/{id}', [CustomerCartController::class, 'cus_delivery_change'])->name('cus_delivery_change');
+
+
+
+
+  //ssl
+
+Route::post('/cus1_place_order', [SslCommerzPaymentController::class, 'cus1_place_order'])->name('cus1_place_order');
+
     
 });
 

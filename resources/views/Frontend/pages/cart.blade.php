@@ -92,7 +92,7 @@ body{
                         <div class="media-body">
                           <a  class="d-block text-dark">{{ $cart->product_name}}</a>
                           <small>
-                            <span class="text-muted">Description: </span> Germany
+                            <span class="text-muted">Description: </span> 
                           </small>
                         </div>
                       </div>
@@ -164,7 +164,7 @@ body{
             </div>
             <div class="float-right">
               <a href="{{ route('cus_checkout') }}"><button style="background: rgb(221, 216, 216);color:black;font-weight:600;" type="button" class="btn btn-lg btn-primary mt-2">Cash On Delivery</button></a>
-              <a href="{{ url('/example1') }}"><button style="background: green;" type="button" class="btn btn-lg btn-primary mt-2"> Online Payment</button></a>
+              <a href="{{ route('cus_checkout1') }}"><button style="background: green;" type="button" class="btn btn-lg btn-primary mt-2"> Online Payment</button></a>
               @endif
             </div>
         

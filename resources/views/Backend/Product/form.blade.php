@@ -49,8 +49,13 @@
                 
                 <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Product Image:</b> :</label>
-                    <input type="file" class="form-control" name="product_image" placeholder="Upload Image" required>
+                    <input type="file" class="form-control" name="product_image" placeholder="Upload Image" required >
+                    @error('product_image')
+                    <span class="text-danger">{{ $message }}</span>
+                     @enderror
                 </div>
+
+               
                {{--   <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Category ID:</b> :</label>
                     <input type="number" class="form-control" name="category_id" placeholder="category_id" required>

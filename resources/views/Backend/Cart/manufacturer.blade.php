@@ -213,7 +213,7 @@ color: #fff;
 
           <div class="card">
             <div class="card-body">
-           <a href="{{ url('/example1') }}">  <button type="button" class="btn btn-primary btn-block btn-lg">Online Payment</button></a>
+           <a href="{{ route('chechout1') }}">  <button type="button" class="btn btn-primary btn-block btn-lg">Online Payment</button></a>
             </div>
           </div>
     @endif
