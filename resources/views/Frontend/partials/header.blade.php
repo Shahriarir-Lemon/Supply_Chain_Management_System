@@ -46,15 +46,29 @@
 
 
      @php
-        $user = Auth::guard('customer')->user();
+     if (Auth::guard('customer')->check())
+     {
+      $user = Auth::guard('customer')->user();
+
+     }
         $product = App\Models\Product::all();
         $itema = App\Models\CCart::all();
-        if($itema)
-        $items = $itema->count() > 0 ? App\Models\CCart::where('user_id', $user->id)->count() : 0;
 
+     
+        if($itema)
+        if (Auth::guard('customer')->check())
+     {
+
+        $items = $itema->count() > 0 ? App\Models\CCart::where('user_id', $user->id)->count() : 0;
+     }
     @endphp
-    
-    {{ $items }}
+    @php
+        if (Auth::guard('customer')->check())
+       
+          echo $items; 
+       
+    @endphp
+     
         </span>
   </button> 
  </a>

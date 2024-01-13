@@ -107,9 +107,22 @@
     }
     .pdf
     {
-        margin-left: 810px;
+        margin-left: 790px;
     }
-    
+    th, td{
+
+        border: #000;
+    }
+
+         /* Increase modal width */
+         .modal-dialog {
+            max-width: 800px; /* Adjust the width as needed */
+        }
+
+        /* Add margin to table cells */
+        table th, table td {
+            margin: 10px;
+        }
     </style>
     
     <body>
@@ -146,6 +159,7 @@
                     <button style="width: 200px;height:39px;" type="submit" class="btn btn-primary">Download Report</button>
                 </form>
             </div>
+            
         
             
             <!-- Table to display product information -->
@@ -162,8 +176,8 @@
                         <th style="background: grey;color:white;">Subtotal</th>
                         <th style="background: grey;color:white;">Total Price</th>
                         <th style="background: grey;color:white;">Order Status</th>
-                        <th style="background: grey;color:white;">Payment Status</th>
-                        <th style="background: grey;color:white;">Delevery Status</th>
+                        <th style="background: grey;color:white;width:1px;">Payment Status</th>
+                        <th style="background: grey;color:white;width:300px;">Delevery Status</th>
                     </tr>
                     
                 </thead>
@@ -212,20 +226,21 @@
                             
                   
                         <td>
-                            <form action="{{ route('manufacturer_status_change',$order->id) }}" method="post">
+                            <form action="{{ route('manufacturer_status_change',$order->order1_id) }}" method="post">
                                @csrf
                                @method('PUT')
-                                <select style="height:40px;width:120px;" name="status" required class="form-control">
+                                <select style="height:40px;width:auto;font-size:15px" name="status" required class="form-control">
                                     <option value="{{ $order->manu_order->order_status }}" selected>{{ $order->manu_order->order_status }}</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Canceled">Canceled</option>
                                     <option value="Approved">Approved</option>
                                     
                                 </select>
-                                <button style="width:120px;" type="submit" class="btn btn-success">
+                                <button style="width:auto;font-size:15px;" type="submit" class="btn btn-success">
                                    <span>Update</span>
                                 </button>
                             </form>
+                            
                         
                            
 
@@ -233,23 +248,25 @@
                      
 
 
-                        <td style="color: #28a745; font-weight:500">Cash</td>
+                        <td style="color: #28a745;width:5px;font-size:15px;">{{  $order->manu_order->payment_status }}</td>
 
                         <td>
-                            <form action="{{ route('delivery_status_change',$order->id) }}" method="post">
+                            <form action="{{ route('delivery_status_change',$order->order1_id) }}" method="post">
                                 @csrf
                                 @method('PUT')
-                                 <select style="height:40px;width:120px;" name="status" required class="form-control">
+                                 <select style="height:40px;width:auto;font-size:15px;" name="status" required class="form-control">
                                      <option value="{{ $order->manu_order->delevery_status }}" selected>{{ $order->manu_order->delevery_status }}</option>
                                      <option value="Pending">Pending</option>
                                      <option value="Progressing">Progressing</option>
                                      <option value="Done">Done</option>
                                      
                                  </select>
-                                 <button style="width:120px;" type="submit" class="btn btn-success">
+                                 <button style="width:auto;" type="submit" class="btn btn-success">
                                     <span>Update</span>
                                  </button>
                              </form>
+
+                           
                         </td>
                             
                 @else
@@ -276,5 +293,12 @@
            
         </div>
     </div>
+
+
+
+    
+
+
+    
 
 @endsection

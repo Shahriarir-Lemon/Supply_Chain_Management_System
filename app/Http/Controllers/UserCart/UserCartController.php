@@ -7,6 +7,7 @@ use App\Http\Middleware\Customer;
 use App\Models\Cart;
 use App\Models\CusOderDetail;
 use App\Models\CusOrder;
+use App\Models\Delivery;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ use App\Models\OrderDetails;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Notifications\DatabaseNotification;
+
 use App\Models\Order1;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -225,7 +227,7 @@ class UserCartController extends Controller
             'user_id'=>auth()->user()->id,
             'delevery_status'=>'Pending',
             'total_price'=>$totalPrice,
-            'payment_status'=>'Cash_On_Delivery',
+            'payment_status'=>'Cash',
          ]);
 
 
@@ -394,8 +396,9 @@ public function cus_status_change(Request $request, $id)
 
             $order = Order1::where('payment_status','Completed')->where('payment_status','Cash_On_Delivery')->get();
             $orders =OrderDetails::all();
+            $man =Delivery::all();
 
-            return view('Backend.Cart.manufacurer_order',compact('orders','order'));
+            return view('Backend.Cart.manufacurer_order',compact('orders','order','man'));
 
 
         }  
@@ -420,7 +423,20 @@ public function cus_status_change(Request $request, $id)
 
 
         $orders =Order1::all();
-        return view('Backend.Cart.manufacturer_profile',compact('orders'));
+        $mans = [];
+
+        foreach ($orders as $m) 
+        {
+            $man = Delivery::where('id', $m->id)->first();
+        
+            if ($man)
+             {
+                $mans[] = $man;
+            }
+        }
+     
+
+        return view('Backend.Cart.manufacturer_profile',compact('orders','mans'));
     }
        
 public function manufacturer_status_change(Request $request, $id)
@@ -428,16 +444,21 @@ public function manufacturer_status_change(Request $request, $id)
             
         
         //  dd($id);
-            $order = Order1::find($id);
-            $orders = OrderDetails::where('order1_id', $id)->get();
+            $order = OrderDetails::where('id' ,$id)->get();
+            $orders = Order1::where('id', $id)->get();
 
 
-            $order->update([
+
+            foreach ($orders as $orderr) 
+            {
+            $orderr->update([
                   
                 'order_status'=> $request->status,
 
             ]);
-            foreach ($orders as $orderDetail) 
+
+        }
+            foreach ($order as $orderDetail) 
             {
                 $orderDetail->update([
                     'status' => $request->status,
@@ -455,16 +476,21 @@ public function manufacturer_status_change(Request $request, $id)
         {
             
         
-        //  dd($id);
+         //dd($id);
             $order = Order1::find($id);
             $orders = OrderDetails::where('order1_id', $id)->get();
 
 
-            $order->update([
+            if($order)
+            {
+                $order->update([
                   
-                'delevery_status'=> $request->status,
-
-            ]);
+                    'delevery_status'=> $request->status,
+    
+                ]);
+            }
+           
+       
            
 
             return redirect()->back()->with("success1","Status Changed Successfully");;

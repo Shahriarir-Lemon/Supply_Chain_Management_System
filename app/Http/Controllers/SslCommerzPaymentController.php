@@ -129,9 +129,20 @@ class SslCommerzPaymentController extends Controller
 
         # CUSTOMER INFORMATION
 
-     
+    if (Auth::guard('customer')->check())
+    {
+        if(auth()->guard('customer')->user()->Role == 'Customer')
+        {
+          $post_data['cus_name'] = 'Customer';
+  
+        }
+    }
       
-       $post_data['cus_name'] = 'Customer';
+    else
+    {
+       $post_data['cus_name'] = 'Manufacturer';
+
+    }
 
         $post_data['cus_email'] = 'customer@mail.com';
         $post_data['cus_add1'] = 'Customer Address';
@@ -196,7 +207,16 @@ class SslCommerzPaymentController extends Controller
 
         
         echo "Transaction is Successful";
-        
+        $data = DB::table('orders')->where('name', 'Customer')->latest()->first();
+
+        if($data)
+        {
+            CCart::where('user_id', auth()->guard('customer')->user()->id)->delete();
+            $data = DB::table('orders')->delete();
+           return redirect()->route('profile_view');
+     
+        }
+
     
          Cart::where('user_id', auth()->user()->id)->delete();
          $data = DB::table('orders')->delete();
@@ -347,6 +367,7 @@ class SslCommerzPaymentController extends Controller
             'price'=> $cart->price / $cart->quantity,
             'quantity'=>$cart->quantity,
             'subtotal'=>$cart->price,
+            'status'=>'Approved'
 
              ]);
          }

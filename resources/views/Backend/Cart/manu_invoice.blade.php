@@ -154,6 +154,10 @@
         </thead>
         <tbody>
 
+            @php
+                $total = 0;
+            @endphp
+
 
            
     @foreach ($details as $detail )
@@ -168,12 +172,16 @@
                 <td width="10%">{{ $detail->quantity }}</td>
                 <td width="15%" class="fw-bold">{{ $detail->subtotal }} BDT</td>
             </tr>
+
+            @php
+                $total = $total + $detail->subtotal;
+            @endphp
           
           
             @endforeach
             <tr>
                 <td colspan="4" class="total-heading text-right">Total Amount - <small>Inc. Shipping ( 70 BDT )</small> :</td>
-                <td colspan="1" class="total-heading">{{ $detail->subtotal + 70 }} BDT</td>
+                <td colspan="1" class="total-heading">{{ $total + 70 }} BDT</td>
             </tr>
         </tbody>
     </table>

@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailVerified;
+use App\Models\Delivery1;
 use App\Models\Email;
 use Illuminate\Support\Carbon as SupportCarbon;
 
@@ -439,7 +440,7 @@ class CustomerRegController extends Controller implements ShouldQueue
             }
 
 
-            public function profile_view()
+        public function profile_view()
             {
 
                 $orders = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->get();
@@ -448,10 +449,28 @@ class CustomerRegController extends Controller implements ShouldQueue
                 $complete = CusOrder::where('customer_id', auth()->guard('customer')->user()->id)->where('delevery_status', 'Done')->count();
 
 
-                return view('Frontend.pages.profile_view',compact('orders','count','pending','complete'));
+
+                
+        $name =CusOrder::all();
+                $mans = [];
+
+                foreach ($name as $m) 
+                {
+                    $man = Delivery1::where('id', $m->id)->first();
+                
+                    if ($man)
+                     {
+                        $mans[] = $man;
+                    }
+                }
+             
+
+
+
+                return view('Frontend.pages.profile_view',compact('orders','mans','count','pending','complete'));
             }
 
-            public function cus_download($id)
+    public function cus_download($id)
             {
 
                 $orders =CusOrder::find($id);

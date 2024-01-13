@@ -226,7 +226,7 @@ public function cus_place_order(Request $request)
             'customer_id'=>$id,
             'delevery_status'=>'Pending',
             'total_price'=>$totalPrice,
-            'payment_status'=>'Cash_On_Delivery',
+            'payment_status'=>'Cash',
          ]);
 
 

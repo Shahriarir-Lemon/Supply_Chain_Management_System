@@ -41,6 +41,7 @@ class DatabaseNotification extends Notification
                 {
                    $link = route('customer_order'); 
                } 
+              
                 else 
                 {
                     

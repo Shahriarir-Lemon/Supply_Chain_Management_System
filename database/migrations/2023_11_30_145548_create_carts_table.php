@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('material_id')->nullable();
             $table->string('product_id')->nullable();
             $table->string('user_id')->nullable();
+            $table->string('role')->default('manufacturer');
+
             $table->timestamps();
 
             

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Delivery1;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CustomerTableSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(MaterialSeeder::class);
+        $this->call(DeliverySeeder::class);
 
     }
 }

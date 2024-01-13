@@ -365,7 +365,7 @@
             @if (Auth()->user()->can('supplier.view'))
             @if (Auth()->user()->can('manufacturer.view'))
             @if (Auth()->user()->can('retailer.view'))
-           
+      
 
             <li class="{{ Route::is('ret_request') ? 'active' : '' }}">
                 <a href="{{ route('ret_request') }}">
@@ -373,11 +373,38 @@
                     <span class="text">Retailer Request</span>
                 </a>
             </li>
+
+
             @endif
             @endif
             @endif
+
+
+             @if(auth()->user()->Role == "Supplier")
+
+             <li class="{{ Route::is('delivery') ? 'active' : '' }}">
+                <a href="{{route('delivery')}}">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Delivery Man</span>
+                </a>
+            </li>
+            @endif
+
+
+
+            @if(auth()->user()->Role == "Retailer")
+
+            <li class="{{ Route::is('delivery1') ? 'active' : '' }}">
+               <a href="{{route('delivery1')}}">
+                   <i class='bx bxs-group'></i>
+                   <span class="text">Delivery Man</span>
+               </a>
+           </li>
+           @endif
         
 
+
+           @if(auth()->user()->Role != "Retailer")
 
 
             <li class="dropdown">
@@ -390,6 +417,7 @@
                     <a href="{{ route('user_list') }}">All Users</a>
                 </div>
             </li>
+            @endif
         </ul>
     
     
@@ -447,9 +475,9 @@
           color:black; 
           background: light; 
           padding: 4px;
-          border-radius: 8px;
+          border-radius: 15px;
           text-align: center;
-          margin-left:40px;
+          margin-left:35px;
           border-radius: 15px;
           border: 2px solid black;margin-top:5px;
           margin-right:160px;">Supply Chain Management System</h2>
@@ -598,7 +626,7 @@
                   @endif
                   @if (Auth()->user()->can('manufacturer.view'))
                   @if(auth()->user()->Role == 'Admin' || auth()->user()->Role == 'Supplier')
-                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>Manufacturer <br>Orders</a>
+                  <a href="{{ route('manufacturer_order') }}" class="dropdown-item"><i class='bx bxs-cog'></i>Manufacturer Orders</a>
 
                   @else
                   @if (Auth()->user()->can('distributor.view'))

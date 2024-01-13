@@ -16,7 +16,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Authenticate\LoginController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\User_List\UserListController;
-
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Customer\CustomerRegController;
 use App\Http\Controllers\Raw_Material\RawMaterialController;
@@ -274,6 +274,25 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 Route::post('/payment', [SslCommerzPaymentController::class, 'place_order1'])->name('place_order1');
 Route::get('/chechout1', [SslCommerzPaymentController::class, 'chechout1'])->name('chechout1');
+
+//delivery
+
+Route::get('/delivery',[DeliveryController::class,'delivery'])->name('delivery');
+Route::get('/delivery_form',[DeliveryController::class,'delivery_form'])->name('delivery_form');
+Route::post('/delivery_create',[DeliveryController::class,'delivery_create'])->name('delivery_create');
+Route::delete('/delivery_delete/{id}', [DeliveryController::class, 'delivery_delete'])->name('delivery_delete');
+
+Route::get('/man_change/{id}/{idd}', [DeliveryController::class, 'man_change'])->name('man_change');
+
+// delivery 1
+Route::get('/delivery1',[DeliveryController::class,'delivery1'])->name('delivery1');
+Route::get('/delivery_form1',[DeliveryController::class,'delivery_form1'])->name('delivery_form1');
+Route::post('/delivery_create1',[DeliveryController::class,'delivery_create1'])->name('delivery_create1');
+Route::delete('/delivery_delete1/{id}', [DeliveryController::class, 'delivery_delete1'])->name('delivery_delete1');
+
+Route::get('/man_change1/{id}/{idd}', [DeliveryController::class, 'man_change1'])->name('man_change1');
+
+
 
 
 

@@ -74,7 +74,26 @@
     }
     
     
-    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Add space after the content of td elements */
+    td {
+        padding-right: 20px; /* Adjust the value as needed */
+    }
     
     
     
@@ -155,6 +174,8 @@
 
 
                                 @foreach ($orders as $key => $order)
+
+
                                     <tr style="border:1px solid black;">
                                         <td style="border:1px solid black;"><a class="navi-link" href="#order-details"
                                                 data-toggle="modal">{{ $order->id }}</a></td>
@@ -203,8 +224,31 @@
                                 @else
                                     
                                         <span style="color: green;font-weight:700;">Done</span>
+                                        <br>
+                             
+                     @php $p = null; @endphp
+
+
+                                        @foreach ($mans as $man)
+                                       
+
+                                 
+                                        @if ($man->status == 'Assigned' && $man->id == $order->man)
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{ $man->id }}">
+                                            Delivery Man
+                                        </button>
+                                        @endif
+                               
+                                     
+
+                                      
+
+                                        @endforeach
+              
+
                                     </td>
                                 @endif
+                           
 
 
 
@@ -243,5 +287,52 @@
            
         </div>
     </div>
+
+
+    {{-- delivery man --}}
+
+    
+    @foreach ($mans as $man)
+   
+    <div class="modal" id="myModal{{ $man->id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Delivery Man Information</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+    
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $man->user_name }}</td>
+                                <td>{{ $man->phone }}</td>
+                                <td>{{ $man->email }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    @endforeach
+ 
 
 @endsection

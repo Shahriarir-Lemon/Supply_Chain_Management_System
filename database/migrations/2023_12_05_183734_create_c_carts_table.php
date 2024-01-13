@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('product_id')->nullable();
             $table->string('user_id')->nullable();
+            $table->string('role')->default('customer');
             $table->timestamps();
 
         });
