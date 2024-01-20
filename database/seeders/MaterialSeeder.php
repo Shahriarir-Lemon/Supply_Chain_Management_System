@@ -17,7 +17,7 @@ class MaterialSeeder extends Seeder
         $materials = [
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -25,7 +25,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 2',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -33,7 +33,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 3',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -41,7 +41,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 4',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -49,7 +49,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 5',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -57,7 +57,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 6',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -65,7 +65,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 7',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -73,7 +73,7 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 8',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
@@ -81,14 +81,14 @@ class MaterialSeeder extends Seeder
             ],
             [
                 'Material_Image' => '/storage/material/p.png',
-                'Material_Name' => 'Category 1',
+                'Material_Name' => 'Material 9',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Stock' => '50',
                 'Description' => 'Description for Caegory 1',
             ],
             ['Material_Image' => '/storage/material/p.png',
-            'Material_Name' => 'Category 1',
+            'Material_Name' => 'Material 10',
             'Price' => '20.99',
             'Unit_Type' => 'KG',
             'Stock' => '50',

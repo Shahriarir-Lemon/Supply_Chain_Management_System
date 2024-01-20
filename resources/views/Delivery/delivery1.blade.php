@@ -306,7 +306,7 @@ tr .s{
                      </td>
                      @else
                      <td>
-                         <form action="{{ route('man_change1', ['id' => $d+1, 'idd' => $order->cus_order->id]) }}" method="get">
+                         <form action="{{ route('man_change1', ['id' => $d, 'idd' => $order->cus_order->id]) }}" method="get">
                              @csrf
                             
                          <button type="summit" style="background: grey;padding:4px; color:white;font-weight:700">Assign</button> 

@@ -65,6 +65,9 @@
                     <label for="product:stock" style="color: black;"><b>Product Name :</b> :</label>
                     <input type="text" class="form-control" id="product:name" name="product_name" placeholder="Product Name" required>
                 </div>
+                @error('product_name')
+                <span class="text-danger">{{ $message }}</span>
+                 @enderror
                 <div class="form-group col-md-6">
                     <label for="product:stock" style="color: black;"><b>Price :</b> :</label>
                     <input type="text" class="form-control" id="product:price" name="product_price" placeholder="Price" required>

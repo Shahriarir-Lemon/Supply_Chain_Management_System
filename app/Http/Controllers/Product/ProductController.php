@@ -119,7 +119,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             
             'product_image' => 'required|image',
-            'product_name' => 'required',
+            'product_name' => 'required|unique:products,Product_Name',
             'product_price' => 'required',
             'product_unit' => 'required',
             'product_category' => 'required',

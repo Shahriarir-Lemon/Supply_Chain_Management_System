@@ -173,6 +173,7 @@ Route::group(['middleware' => 'auth'], function ()
   // see customer order in admin panel
   Route::get('/customer_order', [UserCartController::class, 'customer_order'])->name('customer_order');
   Route::PUT('/cus_status_change/{id}', [UserCartController::class, 'cus_status_change'])->name('cus_status_change');
+  Route::PUT('/cus_delivery_change/{id}', [UserCartController::class, 'cus_delivery_change'])->name('cus_delivery_change');
 
 
   // see manufacturer order in supplier panel
@@ -387,7 +388,6 @@ Route::group(['middleware' => 'customer'], function ()
     
     Route::get('/cus_cancel_order/{id}', [CustomerCartController::class, 'cus_cancel_order'])->name('cus_cancel_order');
 
-  Route::PUT('/cus_delivery_change/{id}', [CustomerCartController::class, 'cus_delivery_change'])->name('cus_delivery_change');
 
 
 

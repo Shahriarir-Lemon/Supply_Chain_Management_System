@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/b.jpg',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Product 2',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/c.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Product 3',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/d.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Product 4',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -62,7 +62,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/e.jpg',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Product 5',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -73,7 +73,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/g.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Products 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -84,7 +84,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/p.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Products 2',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -95,7 +95,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/g.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Products 3',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -106,7 +106,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/c.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Products 4',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -117,7 +117,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/i.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Products 5',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -128,7 +128,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'Product_Image' => '/storage/material/h.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Producta 1',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -139,7 +139,7 @@ class ProductSeeder extends Seeder
               ],
               [
                 'Product_Image' => '/storage/material/i.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Producta 2',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -150,7 +150,7 @@ class ProductSeeder extends Seeder
               ],
               [
                 'Product_Image' => '/storage/material/h.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Producta 3',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -161,7 +161,7 @@ class ProductSeeder extends Seeder
               ],
               [
                 'Product_Image' => '/storage/material/g.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Producta 4',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',
@@ -172,7 +172,7 @@ class ProductSeeder extends Seeder
               ],
               [
                 'Product_Image' => '/storage/material/i.png',
-                'Product_Name' => 'Product 1',
+                'Product_Name' => 'Producta 5',
                 'Price' => '20.99',
                 'Unit_Type' => 'KG',
                 'Category'=> 'Cakes',

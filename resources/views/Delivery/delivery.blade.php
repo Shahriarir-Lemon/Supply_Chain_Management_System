@@ -325,7 +325,7 @@ tr .s{
                         <td></td>
 
 
-                        @php $prevCustomerId = $order->cus_order->id;
+                        @php $prevCustomerId = $order->manu_order->id;
                         $d = $d +1;
                         
                    @endphp
@@ -336,7 +336,7 @@ tr .s{
         
                         </tr>
     
-             @php $prevCustomerId = $order->cus_order->id;
+             @php $prevCustomerId = $order->manu_order->id;
                     $d = $user->id;
                     
                @endphp

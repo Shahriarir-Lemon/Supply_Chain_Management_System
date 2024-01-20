@@ -679,6 +679,35 @@ public function supplier_report(Request $request)
 
                 return $pdf->download($fileName);
         }
+
+        public function cus_delivery_change(Request $request, $id)
+        {
+            
+        
+        //  dd($id);
+            $order = CusOrder::find($id);
+            $orders = CusOderDetail::where('cus_order_id', $id)->get();
+
+
+
+         if($order)
+         {
+
+   
+
+            $order->update([
+                  
+                'delevery_status'=> $request->status,
+
+            ]);
+
+        }
+           
+
+            return redirect()->back()->with("success1","Status Changed Successfully");;
+
+
+        }
     
         
 }
